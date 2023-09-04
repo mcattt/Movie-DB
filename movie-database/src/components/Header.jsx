@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
-    <header>
+    <header className="header">
       {/* The below anchor tag code is incorrect...
 			    Use React Router's Link component for internal 
 				links */}
