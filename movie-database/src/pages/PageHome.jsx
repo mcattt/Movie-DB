@@ -1,22 +1,56 @@
 // Page - Home
 
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { appTitle } from "../globals/globals";
 
+const apiKey = "499d34c8aaf241d4909feaf69a3c37c1";
+const endPointThemes = `https://api.themoviedb.org/3/movie/now_playing/?key=${apiKey}`;
+
 const PageHome = () => {
+  const [movieList, setMovieList] = useState([]);
   useEffect(() => {
     document.title = `${appTitle} - Home`;
+  }, []);
+
+  useEffect(() => {
+    const fetchMovie = async () => {
+      const options = {
+        method: "GET",
+        headers: {
+          accept: "application/json",
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0NDZkZTJkYmVmZjc0MzVkYWIxMzE3NDFlNmFhYTRlZCIsInN1YiI6IjY0ZWUxODhhNGNiZTEyMDEzODlkNWM2NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.wP7biHdlHFHu3vEQP1oq3lEjZYVWDt9pWBVv1-YYihU",
+        },
+      };
+      const res = await fetch(endPointThemes, options);
+      let data = await res.json();
+      console.log({ data });
+      const shortList = data.results.slice(0, 12);
+      console.log(shortList);
+      setMovieList(shortList);
+    };
+
+    fetchMovie();
   }, []);
 
   return (
     <section>
       <h2>Home Page</h2>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit porro,
-        dolorem, quod facere enim voluptate provident quo labore vero repellat
-        nemo animi ad exercitationem rem quos, possimus libero deleniti
-        laudantium?
-      </p>
+      <ul>
+        {movieList !== null &&
+          movieList !== undefined &&
+          movieList.map((movie) => {
+            return (
+              <>
+                <li key={movie.id}>{movie.title}</li>
+                <img
+                  src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
+                  alt={movie.title}
+                />
+              </>
+            );
+          })}
+      </ul>
     </section>
   );
 };

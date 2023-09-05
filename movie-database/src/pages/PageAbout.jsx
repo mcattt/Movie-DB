@@ -10,7 +10,7 @@ const PageAbout = () => {
 
   return (
     <section>
-      <h2>About Page</h2>
+      <h2 className="bold text-blue-500">About Page</h2>
       <p>
         Saepe vitae deserunt cupiditate vel reiciendis adipisci quasi. At,
         dolore qui, saepe similique id repellat ipsam sapiente repellendus
