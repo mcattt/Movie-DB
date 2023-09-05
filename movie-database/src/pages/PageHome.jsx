@@ -41,13 +41,13 @@ const PageHome = () => {
           movieList !== undefined &&
           movieList.map((movie) => {
             return (
-              <>
-                <li key={movie.id}>{movie.title}</li>
-                <img
-                  src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
+              <div key={movie.id}>
+                <img 
+                  src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`} // w200 is width 200px
                   alt={movie.title}
                 />
-              </>
+                <li>{movie.title}</li>
+              </div>
             );
           })}
       </ul>
