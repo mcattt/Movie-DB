@@ -25,7 +25,7 @@ const PageHome = () => {
       const res = await fetch(endPointThemes, options);
       let data = await res.json();
       console.log({ data });
-      const shortList = data.results.slice(0, 12);
+      const shortList = data.results.slice(0, 15);
       console.log(shortList);
       setMovieList(shortList);
     };
@@ -35,8 +35,8 @@ const PageHome = () => {
 
   return (
     <section>
-      <h2>Home Page</h2>
-      <ul>
+      <h2>Movie List</h2>
+      <ul className="grid grid-cols-5">
         {movieList !== null &&
           movieList !== undefined &&
           movieList.map((movie) => {

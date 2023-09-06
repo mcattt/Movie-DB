@@ -7,17 +7,17 @@ const Nav = () => {
 
   return (
     <nav className="main-nav" onClick={blur}>
-      <ul>
-        <li>
+      <ul className="text-blue-600/75 flex">
+        <li className="pr-16">
           <NavLink to="/">Home</NavLink>
         </li>
-        <li>
+        <li className="pr-16">
           <NavLink to="/about">About</NavLink>
         </li>
-        <li>
+        <li className="pr-16">
           <NavLink to="/favourites">Favourites</NavLink>
         </li>
-        <li>
+        <li className="pr-16">
           <NavLink to="/contact">Contact</NavLink>
         </li>
       </ul>
