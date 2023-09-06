@@ -16,8 +16,10 @@ const PageHome = () => {
   const [movieList, setMovieList] = useState([]);
 
     const fetchMovie = async (filter) => {
+
       const apiUrl = `${endPointThemes}${filter}?api_key=${apiKey}`;
-      console.log("Fetching data from URL:", apiUrl); // Log the URL
+      console.log("Fetching data from URL:", apiUrl); 
+      
       const options = {
         method: "GET",
         headers: {
@@ -53,9 +55,9 @@ const PageHome = () => {
   return (
     <section>
       <h2>Home Page</h2>
-      <ul>
+      <ul className=" text-pink-300">
         {categories.map((category, index) => (
-          <li key={index} className={categories[index]}
+          <li key={index} 
             onClick={() => {
               filterMovies(category);
             }
