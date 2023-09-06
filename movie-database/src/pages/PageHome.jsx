@@ -5,7 +5,12 @@ import { appTitle } from "../globals/globals";
 
 const apiKey = "499d34c8aaf241d4909feaf69a3c37c1";
 const endPointThemes = `https://api.themoviedb.org/3/movie/`;
-const categories = ['now_playing', 'upcoming', 'top_rated', 'popular'];
+const categories = [
+{filter: 'now_playing', name: 'Now Playing'}, 
+{filter: 'upcoming', name: 'Upcoming'}, 
+{filter: 'top_rated', name: 'Top Rated' }, 
+{filter: 'popular', name: 'Popular'}
+];
 // const [filter, setFilter] = useState['now_playing'];
 
 
@@ -53,22 +58,24 @@ const PageHome = () => {
   return (
     <section>
       <h2>Home Page</h2>
-      <ul>
+      <div className="flex justify-center">
         {categories.map((category, index) => (
-          <li key={index} className={categories[index]}
+          <button key={index} className="m-5 bg-purple-200 p-2 rounded-md"
             onClick={() => {
-              filterMovies(category);
+              filterMovies(category.filter);
             }
             }
-          >{categories[index]
+          >{categories[index].name
 
-            }</li>
+            }</button>
         )
         )}
-      </ul>
+      </div>
+
+      
 
 
-      <ul>
+      <ul className="grid grid-cols-4">
         {movieList !== null &&
           movieList !== undefined &&
           movieList.map((movie) => {
