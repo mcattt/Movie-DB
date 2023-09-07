@@ -19,7 +19,7 @@ function AppRouter() {
     <BrowserRouter>
       <div className="wrapper bg-[#0E0113]">
         <Header />
-        <main >
+        <main className="text-light-purple mb-10">
           <Routes>
             <Route path="/" exact element={<PageHome />} />
             <Route path="/about" element={<PageAbout />} />
