@@ -60,7 +60,6 @@ const PageHome = () => {
 
   return (
     <section>
-      <h2>Home Page</h2>
       <div className="flex justify-center">
         {categories.map((category, index) => (
           <button key={index} className="m-5 bg-purple-200 p-2 rounded-md"
@@ -85,7 +84,7 @@ const PageHome = () => {
             return (
               <div key={movie.id}>
                 <img
-                  src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`} // w200 is width 200px
+                  src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`} // w200 is width 200px
                   alt={movie.title}
                 />
                 <li>{movie.title}</li>
