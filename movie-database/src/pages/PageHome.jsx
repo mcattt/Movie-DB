@@ -60,9 +60,9 @@ const PageHome = () => {
 
   return (
     <section>
-      <div className="flex justify-center">
+      <div className="flex justify-evenly">
         {categories.map((category, index) => (
-          <button key={index} className="m-5 bg-purple-200 p-2 rounded-md"
+          <button key={index} className="m-5 bg-transparent border-2 border-light-purple border-solid p-2 rounded-2xl text-3xl font-bold"
             onClick={() => {
               filterMovies(category.filter);
             }
