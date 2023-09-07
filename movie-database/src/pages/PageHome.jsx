@@ -77,7 +77,7 @@ const PageHome = () => {
       
 
 
-      <ul className="grid grid-cols-4">
+      <ul className="sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {movieList !== null &&
           movieList !== undefined &&
           movieList.map((movie) => {
