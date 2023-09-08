@@ -19,9 +19,10 @@ const categories = [
 
 const PageHome = () => {
   const [movieList, setMovieList] = useState([]);
-  // Next 2 variables are for getting the hero movie
+  // Next 3 variables are for getting the hero movie
   const [selectedBackdrop, setSelectedBackdrop] = useState(""); // State variable to hold the selected backdrop path
   const [selectedMovie, setSelectedMovie] = useState(""); // State variable to hold the selected Movie path
+  const [initialized, setInitialized] = useState(false); // Initialize as false
 
 
     const fetchMovie = async (filter) => {
@@ -57,14 +58,17 @@ const PageHome = () => {
   }, []);
 
   useEffect(() => {
-    // Check if movieList is not empty and select a random movie
-    if (movieList.length > 0) {
-      const randomIndex = Math.floor(Math.random() * movieList.length);
-      const randomMovie = movieList[randomIndex];
-      setSelectedMovie(randomMovie); // Set the selectedMovie state
-      setSelectedBackdrop(randomMovie.backdrop_path); // Set the selectedBackdrop state using selectedMovie
+    if (!initialized) {
+      // Check if movieList is not empty and select a random movie
+      if (movieList.length > 0) {
+        const randomIndex = Math.floor(Math.random() * movieList.length);
+        const randomMovie = movieList[randomIndex];
+        setSelectedMovie(randomMovie);
+        setSelectedBackdrop(randomMovie.backdrop_path);
+        setInitialized(true); // Set initialized to true to prevent further changes
+      }
     }
-  }, [movieList]);
+  }, [movieList, initialized]);
 
   const filterMovies = (filter) => {
     fetchMovie(filter);
@@ -95,7 +99,7 @@ const PageHome = () => {
               <div className="info-container absolute bottom-32 right-64 flex flex-col">
                   <div className="flex justify-end">
                       <p className="text-green-300 font-bold flex justify-center items-center text-3xl w-14 h-9 bg-transparent border-2 border-green-300 rounded-md">
-                        {selectedMovie.vote_average.length === 1
+                        {(selectedMovie.vote_average).length === 1
                           ? `${selectedMovie.vote_average}.0`
                           : selectedMovie.vote_average}
                       </p>
