@@ -92,6 +92,9 @@ const PageHome = () => {
                 <h3 className="text-light-purple font-bold text-4xl">{selectedMovie.title}</h3>
                 <p className="text-light-purpletext-2xl mt-6">{selectedMovie.overview}</p>
               </div>
+              <div className="info-container absolute bottom-8 right-48 w-14 h-9 bg-yellow-300 rounded-md pl-1.5 ">
+                <p className="text-light-purple font-bold text-3xl">{selectedMovie.vote_average}</p>
+              </div>
           </div>
         )}
       </div>
