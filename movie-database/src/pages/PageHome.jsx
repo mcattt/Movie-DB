@@ -82,19 +82,25 @@ const PageHome = () => {
                 alt="Backdrop"
               />
               <div className="info-container absolute bottom-8 left-48 max-w-xl">
-                <h4 className="text-light-purple text-1xl mb-2">
-                {new Date(selectedMovie.release_date).toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
-                </h4>
-                <h3 className="text-light-purple font-bold text-4xl">{selectedMovie.title}</h3>
-                <p className="text-light-purpletext-2xl mt-6">{selectedMovie.overview}</p>
+                  <h4 className="text-light-purple text-1xl mb-2">
+                  {new Date(selectedMovie.release_date).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                  </h4>
+                  <h3 className="text-light-purple font-bold text-4xl">{selectedMovie.title}</h3>
+                  <p className="text-light-purpletext-2xl mt-6">{selectedMovie.overview}</p>
               </div>
-              <div className="info-container absolute bottom-32 right-64">
-                <p className="text-green-300 font-bold text-3xl flex justify-center w-14 h-9 bg-transparent border-2 border-green-300 rounded-md">{selectedMovie.vote_average}</p>
-                <button className="w-32 h-10 rounded-md bg-orange-500 mt-8"><a className="text-black font-bold text-xl" href="">More Info</a></button>
+              <div className="info-container absolute bottom-32 right-64 flex flex-col">
+                  <div className="flex justify-end">
+                      <p className="text-green-300 font-bold flex justify-center items-center text-3xl w-14 h-9 bg-transparent border-2 border-green-300 rounded-md">
+                        {selectedMovie.vote_average.length === 1
+                          ? `${selectedMovie.vote_average}.0`
+                          : selectedMovie.vote_average}
+                      </p>
+                  </div>
+                  <button className="w-32 h-10 rounded-md bg-orange-500 mt-8"><a className="text-black font-bold text-xl" href="">More Info</a></button>
               </div>
           </div>
         )}
