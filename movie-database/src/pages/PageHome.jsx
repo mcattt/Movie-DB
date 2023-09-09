@@ -139,12 +139,13 @@ const PageHome = () => {
 export default PageHome;
 
 const MovieCard = ({ movie }) => {
-  const { title, poster_path, overview, release_date, vote_average } = movie;
-  const snippet = overview.split(' ').slice(0, 25).join(' ');
+  const { title, poster_path, overview, release_date, vote_average } = movie; //easier way to access properties of movie without having to reference movie.[property] every time
+  const snippet = overview.split(' ').slice(0, 25).join(' '); //gets first 25 characters of movie overview
   const [isHovered, setIsHovered] = useState(false);
 
   return (
     <div>
+      {/* wraps the movie poster */}
       <div
         className="relative"
         onMouseEnter={() => setIsHovered(true)}
@@ -154,12 +155,13 @@ const MovieCard = ({ movie }) => {
           src={`https://image.tmdb.org/t/p/w300${poster_path}`}
           alt={title}
         />
+        {/* if mouse is on the poster opacity set to 100 */}
          <div className={`absolute top-32 left-0 w-full h-20.125 bg-black bg-opacity-80 transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
             <p className="text-light-purple text-opacity-100 pl-3 pt-10 pr-2 ">
               {snippet} ...
             </p>
             <button className=" group/button w-24 h-8 rounded-xl outline-light-purple outline outline-1 mt-8 ml-2 hover:outline-none hover:bg-orange-500 transition-all ">
-              <a className="text-light-purple font-bold text-base  group-hover/button:text-black" href="">
+              <a className="text-light-purple font-bold text-base group-hover/button:text-black" href="">
                 More Info
               </a>
             </button>
