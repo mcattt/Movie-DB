@@ -1,5 +1,5 @@
-// Page - Home
-
+import {Rate} from "antd";
+// https://ant.design/components/rate
 import { useState, useEffect } from "react";
 import { appTitle } from "../globals/globals";
 
@@ -12,9 +12,6 @@ const categories = [
   { filter: 'popular', name: 'Popular' }
 ];
 // const [filter, setFilter] = useState['now_playing'];
-
-
-
 
 
 const PageHome = () => {
@@ -124,9 +121,6 @@ const PageHome = () => {
         )}
       </div>
 
-
-
-      {/* Movie list */}
       <div className="grid grid-cols-4 justify-items-center">
         {movieList.map((movie) => (
           <MovieCard key={movie.id} movie={movie} />
@@ -156,22 +150,28 @@ const MovieCard = ({ movie }) => {
           alt={title}
         />
         {/* if mouse is on the poster opacity set to 100 */}
-         <div className={`absolute top-32 left-0 w-full h-20.125 bg-black bg-opacity-80 transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
-            <p className="text-light-purple text-opacity-100 pl-3 pt-10 pr-2 ">
-              {snippet} ...
-            </p>
-            <button className=" group/button w-24 h-8 rounded-xl outline-light-purple outline outline-1 mt-8 ml-2 hover:outline-none hover:bg-orange-500 transition-all ">
-              <a className="text-light-purple font-bold text-base group-hover/button:text-black" href="">
-                More Info
-              </a>
-            </button>
-          </div>
-  
+        <div className={`absolute top-32 left-0 w-full h-20.125 bg-black bg-opacity-80 transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
+          <p className="text-light-purple text-opacity-100 pl-3 pt-10 pr-2 ">
+            {snippet} ...
+          </p>
+          <button className=" group/button w-24 h-8 rounded-xl outline-light-purple outline outline-1 mt-8 ml-2 hover:outline-none hover:bg-orange-500 transition-all ">
+            <a className="text-light-purple font-bold text-base group-hover/button:text-black" href="">
+              More Info
+            </a>
+          </button>
+        </div>
       </div>
-      <div className="flex justify-end mt-1">
-      <p className="bg-green-300 flex justify-center items-center text-xl w-9 h-7 bg-transparent text-dark-purple rounded-md">
-        {vote_average.length === 1 ? `${vote_average}.0` : vote_average}
-      </p>
+
+
+      <div className="flex mt-1">
+        <div className='flex items-center'>
+      <Rate defaultValue={vote_average/2} allowHalf disabled/>
+        </div>
+        <div className="flex  items-center ml-auto">
+          <p className="bg-green-300 text-xl w-9 h-7 text-dark-purple rounded-md text-center">
+            {vote_average.length === 1 ? `${vote_average}.0` : vote_average}
+          </p>
+        </div>
       </div>
       <h3 className="text-2xl ">{title}</h3>
       <p className="text-sm">
@@ -181,7 +181,7 @@ const MovieCard = ({ movie }) => {
           day: "numeric",
         })}
       </p>
-      
+
     </div>
   );
 };
