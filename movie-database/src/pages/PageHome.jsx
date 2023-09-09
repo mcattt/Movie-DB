@@ -168,17 +168,20 @@ const MovieCard = ({ movie }) => {
           </div>
   
       </div>
-      <h3>{title}</h3>
-      <p>
+      <div className="flex justify-end mt-1">
+      <p className="bg-green-300 flex justify-center items-center text-xl w-9 h-7 bg-transparent text-dark-purple rounded-md">
+        {vote_average.length === 1 ? `${vote_average}.0` : vote_average}
+      </p>
+      </div>
+      <h3 className="text-2xl ">{title}</h3>
+      <p className="text-sm">
         {new Date(release_date).toLocaleDateString("en-US", {
           year: "numeric",
           month: "long",
           day: "numeric",
         })}
       </p>
-      <p className="text-green-300 font-bold flex justify-center items-center text-3xl w-14 h-9 bg-transparent border-2 border-green-300 rounded-md">
-        {vote_average.length === 1 ? `${vote_average}.0` : vote_average}
-      </p>
+      
     </div>
   );
 };
