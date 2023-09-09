@@ -4,8 +4,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        'dark-purple': '#330845',
-        'light-purple': '#CA98E5',
+        "dark-purple": "#330845",
+        "light-purple": "#CA98E5",
       },
     },
   },

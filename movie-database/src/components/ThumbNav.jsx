@@ -24,6 +24,7 @@ const ThumbNav = () => {
             <FaThumbsUp />
             <p>
                 Top <br></br>Rated
+                
               </p>
           </li>
           <li>
