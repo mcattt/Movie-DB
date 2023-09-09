@@ -141,7 +141,7 @@ const MovieCard = ({ movie }) => {
     <div>
       {/* wraps the movie poster */}
       <div
-        className="relative"
+        className="relative "
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
@@ -174,7 +174,7 @@ const MovieCard = ({ movie }) => {
         </div>
       </div>
       <h3 className="text-2xl ">{title}</h3>
-      <p className="text-sm">
+      <p className="text-sm mb-5">
         {new Date(release_date).toLocaleDateString("en-US", {
           year: "numeric",
           month: "long",
