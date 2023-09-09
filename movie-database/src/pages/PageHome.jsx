@@ -1,4 +1,4 @@
-import {Rate} from "antd";
+import { Rate } from "antd";
 // https://ant.design/components/rate
 import { useState, useEffect } from "react";
 import { appTitle } from "../globals/globals";
@@ -165,7 +165,7 @@ const MovieCard = ({ movie }) => {
 
       <div className="flex mt-1">
         <div className='flex items-center'>
-      <Rate defaultValue={vote_average/2} allowHalf disabled/>
+          <Rate defaultValue={vote_average / 2} allowHalf disabled />
         </div>
         <div className="flex  items-center ml-auto">
           <p className="bg-green-300 text-xl w-9 h-7 text-dark-purple rounded-md text-center">
@@ -173,7 +173,7 @@ const MovieCard = ({ movie }) => {
           </p>
         </div>
       </div>
-      <h3 className="text-2xl ">{title}</h3>
+      <h3 className="text-2xl overflow-hidden whitespace-nowrap md:max-w-xs md:whitespace-normal ">{title}</h3>
       <p className="text-sm mb-5">
         {new Date(release_date).toLocaleDateString("en-US", {
           year: "numeric",
