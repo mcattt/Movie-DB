@@ -126,31 +126,58 @@ const PageHome = () => {
 
 
 
-
+      {/* Movie list */}
       <div className="grid grid-cols-4 justify-items-center">
-        {movieList !== null &&
-          movieList !== undefined &&
-          movieList.map((movie) => {
-            // 
-            let text = movie.overview;
-            let snippet = text.split(' ').slice(0, 25).join(' ');
-            // 
-            return (
-              <div key={movie.id} className="relative">
-                <div>
-                  <img className="group  "
-                    src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`} // w200 is width 200px
-                    alt={movie.title} />
-                </div>
-                <div className="text-light-purple text-opacity-0 absolute top-32 left-0 w-full h-20.125 hover:text-opacity-100 hover:bg-black hover:bg-opacity-80 pl-6 pt-10 pr-6">{snippet} ...</div>
-               
-                <h3>{movie.title}</h3> 
-              </div>
-            );
-          })}
+        {movieList.map((movie) => (
+          <MovieCard key={movie.id} movie={movie} />
+        ))}
       </div>
     </section>
   );
 };
 
 export default PageHome;
+
+const MovieCard = ({ movie }) => {
+  const { title, poster_path, overview, release_date, vote_average } = movie;
+  const snippet = overview.split(' ').slice(0, 25).join(' ');
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <div
+      className="relative group"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <img
+        src={`https://image.tmdb.org/t/p/w300${poster_path}`}
+        alt={title}
+      />
+
+      {isHovered && (
+        <div className="absolute top-32 left-0 w-full h-20.125  bg-black bg-opacity-80">
+          <p className="text-light-purple text-opacity-100 pl-3 pt-10 pr-2 ">
+            {snippet} ...
+          </p>
+          <button className="group/button w-24 h-8 rounded-xl outline-light-purple outline outline-1 mt-8 ml-2 hover:outline-none hover:bg-orange-500">
+            <a className="text-light-purple font-bold text-base  group-hover/button:text-black" href="">
+              More Info
+            </a>
+          </button>
+        </div>
+      )}
+
+      <h3>{title}</h3>
+      <p>
+        {new Date(release_date).toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        })}
+      </p>
+      <p className="text-green-300 font-bold flex justify-center items-center text-3xl w-14 h-9 bg-transparent border-2 border-green-300 rounded-md">
+        {vote_average.length === 1 ? `${vote_average}.0` : vote_average}
+      </p>
+    </div>
+  );
+};
