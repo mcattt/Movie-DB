@@ -144,29 +144,28 @@ const MovieCard = ({ movie }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <div
-      className="relative group"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      <img
-        src={`https://image.tmdb.org/t/p/w300${poster_path}`}
-        alt={title}
-      />
-
-      {isHovered && (
-        <div className="absolute top-32 left-0 w-full h-20.125  bg-black bg-opacity-80">
-          <p className="text-light-purple text-opacity-100 pl-3 pt-10 pr-2 ">
-            {snippet} ...
-          </p>
-          <button className="group/button w-24 h-8 rounded-xl outline-light-purple outline outline-1 mt-8 ml-2 hover:outline-none hover:bg-orange-500">
-            <a className="text-light-purple font-bold text-base  group-hover/button:text-black" href="">
-              More Info
-            </a>
-          </button>
-        </div>
-      )}
-
+    <div>
+      <div
+        className="relative"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        <img
+          src={`https://image.tmdb.org/t/p/w300${poster_path}`}
+          alt={title}
+        />
+         <div className={`absolute top-32 left-0 w-full h-20.125 bg-black bg-opacity-80 transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
+            <p className="text-light-purple text-opacity-100 pl-3 pt-10 pr-2 ">
+              {snippet} ...
+            </p>
+            <button className=" group/button w-24 h-8 rounded-xl outline-light-purple outline outline-1 mt-8 ml-2 hover:outline-none hover:bg-orange-500 transition-all ">
+              <a className="text-light-purple font-bold text-base  group-hover/button:text-black" href="">
+                More Info
+              </a>
+            </button>
+          </div>
+  
+      </div>
       <h3>{title}</h3>
       <p>
         {new Date(release_date).toLocaleDateString("en-US", {
