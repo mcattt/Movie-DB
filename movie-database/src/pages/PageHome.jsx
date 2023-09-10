@@ -144,7 +144,7 @@ const MovieCard = ({ movie }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <div className="max-w-[300px] mt-12">
+    <div className="max-w-[300px] mt-5">
       {/* wraps the movie poster */}
       <div
         className="relative"
