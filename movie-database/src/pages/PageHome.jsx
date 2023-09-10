@@ -99,7 +99,7 @@ const PageHome = () => {
             <div className="info-container absolute bottom-32 right-64 flex flex-col">
               <div className="flex justify-end">
                 <p className="text-green-300 font-bold flex justify-center items-center text-3xl w-14 h-9 bg-transparent border-2 border-green-300 rounded-md">
-                  {(selectedMovie.vote_average).length === 1
+                  {(selectedMovie.vote_average.toString()).length === 1
                     ? `${selectedMovie.vote_average}.0`
                     : selectedMovie.vote_average}
                 </p>
@@ -168,16 +168,21 @@ const MovieCard = ({ movie }) => {
           </div>
   
       </div>
-      <h3>{title}</h3>
-      <p>
+      <div className="movie-rating flex justify-between mt-1">
+        <p>
+          INSERT STARS HERE
+        </p>
+        <p className="text-green-300 font-bold flex justify-center items-center text-3xl w-14 h-9 bg-transparent border-2 border-green-300 rounded-md">
+          {vote_average.toString().length === 1 ? `${vote_average}.0` : vote_average}
+        </p>
+      </div>
+      <h3 className="font-bold text-xl">{title}</h3>
+      <p className="font-extralight italic text-sm">
         {new Date(release_date).toLocaleDateString("en-US", {
           year: "numeric",
           month: "long",
           day: "numeric",
         })}
-      </p>
-      <p className="text-green-300 font-bold flex justify-center items-center text-3xl w-14 h-9 bg-transparent border-2 border-green-300 rounded-md">
-        {vote_average.length === 1 ? `${vote_average}.0` : vote_average}
       </p>
     </div>
   );
