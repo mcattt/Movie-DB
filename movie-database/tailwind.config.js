@@ -9,8 +9,13 @@ export default {
       },
       spacing: {
         20.125: '20.125rem',
+      },
+      screens: {
+        'tablet-b': '900px',
+        'tablet-s': '700px',
       }
     },
+  
   },
   plugins: [],
 };

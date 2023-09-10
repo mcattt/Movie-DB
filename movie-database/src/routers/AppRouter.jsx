@@ -17,7 +17,7 @@ import PageNotFound from "../pages/PageNotFound";
 function AppRouter() {
   return (
     <BrowserRouter>
-      <div className="wrapper bg-[#0E0113]">
+      <div className="wrapper bg-[#0E0113] relative">
         <Header />
         <main className="text-light-purple mb-10">
           <Routes>
