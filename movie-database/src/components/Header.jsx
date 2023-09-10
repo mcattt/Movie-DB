@@ -3,7 +3,6 @@
 import Nav from "./Nav";
 import { Link } from "react-router-dom";
 import headerLogo from "/assets/images/primary-logo.png";
-import ThumbNav from "./ThumbNav";
 
 const Header = () => {
   // const [navOpen, setNavOpen] = useState(false);
@@ -34,7 +33,7 @@ const Header = () => {
           alt="Logo"
         />
       </Link>
-      <ThumbNav />
+     
       <Nav />
     </header>
   );

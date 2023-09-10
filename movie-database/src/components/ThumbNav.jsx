@@ -1,48 +1,40 @@
-import { MdMovieFilter } from "react-icons/md";
-import { FaThumbsUp } from "react-icons/fa6";
+import { FaInfoCircle } from "react-icons/fa";
+import { IoHome } from "react-icons/io5";
 import { FaRegHeart } from "react-icons/fa";
-import { BsHourglassSplit } from "react-icons/bs";
 import { IconContext } from "react-icons";
+import { NavLink } from "react-router-dom";
 import React from "react";
 
 const ThumbNav = () => {
   return (
     <IconContext.Provider
-      value={{ color: "white", size: "3rem", className: "global-class-name" }}
+      value={{ color: "#CA98E5", size: "2rem", className: "global-class-name" }}
     >
-      <nav>
-        <ul className="flex text-white text-center uppercase">
+      <nav className="sm:hidden">
+        <ul className="text-light-purple text-center uppercase grid grid-cols-3">
           <li>
-            <div>
-              <MdMovieFilter />
-              <p>
-                Now <br></br>Playing
-              </p>
-            </div>
+            <NavLink to="/">
+              <div className="flex flex-col items-center ">
+                <IoHome /> 
+                <span className="pt-1 text-sm font-bold">Home</span>
+              </div>
+            </NavLink>
           </li>
           <li>
-            <FaThumbsUp />
-            <p>
-                Top <br></br>Rated
-                
-              </p>
+            <NavLink to="/about">
+              <div className="flex flex-col items-center ">
+                <FaInfoCircle /> 
+                <span className="pt-1 text-sm font-bold">About</span>
+              </div>
+            </NavLink>
           </li>
           <li>
-            <FaRegHeart />
-            <p>
-                Popular<br></br>Movies
-              </p>
-          </li>
-          <li>
-            <BsHourglassSplit />
-            <p>
-                Upcoming <br></br>Movies
-              </p>
-          </li>
-          <li>
-            <button>
-              <p className="text-white">Hamburger Menu</p>
-            </button>
+            <NavLink to="/favourites">
+              <div className="flex flex-col items-center ">
+                <FaRegHeart /> 
+                <span  className="pt-1 text-sm font-bold">Favourites</span>
+              </div>
+            </NavLink>
           </li>
         </ul>
       </nav>
