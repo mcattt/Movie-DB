@@ -9,6 +9,15 @@ export default {
       },
       spacing: {
         20.125: '20.125rem',
+    
+      },
+      maxWidth:{
+        'img-size': '300px',
+      },
+      screens: {
+        "breakpoint-large": '1271px',
+        "breakpoint-med": "940px",
+        "breakpoint-small": "430px",
       }
     },
   },
