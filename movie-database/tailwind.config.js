@@ -7,6 +7,9 @@ export default {
         "dark-purple": "#330845",
         "light-purple": "#CA98E5",
       },
+      spacing: {
+        20.125: '20.125rem',
+      }
     },
   },
   plugins: [],
