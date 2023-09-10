@@ -24,8 +24,6 @@ const PageHome = () => {
   const [selectedMovie, setSelectedMovie] = useState(""); // State variable to hold the selected Movie path
   const [initialized, setInitialized] = useState(false); // Initialize as false
 
-
-
   const fetchMovie = async (filter) => {
     const apiUrl = `${endPointThemes}${filter}?api_key=${apiKey}`;
     console.log("Fetching data from URL:", apiUrl); // Log the URL
@@ -75,7 +73,6 @@ const PageHome = () => {
     fetchMovie(filter);
   };
 
-
   return (
     <section>
       <div className="hero-image">
@@ -108,8 +105,7 @@ const PageHome = () => {
             </div>
           </div>
         )}
-      </div>
-
+      </div>                
       <div className="flex justify-evenly">
         {categories.map((category, index) => (
           <button key={index} className="m-5 bg-transparent border-2 border-light-purple border-solid p-2 rounded-2xl text-3xl font-bold "
@@ -123,8 +119,6 @@ const PageHome = () => {
         )
         )}
       </div>
-
-
 
       {/* Movie list */}
       <div className="grid grid-cols-4 justify-items-center">
@@ -168,11 +162,11 @@ const MovieCard = ({ movie }) => {
           </div>
   
       </div>
-      <div className="movie-rating flex justify-between mt-1">
+      <div className="movie-rating flex justify-between mt-2">
         <p>
           INSERT STARS HERE
         </p>
-        <p className="text-green-300 font-bold flex justify-center items-center text-3xl w-14 h-9 bg-transparent border-2 border-green-300 rounded-md">
+        <p className="text-dark-purple text-xl font-bold flex justify-center items-center w-10 h-7 bg-green-300 rounded-lg">
           {vote_average.toString().length === 1 ? `${vote_average}.0` : vote_average}
         </p>
       </div>
