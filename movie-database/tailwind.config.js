@@ -6,6 +6,7 @@ export default {
       colors: {
         "dark-purple": "#330845",
         "light-purple": "#CA98E5",
+        "bright-orange": "#EB751C",
       },
       spacing: {
         20.125: '20.125rem',
