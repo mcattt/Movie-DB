@@ -25,6 +25,7 @@ const PageHome = () => {
   const [initialized, setInitialized] = useState(false); // Initialize as false
 
 
+
   const fetchMovie = async (filter) => {
     const apiUrl = `${endPointThemes}${filter}?api_key=${apiKey}`;
     console.log("Fetching data from URL:", apiUrl); // Log the URL
@@ -73,7 +74,6 @@ const PageHome = () => {
   const filterMovies = (filter) => {
     fetchMovie(filter);
   };
-
 
 
   return (
@@ -144,7 +144,7 @@ const MovieCard = ({ movie }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <div className="max-w-[300px] mt-5">
+    <div className="max-w-[300px] mt-5 min-h-[566px]">
       {/* wraps the movie poster */}
       <div
         className="relative"
