@@ -133,7 +133,7 @@ const MovieCard = ({ movie }) => {
   const snippetMobile = overview.split(' ').slice(0, 15).join(' ');
   const snippetDesktop = overview.split(' ').slice(0, 25).join(' '); //gets first 25 characters of movie overview
   const [isHovered, setIsHovered] = useState(false);
-  const isSmallScreen = useMediaQuery('(max-width: 940px)'); //can change
+  const isMobile = useMediaQuery('(max-width: 940px)'); //can change
   return (
     <div className="max-w-[300px] mt-5 min-h-[566px]">
       {/* wraps the movie poster */}
@@ -147,8 +147,8 @@ const MovieCard = ({ movie }) => {
           alt={title}
         />
         {/* if mouse is on the poster opacity set to 100 */}
-        <div className={`sm:invisible md:visible absolute top-32 left-0 w-full h-20.125 bg-black bg-opacity-80 transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
-          <p className="sm:invisible md:visible text-light-purple text-opacity-100 pl-3 pt-10 pr-2 ">
+        <div className={`invisible breakpoint-med:visible absolute top-32 left-0 w-full h-20.125 bg-black bg-opacity-80 transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
+          <p className="invisible breakpoint-med:visible text-light-purple text-opacity-100 pl-3 pt-10 pr-2 ">
             {snippetDesktop} ...
           </p>
           <button className=" group/button w-24 h-8 rounded-xl outline-light-purple outline outline-1 mt-8 ml-2 hover:outline-none hover:bg-orange-500 transition-all ">
@@ -179,7 +179,7 @@ const MovieCard = ({ movie }) => {
         })}
       </p>
     
-      {isSmallScreen && (
+      {isMobile && (
         <div>
           <p className=" overflow-hidden max-w-img-size whitespace-normal ">{snippetMobile} ...</p>
 
