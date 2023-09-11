@@ -81,7 +81,7 @@ const PageHome = () => {
                 alt="Backdrop"
               />
               {/* This div is for the movie Date, Title, and Overview */}
-              <div className="info-container flex justify-between absolute bottom-[60px] ml-[220px] mr-[220px]">
+              <div className="info-container flex justify-around absolute bottom-[60px] w-full">
                   <div className="max-w-xl">     
                       <h4 className="text-light-purple text-1xl mb-2 italic">
                         {new Date(selectedMovie.release_date).toLocaleDateString("en-US", {
