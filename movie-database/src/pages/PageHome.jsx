@@ -74,31 +74,37 @@ const PageHome = () => {
     <section>
       <div className="hero-image">
         {selectedBackdrop && ( // Check if a backdrop is selected
-          <div className="relative">
+          <div className="relative max-h-[90vh]">
+              {/* Backdrop Image */}
               <img className="opacity-20 max-h-[90vh] w-full object-cover object-center"
                 src={`https://image.tmdb.org/t/p/original${selectedBackdrop}`}
                 alt="Backdrop"
               />
-              <div className="info-container absolute bottom-8 left-48 max-w-xl">
-                  <h4 className="text-light-purple text-1xl mb-2 italic">
-                    {new Date(selectedMovie.release_date).toLocaleDateString("en-US", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })}
-                  </h4>
-                  <h3 className="text-light-purple font-bold text-4xl">{selectedMovie.title}</h3>
-                  <p className="text-light-purpletext-2xl mt-6">{selectedMovie.overview}</p>
-              </div>
-              <div className="info-container absolute bottom-28 right-64 flex flex-col">
-                  <div className="flex justify-end">
-                      <p className="text-green-300 font-bold flex justify-center items-center text-3xl w-14 h-9 bg-transparent border-2 border-green-300 rounded-md">
-                        {(selectedMovie.vote_average.toString()).length === 1
-                          ? `${selectedMovie.vote_average}.0`
-                          : selectedMovie.vote_average}
-                      </p>
-                  </div> 
-                <button className="w-32 h-10 rounded-md mt-9 group/button outline-light-purple outline outline-1 hover:outline-none hover:bg-orange-500 transition-all "><a className="text-light-purple font-bold text-xl group-hover/button:text-black " href="">More Info</a></button>
+              {/* This div is for the movie Date, Title, and Overview */}
+              <div className="info-container flex justify-between absolute bottom-[60px] ml-[220px] mr-[220px]">
+                  <div className="max-w-xl">     
+                      <h4 className="text-light-purple text-1xl mb-2 italic">
+                        {new Date(selectedMovie.release_date).toLocaleDateString("en-US", {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        })}
+                      </h4>
+                      <h3 className="text-light-purple font-bold text-4xl">{selectedMovie.title}</h3>
+                      <p className="text-light-purpletext-2xl mt-6">{selectedMovie.overview}</p>
+                  </div>
+                  <div className="justify-end">
+                      <div className="flex justify-end">
+                          <p className="text-green-300 font-bold flex justify-center items-center text-3xl w-14 h-9 bg-transparent border-2 border-green-300 rounded-md">
+                            {(selectedMovie.vote_average.toString()).length === 1
+                              ? `${selectedMovie.vote_average}.0`
+                              : selectedMovie.vote_average}
+                          </p>
+                      </div> 
+                      <button className="w-32 h-10 rounded-md mt-9 group/button outline-light-purple outline outline-1 hover:outline-none hover:bg-orange-500 transition-all ">
+                        <a className="text-light-purple font-bold text-xl group-hover/button:text-black " href="">More Info</a>
+                      </button>
+                  </div>
               </div>
           </div>
         )}
