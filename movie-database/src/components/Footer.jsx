@@ -5,7 +5,7 @@ import ThumbNav from "./ThumbNav";
 
 const Footer = () => {
   return (
-    <footer className="bg-dark-purple py-4 shadow-[1px_2px_5px_1px_white] w-full fixed bottom-0 sm:relative">
+    <footer className="bg-dark-purple py-4 shadow-[0px_-4px_4px_-4px_white] w-full fixed bottom-0 sm:static">
       <Link to="/">
         <img className="w-16 mx-auto my-0 hidden sm:block" src={footerLogo} alt="Logo" />
       </Link>

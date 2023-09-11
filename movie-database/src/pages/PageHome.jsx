@@ -101,7 +101,7 @@ const PageHome = () => {
                               : selectedMovie.vote_average}
                           </p>
                       </div> 
-                      <button className="w-32 h-10 rounded-md mt-9 group/button outline-light-purple outline outline-1 hover:outline-none hover:bg-orange-500 transition-all ">
+                      <button className="w-32 h-10 rounded-xl mt-9 group/button outline-light-purple outline outline-1 hover:outline-none hover:bg-orange-500 transition-all ">
                         <a className="text-light-purple font-bold text-xl group-hover/button:text-black " href="">More Info</a>
                       </button>
                   </div>
@@ -157,7 +157,7 @@ const MovieCard = ({ movie }) => {
           <p className="invisible breakpoint-med:visible text-light-purple text-opacity-100 pl-3 pt-10 pr-2 ">
             {snippetDesktop} ...
           </p>
-          <button className=" group/button w-24 h-8 rounded-xl outline-light-purple outline outline-1 mt-8 ml-2 hover:outline-none hover:bg-orange-500 transition-all ">
+          <button className=" group/button w-24 h-8 rounded-lg outline-light-purple outline outline-1 mt-8 ml-2 hover:outline-none hover:bg-orange-500 transition-all ">
             <a className="text-light-purple font-bold text-base group-hover/button:text-black" href="">
               More Info
             </a>

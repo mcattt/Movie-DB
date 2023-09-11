@@ -21,6 +21,7 @@ export default {
         "breakpoint-small": "625px",
         'tablet-b': '900px',
         'tablet-s': '700px',
+        'desktop-1650': '1650px',
       }
     },
   

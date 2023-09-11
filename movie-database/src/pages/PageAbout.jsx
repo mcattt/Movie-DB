@@ -12,21 +12,37 @@ const PageAbout = () => {
   }, []);
 
   return (
-    <section className="tablet-b:grid tablet-b:grid-cols-2">
-      <img src={aboutImage} alt="A photo of 3 people watching movies in the theater" className="h-80 w-full object-cover"/>
-      <section className="mt-8 px-4">
-        <h2 className="font-bold text-2xl my-8">About <span className="text-bright-orange">Clip</span>Movies</h2>
+    <section className="tablet-b:grid tablet-b:grid-cols-2 tablet-b:mt-10">
+      <img
+        src={aboutImage}
+        alt="A photo of 3 people watching movies in the theater"
+        className="h-80 w-full object-cover tablet-b:h-auto tablet-b:w-9/12 tablet-b:justify-self-center lg:w-8/12 2xl:w-7/12 desktop-1650:w-6/12"
+      />
+      <section className="mt-8 px-4 tablet-b:self-start tablet-b:mt-0 tablet-b:pl-0 tablet-b:pr-12">
+        <h2 className="font-bold text-2xl my-8">
+          About <span className="text-bright-orange">Clip</span>Movies
+        </h2>
         <p>
-        The ClipMovies movie database is a website where users can find popular, top rated, now playing and upcoming movie listings. Browse for your favourite genres or movies, check out their ratings and see how they match up!
-      </p> <br />
-      <p className="mb-8">
-        Found something you like? Add them to your favourites and remove any item anytime.
+          The ClipMovies movie database is a website where users can find
+          popular, top rated, now playing and upcoming movie listings. Browse
+          for your favourite genres or movies, check out their ratings and see
+          how they match up!
+        </p>{" "}
+        <br />
+        <p className="mb-8">
+          Found something you like? Add them to your favourites and remove any
+          item anytime.
         </p>
-        <Link to="/">
-          <p className="px-4 text-center font-bold border-2 border-solid border-bright-orange bg-bright-orange text-dark-purple mb-8 mx-auto sm:bg-transparent sm:text-light-purple sm:border-light-purple rounded-md w-fit sm:hover:border-bright-orange sm:hover:bg-bright-orange sm:hover:text-dark-purple">Clip Movies <br/> Now</p>
-      </Link>
-      <img src={tmdbLogo} alt="TMDB logo" className="w-32 pb-8"/>
-      <p className="mb-20 pb-12 sm:pb-0 sm:mb-0 ">This product uses the TMDb API but is not endorsed or certified by TMDb.</p>
+        <Link to="/" className="w-fit block">
+          <p className="px-4 text-center font-bold border-2 border-solid border-bright-orange bg-bright-orange text-dark-purple mb-8 mx-auto sm:bg-transparent sm:text-light-purple sm:border-light-purple rounded-md w-fit sm:hover:border-bright-orange sm:hover:bg-bright-orange sm:hover:text-dark-purple tablet-b:mx-0">
+            Clip Movies <br /> Now
+          </p>
+        </Link>
+        <img src={tmdbLogo} alt="TMDB logo" className="w-32 pb-8" />
+        <p className="mb-20 pb-12 sm:pb-0 sm:mb-0 ">
+          This product uses the TMDb API but is not endorsed or certified by
+          TMDb.
+        </p>
       </section>
     </section>
   );
