@@ -184,8 +184,8 @@ const MovieCard = ({ movie }) => {
           <p className=" overflow-hidden max-w-img-size whitespace-normal ">{snippetMobile} ...</p>
 
           <div className=" flex items-center justify-center mb-10 mt-5 ">
-            <button className=" group/button  w-24 h-8 rounded-xl outline-light-purple outline outline-1 hover:outline-none hover:bg-orange-500 transition-all ">
-              <a className=" text-light-purple text-base group-hover/button:text-black" href="">
+            <button className=" group/button  w-24 h-8 rounded-xl outline-light-purple outline outline-1 active:outline-none active:bg-orange-500 transition-all ">
+              <a className=" text-light-purple text-base group-active/button:text-black" href="">
                 More Info
               </a>
             </button>
