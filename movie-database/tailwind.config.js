@@ -18,7 +18,7 @@ export default {
       screens: {
         "breakpoint-large": '1271px',
         "breakpoint-med": "940px",
-        "breakpoint-small": "430px",
+        "breakpoint-small": "625px",
         'tablet-b': '900px',
         'tablet-s': '700px',
       }

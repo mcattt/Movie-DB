@@ -117,7 +117,7 @@ const PageHome = () => {
         )}
       </div>
 
-      <div className="grid breakpoint-small:grid-cols-2 breakpoint-med:grid-cols-3 breakpoint-large:grid-cols-4 justify-items-center">
+      <div className="grid grid-cols-1 breakpoint-small:grid-cols-2 breakpoint-med:grid-cols-3 breakpoint-large:grid-cols-4 justify-items-center">
         {movieList.map((movie) => (
           <MovieCard key={movie.id} movie={movie} />
         ))}
@@ -133,7 +133,7 @@ const MovieCard = ({ movie }) => {
   const snippetMobile = overview.split(' ').slice(0, 15).join(' ');
   const snippetDesktop = overview.split(' ').slice(0, 25).join(' '); //gets first 25 characters of movie overview
   const [isHovered, setIsHovered] = useState(false);
-  const isSmallScreen = useMediaQuery('(max-width: 767px)'); //can change
+  const isSmallScreen = useMediaQuery('(max-width: 940px)'); //can change
   return (
     <div className="max-w-[300px] mt-5 min-h-[566px]">
       {/* wraps the movie poster */}
