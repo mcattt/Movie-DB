@@ -166,7 +166,7 @@ const MovieCard = ({ movie }) => {
         </div>
         <div className="flex  items-center ml-auto">
           <p className="bg-green-300 text-xl w-9 h-7 text-dark-purple rounded-md text-center">
-            {vote_average.length === 1 ? `${vote_average}.0` : vote_average}
+            {vote_average.toString().length === 1 ? `${vote_average}.0` : vote_average}
           </p>
         </div>
       </div>
