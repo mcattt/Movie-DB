@@ -170,7 +170,7 @@ const MovieCard = ({ movie }) => {
           </p>
         </div>
       </div>
-      <h3 className="text-2xl overflow-hidden whitespace-nowrap max-w-img-size whitespace-normal" >{title}</h3>
+      <h3 className="text-2xl overflow-hidden max-w-img-size whitespace-normal" >{title}</h3>
       <p className="font-extralight italic text-sm">
         {new Date(release_date).toLocaleDateString("en-US", {
           year: "numeric",
