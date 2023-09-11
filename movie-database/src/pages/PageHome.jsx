@@ -166,11 +166,11 @@ const MovieCard = ({ movie }) => {
         </div>
         <div className="flex  items-center ml-auto">
           <p className="bg-green-300 text-xl w-9 h-7 text-dark-purple rounded-md text-center">
-            {vote_average.length === 1 ? `${vote_average}.0` : vote_average}
+            {vote_average.toString().length === 1 ? `${vote_average}.0` : vote_average}
           </p>
         </div>
       </div>
-      <h3 className="text-2xl overflow-hidden whitespace-nowrap max-w-img-size whitespace-normal" >{title}</h3>
+      <h3 className="text-2xl overflow-hidden max-w-img-size whitespace-normal" >{title}</h3>
       <p className="font-extralight italic text-sm">
         {new Date(release_date).toLocaleDateString("en-US", {
           year: "numeric",
