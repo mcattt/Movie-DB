@@ -75,7 +75,7 @@ const PageHome = () => {
       <div className="hero-image">
         {selectedBackdrop && ( // Check if a backdrop is selected
           <div className="relative">
-              <img className="opacity-20"
+              <img className="opacity-20 max-h-[90vh] w-full object-cover object-center"
                 src={`https://image.tmdb.org/t/p/original${selectedBackdrop}`}
                 alt="Backdrop"
               />
