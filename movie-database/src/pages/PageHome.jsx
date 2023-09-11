@@ -80,7 +80,7 @@ const PageHome = () => {
                 alt="Backdrop"
               />
               <div className="info-container absolute bottom-8 left-48 max-w-xl">
-                  <h4 className="text-light-purple text-1xl mb-2">
+                  <h4 className="text-light-purple text-1xl mb-2 italic">
                     {new Date(selectedMovie.release_date).toLocaleDateString("en-US", {
                       year: "numeric",
                       month: "long",
@@ -90,15 +90,15 @@ const PageHome = () => {
                   <h3 className="text-light-purple font-bold text-4xl">{selectedMovie.title}</h3>
                   <p className="text-light-purpletext-2xl mt-6">{selectedMovie.overview}</p>
               </div>
-              <div className="info-container absolute bottom-32 right-64 flex flex-col">
+              <div className="info-container absolute bottom-28 right-64 flex flex-col">
                   <div className="flex justify-end">
                       <p className="text-green-300 font-bold flex justify-center items-center text-3xl w-14 h-9 bg-transparent border-2 border-green-300 rounded-md">
                         {(selectedMovie.vote_average.toString()).length === 1
                           ? `${selectedMovie.vote_average}.0`
                           : selectedMovie.vote_average}
                       </p>
-                  </div>
-                <button className="w-32 h-10 rounded-md bg-orange-500 mt-8"><a className="text-black font-bold text-xl" href="">More Info</a></button>
+                  </div> 
+                <button className="w-32 h-10 rounded-md mt-9 group/button outline-light-purple outline outline-1 hover:outline-none hover:bg-orange-500 transition-all "><a className="text-light-purple font-bold text-xl group-hover/button:text-black " href="">More Info</a></button>
               </div>
           </div>
         )}
