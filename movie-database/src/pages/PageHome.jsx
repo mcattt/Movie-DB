@@ -1,18 +1,18 @@
 import { Rate } from "antd";
 // https://ant.design/components/rate
+import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { appTitle } from "../globals/globals";
-import { useMediaQuery } from '@react-hook/media-query';
+import { useMediaQuery } from "@react-hook/media-query";
 const apiKey = "499d34c8aaf241d4909feaf69a3c37c1";
 const endPointThemes = `https://api.themoviedb.org/3/movie/`;
 const categories = [
-  { filter: 'now_playing', name: 'Now Playing' },
-  { filter: 'upcoming', name: 'Upcoming' },
-  { filter: 'top_rated', name: 'Top Rated' },
-  { filter: 'popular', name: 'Popular' }
+  { filter: "now_playing", name: "Now Playing" },
+  { filter: "upcoming", name: "Upcoming" },
+  { filter: "top_rated", name: "Top Rated" },
+  { filter: "popular", name: "Popular" },
 ];
 // const [filter, setFilter] = useState['now_playing'];
-
 
 const PageHome = () => {
   const [movieList, setMovieList] = useState([]);
@@ -33,8 +33,10 @@ const PageHome = () => {
       },
     };
 
-
-    const res = await fetch(`${endPointThemes}${filter}?api_key=${apiKey}`, options);
+    const res = await fetch(
+      `${endPointThemes}${filter}?api_key=${apiKey}`,
+      options
+    );
     let data = await res.json();
 
     const shortList = data.results.slice(0, 12);
@@ -45,12 +47,9 @@ const PageHome = () => {
     setMovieList(shortList);
   };
 
-
-
-
   useEffect(() => {
     document.title = `${appTitle} - Home`;
-    fetchMovie('now_playing');
+    fetchMovie("now_playing");
   }, []);
 
   useEffect(() => {
@@ -75,52 +74,65 @@ const PageHome = () => {
       <div className="hero-image">
         {selectedBackdrop && ( // Check if a backdrop is selected
           <div className="relative max-h-[90vh]">
-              {/* Backdrop Image */}
-              <img className="opacity-20 max-h-[90vh] w-full object-cover object-center"
-                src={`https://image.tmdb.org/t/p/original${selectedBackdrop}`}
-                alt="Backdrop"
-              />
-              {/* This div is for the movie Date, Title, and Overview */}
-              <div className="info-container flex justify-around absolute bottom-[60px] w-full">
-                  <div className="max-w-xl">     
-                      <h4 className="text-light-purple text-1xl mb-2 italic">
-                        {new Date(selectedMovie.release_date).toLocaleDateString("en-US", {
-                          year: "numeric",
-                          month: "long",
-                          day: "numeric",
-                        })}
-                      </h4>
-                      <h3 className="text-light-purple font-bold text-4xl">{selectedMovie.title}</h3>
-                      <p className="text-light-purpletext-2xl mt-6">{selectedMovie.overview}</p>
-                  </div>
-                  <div className="justify-end">
-                      <div className="flex justify-end">
-                          <p className="text-green-300 font-bold flex justify-center items-center text-3xl w-14 h-9 bg-transparent border-2 border-green-300 rounded-md">
-                            {(selectedMovie.vote_average.toString()).length === 1
-                              ? `${selectedMovie.vote_average}.0`
-                              : selectedMovie.vote_average}
-                          </p>
-                      </div> 
-                      <button className="w-32 h-10 rounded-xl mt-9 group/button outline-light-purple outline outline-1 hover:outline-none hover:bg-orange-500 transition-all ">
-                        <a className="text-light-purple font-bold text-xl group-hover/button:text-black " href="">More Info</a>
-                      </button>
-                  </div>
+            {/* Backdrop Image */}
+            <img
+              className="opacity-20 max-h-[90vh] w-full object-cover object-center"
+              src={`https://image.tmdb.org/t/p/original${selectedBackdrop}`}
+              alt="Backdrop"
+            />
+            {/* This div is for the movie Date, Title, and Overview */}
+            <div className="info-container flex justify-around absolute bottom-[60px] w-full">
+              <div className="max-w-xl">
+                <h4 className="text-light-purple text-1xl mb-2 italic">
+                  {new Date(selectedMovie.release_date).toLocaleDateString(
+                    "en-US",
+                    {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    }
+                  )}
+                </h4>
+                <h3 className="text-light-purple font-bold text-4xl">
+                  {selectedMovie.title}
+                </h3>
+                <p className="text-light-purpletext-2xl mt-6">
+                  {selectedMovie.overview}
+                </p>
               </div>
+              <div className="justify-end">
+                <div className="flex justify-end">
+                  <p className="text-green-300 font-bold flex justify-center items-center text-3xl w-14 h-9 bg-transparent border-2 border-green-300 rounded-md">
+                    {selectedMovie.vote_average.toString().length === 1
+                      ? `${selectedMovie.vote_average}.0`
+                      : selectedMovie.vote_average}
+                  </p>
+                </div>
+
+                <Link key={selectedMovie.id} to={`/movie/${selectedMovie.id}`}>
+                  <button className="w-32 h-10 rounded-xl mt-9 group/button outline-light-purple outline outline-1 hover:outline-none hover:bg-orange-500 transition-all ">
+                    <a className="text-light-purple font-bold text-xl group-hover/button:text-black ">
+                      More Info
+                    </a>
+                  </button>
+                </Link>
+              </div>
+            </div>
           </div>
         )}
-      </div>                
+      </div>
       <div className="flex justify-evenly">
         {categories.map((category, index) => (
-          <button key={index} className="m-5 bg-transparent border-2 border-light-purple border-solid p-2 rounded-2xl text-3xl font-bold "
+          <button
+            key={index}
+            className="m-5 bg-transparent border-2 border-light-purple border-solid p-2 rounded-2xl text-3xl font-bold "
             onClick={() => {
               filterMovies(category.filter);
-            }
-            }
-          >{categories[index].name
-
-            }</button>
-        )
-        )}
+            }}
+          >
+            {categories[index].name}
+          </button>
+        ))}
       </div>
 
       <div className="grid grid-cols-1 breakpoint-small:grid-cols-2 breakpoint-med:grid-cols-3 breakpoint-large:grid-cols-4 justify-items-center">
@@ -135,11 +147,12 @@ const PageHome = () => {
 export default PageHome;
 
 const MovieCard = ({ movie }) => {
-  const { title, poster_path, overview, release_date, vote_average } = movie; //easier way to access properties of movie without having to reference movie.[property] every time
-  const snippetMobile = overview.split(' ').slice(0, 15).join(' ');
-  const snippetDesktop = overview.split(' ').slice(0, 25).join(' '); //gets first 25 characters of movie overview
+  const { title, poster_path, overview, release_date, vote_average, id } =
+    movie; //easier way to access properties of movie without having to reference movie.[property] every time
+  const snippetMobile = overview.split(" ").slice(0, 15).join(" ");
+  const snippetDesktop = overview.split(" ").slice(0, 25).join(" "); //gets first 25 characters of movie overview
   const [isHovered, setIsHovered] = useState(false);
-  const isMobile = useMediaQuery('(max-width: 940px)'); //can change
+  const isMobile = useMediaQuery("(max-width: 940px)"); //can change
   return (
     <div className="max-w-[300px] mt-5 min-h-[566px]">
       {/* wraps the movie poster */}
@@ -153,30 +166,39 @@ const MovieCard = ({ movie }) => {
           alt={title}
         />
         {/* if mouse is on the poster opacity set to 100 */}
-        <div className={`invisible breakpoint-med:visible absolute top-32 left-0 w-full h-20.125 bg-black bg-opacity-80 transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
+        <div
+          className={`invisible breakpoint-med:visible absolute top-32 left-0 w-full h-20.125 bg-black bg-opacity-80 transition-opacity duration-300 ${
+            isHovered ? "opacity-100" : "opacity-0"
+          }`}
+        >
           <p className="invisible breakpoint-med:visible text-light-purple text-opacity-100 pl-3 pt-10 pr-2 ">
             {snippetDesktop} ...
           </p>
-          <button className=" group/button w-24 h-8 rounded-lg outline-light-purple outline outline-1 mt-8 ml-2 hover:outline-none hover:bg-orange-500 transition-all ">
-            <a className="text-light-purple font-bold text-base group-hover/button:text-black" href="">
-              More Info
-            </a>
-          </button>
+          <Link key={id} to={`/movie/${id}`}>
+            <button className=" group/button w-24 h-8 rounded-lg outline-light-purple outline outline-1 mt-8 ml-2 hover:outline-none hover:bg-orange-500 transition-all ">
+              <a className="text-light-purple font-bold text-base group-hover/button:text-black">
+                More Info
+              </a>
+            </button>
+          </Link>
         </div>
       </div>
 
-
       <div className="movie-rating flex justify-between mt-2">
-        <div className='flex items-center'>
+        <div className="flex items-center">
           <Rate defaultValue={vote_average / 2} allowHalf disabled />
         </div>
         <div className="flex  items-center ml-auto">
           <p className="bg-green-300 text-xl w-9 h-7 text-dark-purple rounded-md text-center">
-            {vote_average.toString().length === 1 ? `${vote_average}.0` : vote_average}
+            {vote_average.toString().length === 1
+              ? `${vote_average}.0`
+              : vote_average}
           </p>
         </div>
       </div>
-      <h3 className="text-2xl overflow-hidden max-w-img-size whitespace-normal" >{title}</h3>
+      <h3 className="text-2xl overflow-hidden max-w-img-size whitespace-normal">
+        {title}
+      </h3>
       <p className="font-extralight italic text-sm">
         {new Date(release_date).toLocaleDateString("en-US", {
           year: "numeric",
@@ -184,17 +206,21 @@ const MovieCard = ({ movie }) => {
           day: "numeric",
         })}
       </p>
-    
+
       {isMobile && (
         <div>
-          <p className=" overflow-hidden max-w-img-size whitespace-normal ">{snippetMobile} ...</p>
+          <p className=" overflow-hidden max-w-img-size whitespace-normal ">
+            {snippetMobile} ...
+          </p>
 
           <div className=" flex items-center justify-center mb-10 mt-5 ">
-            <button className=" group/button  w-24 h-8 rounded-xl outline-light-purple outline outline-1 active:outline-none active:bg-orange-500 transition-all ">
-              <a className=" text-light-purple text-base group-active/button:text-black" href="">
-                More Info
-              </a>
-            </button>
+            <Link key={id} to={`/movie/${id}`}>
+              <button className=" group/button  w-24 h-8 rounded-xl outline-light-purple outline outline-1 active:outline-none active:bg-orange-500 transition-all ">
+                <a className=" text-light-purple text-base group-active/button:text-black">
+                  More Info
+                </a>
+              </button>
+            </Link>
           </div>
         </div>
       )}

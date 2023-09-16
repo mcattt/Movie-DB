@@ -9,7 +9,7 @@ import Footer from "../components/Footer";
 // Pages
 import PageHome from "../pages/PageHome";
 
-// import PageSingle from "../pages/PageSingle";
+import PageSingle from "../pages/PageSingle";
 import PageAbout from "../pages/PageAbout";
 import PageFavourites from "../pages/PageFavourites";
 import PageNotFound from "../pages/PageNotFound";
@@ -24,11 +24,7 @@ function AppRouter() {
             <Route path="/" exact element={<PageHome />} />
             <Route path="/about" element={<PageAbout />} />
             <Route path="/favourites" element={<PageFavourites />} />
-            {/* <Route
-              path="/single/:id"
-              exact
-              element={<PageSingle />}
-            /> */}
+            <Route path="/movie/:id" exact element={<PageSingle />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </main>
