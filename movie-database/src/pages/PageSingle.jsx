@@ -86,6 +86,7 @@ const PageSingle = () => {
 
   return (
     <section>
+      {/* idk why but this wouldnt work unless it made sure the vote_average was a number? */}
       <Rate
         value={
           typeof selectedMovie.vote_average === "number"

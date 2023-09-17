@@ -1,21 +1,25 @@
-// Page - About
-
-import { useEffect } from 'react';
-import { appTitle } from '../globals/globals';
-
+// favourites
+import { useEffect } from "react";
+import { appTitle } from "../globals/globals";
+import { useSelector } from "react-redux";
+import MovieCard from "../components/MovieCard";
 const PageFavourites = () => {
+  const favs = useSelector((state) => state.favs.items);
 
-	useEffect(() => {
-		document.title = `${appTitle} - Favourites`;
-	}, []);
+  useEffect(() => {
+    document.title = `${appTitle} - Favourites`;
+  }, []);
 
-	return (
-		<section>
-			<h2>About Favourites</h2>
-			<p>Saepe vitae deserunt cupiditate vel reiciendis adipisci quasi. At, dolore qui, saepe similique id repellat ipsam sapiente repellendus commodi deleniti natus itaque hic temporibus nam nobis tempora enim suscipit quas!</p>
-		</section>
-	);
-	
+  return (
+    <section>
+      <h2>About Favourites</h2>
+      <div>
+        {favs.map((singleMovie, i) => (
+          <MovieCard key={i} movie={singleMovie} isFav={true} />
+        ))}
+      </div>
+    </section>
+  );
 };
 
 export default PageFavourites;
