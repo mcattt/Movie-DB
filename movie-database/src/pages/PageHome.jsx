@@ -2,7 +2,8 @@ import MovieCard from "../components/MovieCard";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { appTitle } from "../globals/globals";
-
+import { useSelector } from "react-redux";
+import isFav from "../utilities/isFav";
 const apiKey = "499d34c8aaf241d4909feaf69a3c37c1";
 const endPointThemes = `https://api.themoviedb.org/3/movie/`;
 const categories = [
@@ -19,6 +20,8 @@ const PageHome = () => {
   const [selectedBackdrop, setSelectedBackdrop] = useState(""); // State variable to hold the selected backdrop path
   const [selectedMovie, setSelectedMovie] = useState(""); // State variable to hold the selected Movie path
   const [initialized, setInitialized] = useState(false); // Initialize as false
+
+  const favs = useSelector((state) => state.favs.items);
 
   const fetchMovie = async (filter) => {
     const apiUrl = `${endPointThemes}${filter}?api_key=${apiKey}`;
@@ -110,9 +113,9 @@ const PageHome = () => {
 
                 <Link key={selectedMovie.id} to={`/movie/${selectedMovie.id}`}>
                   <button className="w-32 h-10 rounded-xl mt-9 group/button outline-light-purple outline outline-1 hover:outline-none hover:bg-orange-500 transition-all ">
-                    <a className="text-light-purple font-bold text-xl group-hover/button:text-black ">
+                    <p className="text-light-purple font-bold text-xl group-hover/button:text-black ">
                       More Info
-                    </a>
+                    </p>
                   </button>
                 </Link>
               </div>
@@ -135,8 +138,12 @@ const PageHome = () => {
       </div>
 
       <div className="grid grid-cols-1 breakpoint-small:grid-cols-2 breakpoint-med:grid-cols-3 breakpoint-large:grid-cols-4 justify-items-center">
-        {movieList.map((movie) => (
-          <MovieCard key={movie.id} movie={movie} />
+        {movieList.map((movieCard, i) => (
+          <MovieCard
+            key={i}
+            movie={movieCard}
+            isFav={isFav(favs, movieCard.id)}
+          />
         ))}
       </div>
     </section>

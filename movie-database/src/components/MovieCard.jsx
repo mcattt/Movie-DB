@@ -2,8 +2,8 @@
 
 import FavButton from "../components/FavButton";
 import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
-import React, { useState, useEffect } from "react"; // Import useEffect
+
+import React, { useState } from "react"; // Import useEffect
 import { useMediaQuery } from "@react-hook/media-query";
 import { Link } from "react-router-dom";
 import { Rate } from "antd";
@@ -88,7 +88,7 @@ function MovieCard({ movie, isFav }) {
         })}
       </p>
 
-      <div className=" ">
+      <div >
         {isFav ? (
           <FavButton
             movie={movie}

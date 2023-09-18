@@ -6,3 +6,5 @@ export const store = configureStore({
     favs: favsReducer,
   },
 });
+
+export default store;
