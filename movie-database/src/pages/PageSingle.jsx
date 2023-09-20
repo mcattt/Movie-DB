@@ -1,17 +1,34 @@
 // Page - Single Movie
 import { Rate } from "antd";
-import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { appTitle } from "../globals/globals";
-const apiKey = "499d34c8aaf241d4909feaf69a3c37c1";
+import { Link, Navigate, useParams } from "react-router-dom";
+import CastInfo from "../components/CastInfo";
+
 const endPointThemes = `https://api.themoviedb.org/3/movie/`;
 
+// set image folder path using environment variable path to the public folder
+// const imageFolderPath = process.env.PUBLIC_URL + "/assets/images/";
+
 const PageSingle = () => {
-  let { id } = useParams();
-  const [selectedMovie, setSelectedMovie] = useState("");
-  const [credits, setCredits] = useState([]);
-  const fetchMovie = async () => {
-    const apiUrl = `${endPointThemes}${id}?api_key=${apiKey}`;
+  let { movieId } = useParams();
+  useEffect(() => {
+    document.title = `${appTitle} - Single Movie ${movieId}`;
+  }, [movieId]);
+
+  movieId = movieId * 1;
+
+  // Make sure id is a whole number between 1 and 6 (inclusive)
+  // ...If is not...then send them back to the Portfolio page
+  if (isNaN(movieId) || movieId % 1 !== 0) {
+    return <Navigate to="/" replace={true} />;
+  }
+
+  const [selectedSingleMovie, setSelectedSingleMovie] = useState("");
+
+  const fetchSingleMovie = async () => {
+    const apiUrl = `${endPointThemes}${movieId}?append_to_response=videos,credits`;
+    console.log(apiUrl);
     const options = {
       method: "GET",
       headers: {
@@ -21,109 +38,82 @@ const PageSingle = () => {
       },
     };
 
-    console.log("Fetching data from URL:", apiUrl); // Log the URL
-    try {
-      const response = await fetch(apiUrl, options);
-      if (!response.ok) {
-        throw new Error("Failed to fetch movie data");
-      }
+    const res = await fetch(apiUrl, options);
+    let data = await res.json();
+    console.log(data);
 
-      const data = await response.json();
-      console.log(data);
-      setSelectedMovie(data);
-      // Now, you have the data of the specific movie in the 'data' variable
-      // You can do whatever you want with this data
-    } catch (error) {
-      console.error("Error fetching movie data:", error);
-    }
-  };
-
-  const fetchCredits = async () => {
-    const apiUrl = `${endPointThemes}${id}/credits?api_key=${apiKey}`;
-    const options = {
-      method: "GET",
-      headers: {
-        accept: "application/json",
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0NDZkZTJkYmVmZjc0MzVkYWIxMzE3NDFlNmFhYTRlZCIsInN1YiI6IjY0ZWUxODhhNGNiZTEyMDEzODlkNWM2NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.wP7biHdlHFHu3vEQP1oq3lEjZYVWDt9pWBVv1-YYihU",
-      },
-    };
-
-    console.log("Fetching data from URL:", apiUrl); // Log the URL
-    try {
-      const response = await fetch(apiUrl, options);
-      if (!response.ok) {
-        throw new Error("Failed to fetch credits");
-      }
-
-      const data = await response.json();
-      const shortList = data.cast.slice(0, 5); // Check if data.results is defined
-      console.log(shortList);
-      setCredits(shortList);
-      // Now, you have the data of the specific movie in the 'data' variable
-      // You can do whatever you want with this data
-    } catch (error) {
-      console.error("Error fetching credits", error);
-    }
+    setSelectedSingleMovie(data);
   };
 
   useEffect(() => {
-    document.title = `${appTitle} - Single ${id}`;
-    fetchMovie();
-    fetchCredits();
-  }, [id]);
+    fetchSingleMovie();
+  }, []);
 
-  const CastCard = ({ cast }) => {
-    const { character, name, profile_path } = cast;
-    return (
-      <div>
-        <img src={`https://image.tmdb.org/t/p/w200${profile_path}`} alt="" />
-        <p>{name}</p>
-        <p>{character}</p>
-      </div>
-    );
-  };
+  // Calculate the hours and minutes
+  const movieHours = Math.floor(selectedSingleMovie.runtime / 60);
+  const movieMinutes = selectedSingleMovie.runtime % 60;
+  // Format date release
+  const movieDate = new Date(
+    selectedSingleMovie.release_date
+  ).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+  // Rating conversion
+  const starRating = selectedSingleMovie.vote_average / 2;
+  // const numRatingOneDigit = selectedSingleMovie.vote_average.toFixed(1);
 
   return (
-    <section>
-      {/* idk why but this wouldnt work unless it made sure the vote_average was a number? */}
-      <Rate
-        value={
-          typeof selectedMovie.vote_average === "number"
-            ? selectedMovie.vote_average / 2
-            : 0
-        }
-        allowHalf
-        disabled
-      />{" "}
-      <p>{selectedMovie.vote_average}</p>
+    <section className="single-movie">
+      {/* Movie Poster */}
       <img
-        src={`https://image.tmdb.org/t/p/w300${selectedMovie.poster_path}`}
-        alt={selectedMovie.title}
+        src={`https://image.tmdb.org/t/p/w300${selectedSingleMovie.poster_path}`}
+        alt={selectedSingleMovie.title}
       />
-      <p>{selectedMovie.title}</p>
+      {/* Movie Rating */}
+      <div className="movie-rating">
+        {selectedSingleMovie.vote_average && (
+          <>
+            <div className="flex">
+              <Rate
+                defaultValue={selectedSingleMovie.vote_average / 2}
+                allowHalf
+                disabled
+              />
+            </div>
+            <div className="flex items-center ml-auto">
+              <p className="bg-green-300 text-xl w-9 h-7 text-dark-purple rounded-md text-center">
+                {selectedSingleMovie.vote_average.toFixed(1)}
+              </p>
+            </div>
+          </>
+        )}
+      </div>
+      {/* Movie Title */}
+      <h2>{selectedSingleMovie.title}</h2>
+      {/* Movie Date and Runtime */}
       <p>
-        {selectedMovie.release_date} - {selectedMovie.runtime}
+        {movieDate} - {movieHours}h {movieMinutes}m
       </p>
-      {/* this checks if genres is set */}
-      {selectedMovie.genres && (
-        <p>
-          {selectedMovie.genres.map((genre, index) => (
-            <span key={"genre_${genre.id}"}>
-              {/* this adds a comma before every genre, doesnt add when index is 0 */}
-              {index ? ", " : ""}
-              {genre.name}
-            </span>
+
+      {/* Movie Genres */}
+      <p>
+        {selectedSingleMovie.genres &&
+          selectedSingleMovie.genres.map((genre) => (
+            <span key={genre.id}>{genre.name}, </span>
           ))}
-        </p>
-      )}
-      <p>{selectedMovie.tagline}</p>
+      </p>
+      {/* Video Trailer */}
+      {/* Tagline */}
+      <p className="italic text-[#D5C1E0]">{selectedSingleMovie.tagline}</p>
+      {/* Movie Overview */}
       <h3>Overview</h3>
-      <p> {selectedMovie.overview}</p>
-      <h3>Cast</h3>
-      {credits.map((cast) => (
-        <CastCard key={cast.credit_id} cast={cast} />
-      ))}
+      <p>{selectedSingleMovie.overview}</p>
+      {/* Movie Cast */}
+      {selectedSingleMovie && selectedSingleMovie.credits && (
+        <CastInfo cast={selectedSingleMovie.credits.cast} />
+      )}
     </section>
   );
 };
