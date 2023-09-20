@@ -142,7 +142,7 @@ const PageHome = () => {
           <MovieCard
             key={i}
             movie={movieCard}
-            isFav={isFav(favs, movieCard.id)}
+            isFav={isFav(favs, null, movieCard.id)}
           />
         ))}
       </div>

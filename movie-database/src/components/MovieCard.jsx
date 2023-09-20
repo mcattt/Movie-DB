@@ -21,10 +21,10 @@ function MovieCard({ movie, isFav }) {
 
   const dispatch = useDispatch();
 
-  function handleFavClick(addToFav, obj) {
+  function handleFavClick(isFav, obj) {
     console.log("handleFavClick called");
 
-    if (addToFav === true) {
+    if (isFav === true) {
       console.log(obj);
       dispatch(addFav(obj));
     } else {
@@ -88,7 +88,7 @@ function MovieCard({ movie, isFav }) {
         })}
       </p>
 
-      <div >
+      <div>
         {isFav ? (
           <FavButton
             movie={movie}
