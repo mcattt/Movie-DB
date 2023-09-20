@@ -113,7 +113,7 @@ const PageHome = () => {
 
                 <Link key={selectedMovie.id} to={`/single/${selectedMovie.id}`}>
                   <button className="w-32 h-10 rounded-xl mt-9 group/button outline-light-purple outline outline-1 hover:outline-none hover:bg-orange-500 transition-all ">
-                    <p className="text-light-purple font-bold text-xl group-hover/button:text-black ">
+                    <p className="text-light-purple font-bold text-xl group-hover/button:text-dark-purple ">
                       More Info
                     </p>
                   </button>

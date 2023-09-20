@@ -58,7 +58,7 @@ function MovieCard({ movie, isFav }) {
           <button className=" group/button w-24 h-8 rounded-lg outline-light-purple outline outline-1 mt-8 ml-2 hover:outline-none hover:bg-orange-500 transition-all ">
             <Link
               to={`/single/${id}`}
-              className="text-light-purple font-bold text-base group-hover/button:text-black"
+              className="text-light-purple font-bold text-base group-hover/button:text-dark-purple"
             >
               More Info
             </Link>
@@ -111,7 +111,7 @@ function MovieCard({ movie, isFav }) {
             <button className=" group/button  w-24 h-8 rounded-xl outline-light-purple outline outline-1 active:outline-none active:bg-orange-500 transition-all ">
               <Link
                 to={`/single/${id}`}
-                className=" text-light-purple text-base group-active/button:text-black"
+                className=" text-light-purple text-base group-active/button:text-dark-purple"
               >
                 More Info
               </Link>
