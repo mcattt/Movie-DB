@@ -55,15 +55,14 @@ function MovieCard({ movie, isFav }) {
           <p className="invisible breakpoint-med:visible text-light-purple text-opacity-100 pl-3 pt-10 pr-2 ">
             {snippetDesktop} ...
           </p>
-          <Link
-            className=" group/button w-24 h-8 rounded-lg outline-light-purple outline outline-1 mt-8 ml-2 hover:outline-none hover:bg-orange-500 transition-all "
-            key={id}
-            to={`/single/${id}`}
-          >
-            <button className="text-light-purple font-bold text-base group-hover/button:text-black">
+          <button className=" group/button w-24 h-8 rounded-lg outline-light-purple outline outline-1 mt-8 ml-2 hover:outline-none hover:bg-orange-500 transition-all ">
+            <Link
+              to={`/single/${id}`}
+              className="text-light-purple font-bold text-base group-hover/button:text-black"
+            >
               More Info
-            </button>
-          </Link>
+            </Link>
+          </button>
         </div>
       </div>
 
@@ -109,15 +108,14 @@ function MovieCard({ movie, isFav }) {
           </p>
 
           <div className=" flex items-center justify-center mb-10 mt-5 ">
-            <Link
-              className=" group/button  w-24 h-8 rounded-xl outline-light-purple outline outline-1 active:outline-none active:bg-orange-500 transition-all "
-              key={id}
-              to={`/single/${id}`}
-            >
-              <button className=" text-light-purple text-base group-active/button:text-black">
+            <button className=" group/button  w-24 h-8 rounded-xl outline-light-purple outline outline-1 active:outline-none active:bg-orange-500 transition-all ">
+              <Link
+                to={`/single/${id}`}
+                className=" text-light-purple text-base group-active/button:text-black"
+              >
                 More Info
-              </button>
-            </Link>
+              </Link>
+            </button>
           </div>
         </div>
       )}
