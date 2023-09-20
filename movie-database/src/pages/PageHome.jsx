@@ -7,10 +7,10 @@ import isFav from "../utilities/isFav";
 const apiKey = "499d34c8aaf241d4909feaf69a3c37c1";
 const endPointThemes = `https://api.themoviedb.org/3/movie/`;
 const categories = [
-  { filter: "now_playing", name: "Now Playing" },
-  { filter: "upcoming", name: "Upcoming" },
-  { filter: "top_rated", name: "Top Rated" },
   { filter: "popular", name: "Popular" },
+  { filter: "now_playing", name: "Now Playing" },
+  { filter: "top_rated", name: "Top Rated" },
+  { filter: "upcoming", name: "Upcoming" },
 ];
 // const [filter, setFilter] = useState['now_playing'];
 
@@ -51,7 +51,7 @@ const PageHome = () => {
 
   useEffect(() => {
     document.title = `${appTitle} - Home`;
-    fetchMovie("now_playing");
+    fetchMovie("popular");
   }, []);
 
   useEffect(() => {
