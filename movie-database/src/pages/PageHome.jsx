@@ -2,8 +2,9 @@ import MovieCard from "../components/MovieCard";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { appTitle } from "../globals/globals";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import isFav from "../utilities/isFav";
+import { increment } from '../features/more/viewMoreSlice';
 const apiKey = "499d34c8aaf241d4909feaf69a3c37c1";
 const endPointThemes = `https://api.themoviedb.org/3/movie/`;
 const categories = [
@@ -23,6 +24,8 @@ const PageHome = () => {
 
   const favs = useSelector((state) => state.favs.items);
 
+  const count = useSelector((state) => state.viewMore.count); // Get the count from Redux state
+
   const fetchMovie = async (filter) => {
     const apiUrl = `${endPointThemes}${filter}?api_key=${apiKey}`;
     console.log("Fetching data from URL:", apiUrl); // Log the URL
@@ -41,7 +44,7 @@ const PageHome = () => {
     );
     let data = await res.json();
 
-    const shortList = data.results.slice(0, 12);
+    const shortList = data.results.slice(0, count);
 
     console.log({ data });
 
@@ -70,6 +73,13 @@ const PageHome = () => {
   const filterMovies = (filter) => {
     fetchMovie(filter);
   };
+
+  const dispatch = useDispatch(); // Get the dispatch function from Redux
+
+  const showMore = () => {
+    dispatch(increment()); // Dispatch the increment action to update count in Redux
+  };
+
 
   return (
     <section>
@@ -146,6 +156,12 @@ const PageHome = () => {
           />
         ))}
       </div>
+      {/* View More Button */}
+      <button onClick={showMore} className=" group/button w-48 h-12 rounded-lg outline-light-purple outline outline-1 mt-8 ml-2 hover:outline-none hover:bg-orange-500 transition-all">
+              <a className="text-light-purple font-bold text-xl group-hover/button:text-black">
+                View More
+              </a>
+            </button>
     </section>
   );
 };
