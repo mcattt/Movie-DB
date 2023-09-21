@@ -2,7 +2,7 @@
 
 import FavButton from "../components/FavButton";
 import { useDispatch } from "react-redux";
-
+import favClip from "/assets/images/clip-mark.png";
 import React, { useState } from "react"; // Import useEffect
 import { useMediaQuery } from "@react-hook/media-query";
 import { Link } from "react-router-dom";
@@ -35,7 +35,7 @@ function MovieCard({ movie, isFav }) {
   }
 
   return (
-    <div className="max-w-[300px] mt-5 min-h-[566px]">
+    <div className="relative max-w-[300px] mt-5 min-h-[566px]">
       {/* wraps the movie poster */}
       <div
         className="relative "
@@ -91,11 +91,14 @@ function MovieCard({ movie, isFav }) {
 
       <div>
         {isFav ? (
-          <FavButton
-            movie={movie}
-            remove={true}
-            handleFavClick={handleFavClick}
-          />
+          <div>
+            <img className="absolute w-[30px] top-[-25px] right-2" src={favClip}></img>
+            <FavButton
+              movie={movie}
+              remove={true}
+              handleFavClick={handleFavClick}
+            />
+          </div>
         ) : (
           <FavButton movie={movie} handleFavClick={handleFavClick} />
         )}

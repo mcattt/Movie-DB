@@ -177,7 +177,6 @@ const PageHome = () => {
             className="m-5 bg-transparent border-2 border-light-purple border-solid p-2 rounded-2xl text-3xl font-bold "
             onClick={() => {
               dispatch(resetCount());
-              setMovieList(allMovies.slice(0, count));
               filterMovies(category.filter);
             }}
           >
@@ -196,11 +195,14 @@ const PageHome = () => {
         ))}
       </div>
       {/* View More Button */}
-      <button onClick={showMore} className=" group/button w-48 h-12 rounded-lg outline-light-purple outline outline-1 mt-8 ml-2 hover:outline-none hover:bg-orange-500 transition-all">
-              <a className="text-light-purple font-bold text-xl group-hover/button:text-black">
-                View More
-              </a>
-            </button>
+      <div className="flex justify-center">
+        <button
+          onClick={showMore}
+          className="group/button w-48 h-12 rounded-lg outline-light-purple outline outline-1 mt-8 ml-2 hover:outline-none hover:bg-orange-500 transition-all"
+        >
+          <a className="text-light-purple font-bold text-xl group-hover/button:text-black">View More</a>
+        </button>
+    </div>
     </section>
   );
 };
