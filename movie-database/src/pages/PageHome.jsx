@@ -22,6 +22,8 @@ const PageHome = () => {
   const [selectedBackdrop, setSelectedBackdrop] = useState(""); // State variable to hold the selected backdrop path
   const [selectedMovie, setSelectedMovie] = useState(""); // State variable to hold the selected Movie path
   const [initialized, setInitialized] = useState(false); // Initialize as false
+  const [currentFilter, setCurrentFilter] = useState("popular"); // Initialize with the default filter
+
    // Create a state variable for allMovies
    const [allMovies, setAllMovies] = useState([]);
 
@@ -77,7 +79,8 @@ const PageHome = () => {
     // Reset count to 12 to show first 12 movies
     dispatch(resetCount());
     // Reset currentPage to 1
-    setCurrentPage(1); 
+    setCurrentPage(1);
+    setCurrentFilter(filter); 
   };
 
   const dispatch = useDispatch(); // Get the dispatch function from Redux
@@ -91,9 +94,9 @@ const PageHome = () => {
     setMovieList(allMovies.slice(0, count));
   }, [count, allMovies]);
   
-  const showMore = async () => {
+  const showMore = async (filter) => {
     const nextPage = currentPage + 1;
-    const filter = "popular";
+    // const filter = "popular";
 
     const apiUrl = `${endPointThemes}${filter}?api_key=${apiKey}&page=${nextPage}`;
     const options = {
@@ -200,7 +203,7 @@ const PageHome = () => {
       {/* View More Button */}
       <div className="flex justify-center">
         <button
-          onClick={showMore}
+          onClick={() => showMore(currentFilter)}
           className="group/button w-48 h-12 rounded-lg outline-light-purple outline outline-1 mt-8 ml-2 hover:outline-none hover:bg-orange-500 transition-all"
         >
           <a className="text-light-purple font-bold text-xl group-hover/button:text-black">View More</a>
