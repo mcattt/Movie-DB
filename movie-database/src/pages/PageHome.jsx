@@ -74,10 +74,14 @@ const PageHome = () => {
 
   const filterMovies = (filter) => {
     fetchMovie(filter);
-    setCurrentPage(1); // Reset currentPage to 1
+    // Reset count to 12 to show first 12 movies
+    dispatch(resetCount());
+    // Reset currentPage to 1
+    setCurrentPage(1); 
   };
 
   const dispatch = useDispatch(); // Get the dispatch function from Redux
+  
   // Add a new state variable for currentPage
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -176,7 +180,6 @@ const PageHome = () => {
             key={index}
             className="m-5 bg-transparent border-2 border-light-purple border-solid p-2 rounded-2xl text-3xl font-bold "
             onClick={() => {
-              dispatch(resetCount());
               filterMovies(category.filter);
             }}
           >
