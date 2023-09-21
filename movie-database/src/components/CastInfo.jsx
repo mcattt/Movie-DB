@@ -1,4 +1,7 @@
 import React from "react";
+import actorImage from "/assets/images/actor.png";
+import actressImage from "/assets/images/actress.png";
+
 
 const CastInfo = ({ cast }) => {
   const firstTenCast = cast.slice(0, 10);
@@ -11,13 +14,28 @@ const CastInfo = ({ cast }) => {
           {firstTenCast.map((actor) => (
             <div
               key={actor.id}
-              className="cast-item flex-[0_0_auto] mr-[20px] text-center"
+              className="cast-item flex-[0_0_auto] mr-[20px] text-center w-32"
             >
+            {/* Cast image - check if the image path exists - if yes show the image, if not check the gender to show the proper general avatar */}
+            {actor.profile_path ? (
               <img
                 className="w-32 rounded mb-[5px]"
                 src={`https://image.tmdb.org/t/p/w300${actor.profile_path}`}
                 alt={actor.name}
+              /> ) : (
+                actor.gender === 1 ? (
+                 (<img
+                  className="w-32 rounded mb-[5px]"
+                  src={actressImage}
+                  alt={actor.name}
+                />)) : (
+                  <img
+                className="w-32 rounded mb-[5px]"
+                src={actressImage}
+                alt={actor.name}
               />
+                )
+              )}
               <p className="font-bold">{actor.name}</p>
               <p>{actor.character}</p>
             </div>
