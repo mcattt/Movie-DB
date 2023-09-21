@@ -19,6 +19,8 @@ function MovieCard({ movie, isFav }) {
 
   const isMobile = useMediaQuery("(max-width: 940px)"); //can change
 
+  const singlePoster = useMediaQuery("(max-width: 625px)");
+
   const dispatch = useDispatch();
 
   function handleFavClick(isFav, obj) {
@@ -35,7 +37,7 @@ function MovieCard({ movie, isFav }) {
   }
 
   return (
-    <div className="max-w-[300px] mt-5 min-h-[566px]">
+    <div className=" breakpoint-small:max-w-[300px] mt-5 breakpoint-small:min-h-[566px]">
       {/* wraps the movie poster */}
       <div
         className="relative "
@@ -43,7 +45,11 @@ function MovieCard({ movie, isFav }) {
         onMouseLeave={() => setIsHovered(false)}
       >
         <img
-          src={`https://image.tmdb.org/t/p/w300${poster_path}`}
+          src={
+            singlePoster //makes poster larger for when there's only one per row
+              ? `https://image.tmdb.org/t/p/w400${poster_path}`
+              : `https://image.tmdb.org/t/p/w300${poster_path}`
+          }
           alt={title}
         />
         {/* if mouse is on the poster opacity set to 100 */}
@@ -78,7 +84,7 @@ function MovieCard({ movie, isFav }) {
           </p>
         </div>
       </div>
-      <h3 className="text-2xl overflow-hidden max-w-img-size whitespace-normal">
+      <h3 className="text-2xl overflow-hidden max-w-[400px] breakpoint-small:max-w-img-size whitespace-normal">
         {title}
       </h3>
       <p className="font-extralight italic text-sm">
@@ -103,7 +109,7 @@ function MovieCard({ movie, isFav }) {
 
       {isMobile && (
         <div>
-          <p className=" overflow-hidden max-w-img-size whitespace-normal ">
+          <p className=" overflow-hidden max-w-[400px] breakpoint-small:max-w-img-size whitespace-normal ">
             {snippetMobile} ...
           </p>
 
