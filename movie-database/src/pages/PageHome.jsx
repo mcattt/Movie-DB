@@ -80,6 +80,7 @@ const PageHome = () => {
     dispatch(resetCount());
     // Reset currentPage to 1
     setCurrentPage(1);
+     // Sets Current Filter to the category filter button when selected for use with showMore function
     setCurrentFilter(filter); 
   };
 
