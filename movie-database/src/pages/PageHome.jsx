@@ -22,9 +22,10 @@ const PageHome = () => {
   const [selectedBackdrop, setSelectedBackdrop] = useState(""); // State variable to hold the selected backdrop path
   const [selectedMovie, setSelectedMovie] = useState(""); // State variable to hold the selected Movie path
   const [initialized, setInitialized] = useState(false); // Initialize as false
+   // Create a state variable for allMovies
+   const [allMovies, setAllMovies] = useState([]);
 
   const favs = useSelector((state) => state.favs.items);
-
   const count = useSelector((state) => state.viewMore.count); // Get the count from Redux state
 
   const fetchMovie = async (filter) => {
@@ -44,7 +45,7 @@ const PageHome = () => {
       options
     );
     let data = await res.json();
-
+    setAllMovies(data.results);
     let shortList = data.results.slice(0, count);
 
     console.log({ data });
@@ -73,14 +74,49 @@ const PageHome = () => {
 
   const filterMovies = (filter) => {
     fetchMovie(filter);
+    setCurrentPage(1); // Reset currentPage to 1
   };
 
   const dispatch = useDispatch(); // Get the dispatch function from Redux
+  // Add a new state variable for currentPage
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const showMore = () => {
-    dispatch(increment()); // Dispatch the increment action to update count in Redux
-    console.log(count);
+
+  useEffect(() => {
+    // Listen for changes in the Redux count
+    setMovieList(allMovies.slice(0, count));
+  }, [count, allMovies]);
+  
+  const showMore = async () => {
+    const nextPage = currentPage + 1;
+    const filter = "popular";
+
+    const apiUrl = `${endPointThemes}${filter}?api_key=${apiKey}&page=${nextPage}`;
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0NDZkZTJkYmVmZjc0MzVkYWIxMzE3NDFlNmFhYTRlZCIsInN1YiI6IjY0ZWUxODhhNGNiZTEyMDEzODlkNWM2NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.wP7biHdlHFHu3vEQP1oq3lEjZYVWDt9pWBVv1-YYihU",
+      },
+    };
+
+    const res = await fetch(apiUrl, options);
+    let data = await res.json();
+
+    if (data.results && data.results.length > 0) {
+      // Concatenate additionalMovies with allMovies
+      const additionalMovies = data.results;
+      setAllMovies((prevAllMovies) => [...prevAllMovies, ...additionalMovies]);
+
+      dispatch(increment());
+
+      setCurrentPage(nextPage);
+    } else {
+      return;
+    }
   };
+
 
   return (
     <section>
@@ -141,6 +177,7 @@ const PageHome = () => {
             className="m-5 bg-transparent border-2 border-light-purple border-solid p-2 rounded-2xl text-3xl font-bold "
             onClick={() => {
               dispatch(resetCount());
+              setMovieList(allMovies.slice(0, count));
               filterMovies(category.filter);
             }}
           >
