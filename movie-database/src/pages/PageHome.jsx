@@ -5,6 +5,7 @@ import { appTitle } from "../globals/globals";
 import { useSelector, useDispatch } from "react-redux";
 import isFav from "../utilities/isFav";
 import { increment } from '../features/more/viewMoreSlice';
+import { resetCount } from '../features/more/viewMoreSlice';
 const apiKey = "499d34c8aaf241d4909feaf69a3c37c1";
 const endPointThemes = `https://api.themoviedb.org/3/movie/`;
 const categories = [
@@ -24,7 +25,7 @@ const PageHome = () => {
 
   const favs = useSelector((state) => state.favs.items);
 
-  const count = useSelector((state) => state.viewMore.count); // Get the count from Redux state
+ let count = useSelector((state) => state.viewMore.count); // Get the count from Redux state
 
   const fetchMovie = async (filter) => {
     const apiUrl = `${endPointThemes}${filter}?api_key=${apiKey}`;
@@ -44,7 +45,7 @@ const PageHome = () => {
     );
     let data = await res.json();
 
-    const shortList = data.results.slice(0, count);
+    let shortList = data.results.slice(0, count);
 
     console.log({ data });
 
@@ -78,8 +79,8 @@ const PageHome = () => {
 
   const showMore = () => {
     dispatch(increment()); // Dispatch the increment action to update count in Redux
+    console.log(count);
   };
-
 
   return (
     <section>
@@ -139,6 +140,7 @@ const PageHome = () => {
             key={index}
             className="m-5 bg-transparent border-2 border-light-purple border-solid p-2 rounded-2xl text-3xl font-bold "
             onClick={() => {
+              dispatch(resetCount());
               filterMovies(category.filter);
             }}
           >
