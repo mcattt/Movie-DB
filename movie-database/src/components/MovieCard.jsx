@@ -45,6 +45,7 @@ function MovieCard({ movie, isFav }) {
         <img
           src={`https://image.tmdb.org/t/p/w300${poster_path}`}
           alt={title}
+          className="rounded-lg shadow-[0px_0px_60px_10px_#420B5B]"
         />
         {/* if mouse is on the poster opacity set to 100 */}
         <div
