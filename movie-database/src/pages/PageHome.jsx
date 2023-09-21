@@ -18,14 +18,14 @@ const categories = [
 
 const PageHome = () => {
   const [movieList, setMovieList] = useState([]);
-  // Next 3 variables are for getting the hero movie
+  // Next 2 variables are for getting the hero movie
   const [selectedBackdrop, setSelectedBackdrop] = useState(""); // State variable to hold the selected backdrop path
   const [selectedMovie, setSelectedMovie] = useState(""); // State variable to hold the selected Movie path
   const [initialized, setInitialized] = useState(false); // Initialize as false
 
   const favs = useSelector((state) => state.favs.items);
 
- let count = useSelector((state) => state.viewMore.count); // Get the count from Redux state
+  const count = useSelector((state) => state.viewMore.count); // Get the count from Redux state
 
   const fetchMovie = async (filter) => {
     const apiUrl = `${endPointThemes}${filter}?api_key=${apiKey}`;
