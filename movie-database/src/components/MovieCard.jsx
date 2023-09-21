@@ -94,8 +94,7 @@ function MovieCard({ movie, isFav }) {
           day: "numeric",
         })}
       </p>
-
-      <div>
+      <div className="flex justify-end  relative top-[-40px] mb-[-30px]">
         {isFav ? (
           <FavButton
             movie={movie}
@@ -106,7 +105,6 @@ function MovieCard({ movie, isFav }) {
           <FavButton movie={movie} handleFavClick={handleFavClick} />
         )}
       </div>
-
       {isMobile && (
         <div>
           <p className=" overflow-hidden max-w-[400px] breakpoint-small:max-w-img-size whitespace-normal ">
