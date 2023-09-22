@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { appTitle } from "../globals/globals";
 import { Link, Navigate, useParams } from "react-router-dom";
 import CastInfo from "../components/CastInfo";
+import VideoTrailer from "../components/VideoTrailer";
 
 const endPointThemes = `https://api.themoviedb.org/3/movie/`;
 
@@ -60,16 +61,17 @@ const PageSingle = () => {
     month: "long",
     day: "numeric",
   });
-  // Rating conversion
-  const starRating = selectedSingleMovie.vote_average / 2;
-  // const numRatingOneDigit = selectedSingleMovie.vote_average.toFixed(1);
+
 
   return (
     <section className="single-movie">
+      {selectedSingleMovie &&  (
+        <>
       {/* Movie Poster */}
       <img
         src={`https://image.tmdb.org/t/p/w300${selectedSingleMovie.poster_path}`}
         alt={selectedSingleMovie.title}
+        className="rounded-lg shadow-[0px_0px_60px_10px_#420B5B]"
       />
       {/* Movie Rating */}
       <div className="movie-rating">
@@ -105,6 +107,10 @@ const PageSingle = () => {
           ))}
       </p>
       {/* Video Trailer */}
+      {selectedSingleMovie.videos.results ? 
+        <VideoTrailer videos={selectedSingleMovie.videos.results}/> : 
+        <p>Official Trailer Not Available</p>
+      }
       {/* Tagline */}
       <p className="italic text-[#D5C1E0]">{selectedSingleMovie.tagline}</p>
       {/* Movie Overview */}
@@ -114,6 +120,9 @@ const PageSingle = () => {
       {selectedSingleMovie && selectedSingleMovie.credits && (
         <CastInfo cast={selectedSingleMovie.credits.cast} />
       )}
+      </>
+      )}
+      
     </section>
   );
 };

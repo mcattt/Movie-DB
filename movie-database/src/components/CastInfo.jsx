@@ -31,7 +31,7 @@ const CastInfo = ({ cast }) => {
                 />)) : (
                   <img
                 className="w-32 rounded mb-[5px]"
-                src={actressImage}
+                src={actorImage}
                 alt={actor.name}
               />
                 )

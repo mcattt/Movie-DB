@@ -2,7 +2,6 @@
 
 import FavButton from "../components/FavButton";
 import { useDispatch } from "react-redux";
-
 import React, { useState } from "react"; // Import useEffect
 import { useMediaQuery } from "@react-hook/media-query";
 import { Link } from "react-router-dom";
