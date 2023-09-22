@@ -95,10 +95,12 @@ function MovieCard({ movie, isFav }) {
           day: "numeric",
         })}
       </p>
-      <div className="flex justify-end  relative top-[-40px] mb-[-30px]">
+      {isFav && (
+        <img className="absolute w-[30px] top-[-25px] right-2" src={favClip}></img>
+      )}
+      <div className="flex justify-end relative top-[-40px] mb-[-30px]">
         {isFav ? (
           <div>
-            <img className="absolute w-[30px] top-[-25px] right-2" src={favClip}></img>
             <FavButton
               movie={movie}
               remove={true}
