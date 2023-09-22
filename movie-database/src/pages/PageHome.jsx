@@ -2,8 +2,10 @@ import MovieCard from "../components/MovieCard";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { appTitle } from "../globals/globals";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import isFav from "../utilities/isFav";
+import { increment } from '../features/more/viewMoreSlice';
+import { resetCount } from '../features/more/viewMoreSlice';
 const apiKey = "499d34c8aaf241d4909feaf69a3c37c1";
 const endPointThemes = `https://api.themoviedb.org/3/movie/`;
 const categories = [
@@ -16,12 +18,17 @@ const categories = [
 
 const PageHome = () => {
   const [movieList, setMovieList] = useState([]);
-  // Next 3 variables are for getting the hero movie
+  // Next 2 variables are for getting the hero movie
   const [selectedBackdrop, setSelectedBackdrop] = useState(""); // State variable to hold the selected backdrop path
   const [selectedMovie, setSelectedMovie] = useState(""); // State variable to hold the selected Movie path
   const [initialized, setInitialized] = useState(false); // Initialize as false
+  const [currentFilter, setCurrentFilter] = useState("popular"); // Initialize with the default filter
+
+   // Create a state variable for allMovies
+   const [allMovies, setAllMovies] = useState([]);
 
   const favs = useSelector((state) => state.favs.items);
+  const count = useSelector((state) => state.viewMore.count); // Get the count from Redux state
 
   const fetchMovie = async (filter) => {
     const apiUrl = `${endPointThemes}${filter}?api_key=${apiKey}`;
@@ -40,8 +47,8 @@ const PageHome = () => {
       options
     );
     let data = await res.json();
-
-    const shortList = data.results.slice(0, 12);
+    setAllMovies(data.results);
+    let shortList = data.results.slice(0, count);
 
     console.log({ data });
 
@@ -69,7 +76,55 @@ const PageHome = () => {
 
   const filterMovies = (filter) => {
     fetchMovie(filter);
+    // Reset count to 12 to show first 12 movies
+    dispatch(resetCount());
+    // Reset currentPage to 1
+    setCurrentPage(1);
+     // Sets Current Filter to the category filter button when selected for use with showMore function
+    setCurrentFilter(filter); 
   };
+
+  const dispatch = useDispatch(); // Get the dispatch function from Redux
+  
+  // Add a new state variable for currentPage
+  const [currentPage, setCurrentPage] = useState(1);
+
+
+  useEffect(() => {
+    // Listen for changes in the Redux count
+    setMovieList(allMovies.slice(0, count));
+  }, [count, allMovies]);
+  
+  const showMore = async (filter) => {
+    const nextPage = currentPage + 1;
+    // const filter = "popular";
+
+    const apiUrl = `${endPointThemes}${filter}?api_key=${apiKey}&page=${nextPage}`;
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0NDZkZTJkYmVmZjc0MzVkYWIxMzE3NDFlNmFhYTRlZCIsInN1YiI6IjY0ZWUxODhhNGNiZTEyMDEzODlkNWM2NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.wP7biHdlHFHu3vEQP1oq3lEjZYVWDt9pWBVv1-YYihU",
+      },
+    };
+
+    const res = await fetch(apiUrl, options);
+    let data = await res.json();
+
+    if (data.results && data.results.length > 0) {
+      // Concatenate additionalMovies with allMovies
+      const additionalMovies = data.results;
+      setAllMovies((prevAllMovies) => [...prevAllMovies, ...additionalMovies]);
+
+      dispatch(increment());
+
+      setCurrentPage(nextPage);
+    } else {
+      return;
+    }
+  };
+
 
   return (
     <section>
@@ -146,6 +201,15 @@ const PageHome = () => {
           />
         ))}
       </div>
+      {/* View More Button */}
+      <div className="flex justify-center">
+        <button
+          onClick={() => showMore(currentFilter)}
+          className="group/button w-44 h-12 rounded-lg outline-light-purple outline outline-1 mt-8 ml-2 hover:outline-none hover:bg-orange-500 transition-all"
+        >
+          <a className="text-light-purple font-bold text-xl group-hover/button:text-dark-purple">View More</a>
+        </button>
+    </div>
     </section>
   );
 };

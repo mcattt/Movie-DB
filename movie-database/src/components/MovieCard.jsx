@@ -2,6 +2,7 @@
 
 import FavButton from "../components/FavButton";
 import { useDispatch } from "react-redux";
+import favClip from "/assets/images/clip-mark.png";
 import React, { useState } from "react"; // Import useEffect
 import { useMediaQuery } from "@react-hook/media-query";
 import { Link } from "react-router-dom";
@@ -36,7 +37,7 @@ function MovieCard({ movie, isFav }) {
   }
 
   return (
-    <div className=" breakpoint-small:max-w-[300px] mt-5 breakpoint-small:min-h-[566px]">
+    <div className="relative breakpoint-small:max-w-[300px] mt-5 breakpoint-small:min-h-[566px]">
       {/* wraps the movie poster */}
       <div
         className="relative "
@@ -50,6 +51,7 @@ function MovieCard({ movie, isFav }) {
               : `https://image.tmdb.org/t/p/w300${poster_path}`
           }
           alt={title}
+          className="rounded-lg shadow-[0px_0px_60px_10px_#420B5B]"
         />
         {/* if mouse is on the poster opacity set to 100 */}
         <div
@@ -93,13 +95,18 @@ function MovieCard({ movie, isFav }) {
           day: "numeric",
         })}
       </p>
-      <div className="flex justify-end  relative top-[-40px] mb-[-30px]">
+      {isFav && (
+        <img className="absolute w-[30px] top-[-25px] right-2" src={favClip}></img>
+      )}
+      <div className="flex justify-end relative top-[-40px] mb-[-30px]">
         {isFav ? (
-          <FavButton
-            movie={movie}
-            remove={true}
-            handleFavClick={handleFavClick}
-          />
+          <div>
+            <FavButton
+              movie={movie}
+              remove={true}
+              handleFavClick={handleFavClick}
+            />
+          </div>
         ) : (
           <FavButton movie={movie} handleFavClick={handleFavClick} />
         )}
