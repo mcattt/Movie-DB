@@ -63,73 +63,75 @@ const PageSingle = () => {
 
 
   return (
-    <section className="single-movie">
+    <section className="single-movie lg:relative">
       {selectedSingleMovie &&  (
         <>
-        <div>
-          {/* Movie Poster */}
-          {selectedSingleMovie.poster_path && (
-            <img
-              src={`https://image.tmdb.org/t/p/w300${selectedSingleMovie.poster_path}`}
-              alt={selectedSingleMovie.title}
-              className="rounded-lg shadow-[0px_0px_60px_10px_#420B5B]"
-            />
-          )}
+        <div className="relative mb-28 lg:static">
           {/* Movie Backdrop */}
           {selectedSingleMovie.backdrop_path && (
             <img src={`https://image.tmdb.org/t/p/w1280${selectedSingleMovie.backdrop_path}`} 
             alt={selectedSingleMovie.title} 
-            className="opacity-20 w-full"
+            className="opacity-20 w-full absolute h-[550px] object-cover top-0 lg:h-full lg:opacity-10"
             />
-          )}
-        </div>
-      {/* Movie Rating */}
-      <div className="movie-rating">
-        {selectedSingleMovie.vote_average && (
-          <>
-            <div className="flex">
-              <Rate
-                defaultValue={selectedSingleMovie.vote_average / 2}
-                allowHalf
-                disabled
+            )}
+            {/* Movie Poster */}
+            {selectedSingleMovie.poster_path && (
+              <img
+                src={`https://image.tmdb.org/t/p/w300${selectedSingleMovie.poster_path}`}
+                alt={selectedSingleMovie.title}
+                className="rounded-lg shadow-[0px_0px_60px_10px_#420B5B] relative z-10 mx-auto top-[50px]"
               />
-            </div>
-            <div className="flex items-center ml-auto">
-              <p className="bg-green-300 text-xl w-9 h-7 text-dark-purple rounded-md text-center">
-                {selectedSingleMovie.vote_average.toFixed(1)}
-              </p>
-            </div>
-          </>
-        )}
-      </div>
-      {/* Movie Title */}
-      <h2>{selectedSingleMovie.title}</h2>
-      {/* Movie Date and Runtime */}
-      <p>
-        {movieDate} - {movieHours}h {movieMinutes}m
-      </p>
+            )}
+        </div>
+        <section className="Movie-info mx-5">
+          {/* Movie Rating */}
+          <div className="movie-rating">
+            {selectedSingleMovie.vote_average && (
+              <>
+                <div className="flex">
+                  <Rate
+                    defaultValue={selectedSingleMovie.vote_average / 2}
+                    allowHalf
+                    disabled
+                  />
+                </div>
+                <div className="flex items-center ml-auto">
+                  <p className="bg-green-300 text-xl w-9 h-7 text-dark-purple rounded-md text-center">
+                    {selectedSingleMovie.vote_average.toFixed(1)}
+                  </p>
+                </div>
+              </>
+            )}
+          </div>
+          {/* Movie Title */}
+          <h2>{selectedSingleMovie.title}</h2>
+          {/* Movie Date and Runtime */}
+          <p>
+            {movieDate} - {movieHours}h {movieMinutes}m
+          </p>
 
-      {/* Movie Genres */}
-      <p>
-        {selectedSingleMovie.genres &&
-          selectedSingleMovie.genres.map((genre) => (
-            <span key={genre.id}>{genre.name}, </span>
-          ))}
-      </p>
-      {/* Video Trailer */}
-      {selectedSingleMovie.videos.results ? 
-        <VideoTrailer videos={selectedSingleMovie.videos.results}/> : 
-        <p>Official Trailer Not Available</p>
-      }
-      {/* Tagline */}
-      <p className="italic text-[#D5C1E0]">{selectedSingleMovie.tagline}</p>
-      {/* Movie Overview */}
-      <h3>Overview</h3>
-      <p>{selectedSingleMovie.overview}</p>
-      {/* Movie Cast */}
-      {selectedSingleMovie && selectedSingleMovie.credits && (
-        <CastInfo cast={selectedSingleMovie.credits.cast} />
-      )}
+          {/* Movie Genres */}
+          <p>
+            {selectedSingleMovie.genres &&
+              selectedSingleMovie.genres.map((genre) => (
+                <span key={genre.id}>{genre.name}, </span>
+              ))}
+          </p>
+          {/* Video Trailer */}
+          {selectedSingleMovie.videos.results ? 
+            <VideoTrailer videos={selectedSingleMovie.videos.results}/> : 
+            <p>Official Trailer Not Available</p>
+          }
+          {/* Tagline */}
+          <p className="italic text-[#D5C1E0]">{selectedSingleMovie.tagline}</p>
+          {/* Movie Overview */}
+          <h3>Overview</h3>
+          <p>{selectedSingleMovie.overview}</p>
+          {/* Movie Cast */}
+          {selectedSingleMovie && selectedSingleMovie.credits && (
+            <CastInfo cast={selectedSingleMovie.credits.cast} />
+          )}
+      </section>
       </>
       )}
       
