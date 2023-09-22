@@ -29,7 +29,6 @@ const PageSingle = () => {
 
   const fetchSingleMovie = async () => {
     const apiUrl = `${endPointThemes}${movieId}?append_to_response=videos,credits`;
-    console.log(apiUrl);
     const options = {
       method: "GET",
       headers: {
@@ -67,12 +66,23 @@ const PageSingle = () => {
     <section className="single-movie">
       {selectedSingleMovie &&  (
         <>
-      {/* Movie Poster */}
-      <img
-        src={`https://image.tmdb.org/t/p/w300${selectedSingleMovie.poster_path}`}
-        alt={selectedSingleMovie.title}
-        className="rounded-lg shadow-[0px_0px_60px_10px_#420B5B]"
-      />
+        <div>
+          {/* Movie Poster */}
+          {selectedSingleMovie.poster_path && (
+            <img
+              src={`https://image.tmdb.org/t/p/w300${selectedSingleMovie.poster_path}`}
+              alt={selectedSingleMovie.title}
+              className="rounded-lg shadow-[0px_0px_60px_10px_#420B5B]"
+            />
+          )}
+          {/* Movie Backdrop */}
+          {selectedSingleMovie.backdrop_path && (
+            <img src={`https://image.tmdb.org/t/p/w1280${selectedSingleMovie.backdrop_path}`} 
+            alt={selectedSingleMovie.title} 
+            className="opacity-20 w-full"
+            />
+          )}
+        </div>
       {/* Movie Rating */}
       <div className="movie-rating">
         {selectedSingleMovie.vote_average && (

@@ -5,7 +5,6 @@ import actressImage from "/assets/images/actress.png";
 
 const CastInfo = ({ cast }) => {
   const firstTenCast = cast.slice(0, 10);
-  console.log(firstTenCast);
   return (
     <div className="cast-info m-[20px]">
       <h3>Cast</h3>
