@@ -205,7 +205,7 @@ const PageHome = () => {
       <div className="flex justify-center">
         <button
           onClick={() => showMore(currentFilter)}
-          className="group/button w-48 h-12 rounded-lg outline-light-purple outline outline-1 mt-8 ml-2 hover:outline-none hover:bg-orange-500 transition-all"
+          className="group/button w-44 h-12 rounded-lg outline-light-purple outline outline-1 mt-8 ml-2 hover:outline-none hover:bg-orange-500 transition-all"
         >
           <a className="text-light-purple font-bold text-xl group-hover/button:text-black">View More</a>
         </button>
