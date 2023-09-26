@@ -31,7 +31,7 @@ const PageHome = () => {
   const count = useSelector((state) => state.viewMore.count); // Get the count from Redux state
 
   const fetchMovie = async (filter) => {
-    const apiUrl = `${endPointThemes}${filter}?api_key=${apiKey}`;
+    const apiUrl = `${endPointThemes}${filter}`;
     console.log("Fetching data from URL:", apiUrl); // Log the URL
     const options = {
       method: "GET",
@@ -43,7 +43,7 @@ const PageHome = () => {
     };
 
     const res = await fetch(
-      `${endPointThemes}${filter}?api_key=${apiKey}`,
+      apiUrl,
       options
     );
     let data = await res.json();
@@ -182,7 +182,10 @@ const PageHome = () => {
         {categories.map((category, index) => (
           <button
             key={index}
-            className="m-5 bg-transparent border-2 border-light-purple border-solid p-2 rounded-2xl text-3xl font-bold "
+            className={
+            `m-5 p-2 rounded-2xl text-3xl font-bold  hover:text-dark-purple hover:bg-bright-orange hover:border-bright-orange
+              ${currentFilter === category.filter ? 'bg-bright-orange border-bright-orange border-solid border-2 text-dark-purple' : 'border-light-purple border-solid border-2'}
+            `}
             onClick={() => {
               filterMovies(category.filter);
             }}

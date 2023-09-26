@@ -17,7 +17,7 @@ function FavButton({ movie, remove, handleFavClick }) {
     // setClicked(false);
     handleFavClick(false, movie);
   }
-  console.log(`Remove:${remove}`);
+  
   return (
     <>
       {remove === false ? (
