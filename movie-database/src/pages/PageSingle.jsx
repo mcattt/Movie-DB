@@ -89,6 +89,8 @@ const PageSingle = () => {
 
   const isFavourite = isFav(favs, null, selectedSingleMovie.id);
 
+  console.log(selectedSingleMovie);
+
   return (
     <>
     {isLoaded ? (
@@ -170,7 +172,7 @@ const PageSingle = () => {
               ))}
           </p>
           {/* Video Trailer */}
-          {selectedSingleMovie.videos.results ? 
+          {selectedSingleMovie.videos?.results ? 
             <VideoTrailer videos={selectedSingleMovie.videos.results}/> : 
             <p>Official Trailer Not Available</p>
           }
