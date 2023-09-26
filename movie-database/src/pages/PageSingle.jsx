@@ -111,7 +111,7 @@ const PageSingle = () => {
                   )}
   
         </div>
-        <section className="Movie-info mx-5">
+        <section className="Movie-info mx-5 relative z-10">
           {/* Movie Rating */}
           <div className="movie-rating">
             {selectedSingleMovie.vote_average && (
