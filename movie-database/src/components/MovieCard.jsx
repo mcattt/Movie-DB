@@ -27,13 +27,13 @@ function MovieCard({ movie, isFav }) {
     console.log("handleFavClick called");
 
     if (isFav === true) {
-      console.log(obj);
+      // console.log(obj);
       dispatch(addFav(obj));
     } else {
       dispatch(deleteFav(obj));
     }
 
-    console.log("Movie ID:", movie.id);
+    // console.log("Movie ID:", movie.id);
   }
 
   return (

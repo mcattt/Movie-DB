@@ -5,6 +5,11 @@ import { appTitle } from "../globals/globals";
 import { Link, Navigate, useParams } from "react-router-dom";
 import CastInfo from "../components/CastInfo";
 import VideoTrailer from "../components/VideoTrailer";
+import isFav from "../utilities/isFav";
+import FavButton from "../components/FavButton";
+import { addFav, deleteFav } from "../features/favs/favsSlice"; // Import addFav and deleteFav
+import { useSelector, useDispatch } from "react-redux";
+import favClip from "/assets/images/clip-mark.png";
 
 const endPointThemes = `https://api.themoviedb.org/3/movie/`;
 
@@ -24,7 +29,7 @@ const PageSingle = () => {
   if (isNaN(movieId) || movieId % 1 !== 0) {
     return <Navigate to="/" replace={true} />;
   }
-
+  const favs = useSelector((state) => state.favs.items);
   const [selectedSingleMovie, setSelectedSingleMovie] = useState("");
 
   const fetchSingleMovie = async () => {
@@ -61,6 +66,21 @@ const PageSingle = () => {
     day: "numeric",
   });
 
+  // Dispatch to add/ remove fav movies
+
+  const dispatch = useDispatch();
+
+  function handleFavClick(isFav, obj) {
+    if (isFav === true) {
+      dispatch(addFav(obj));
+    } else {
+      dispatch(deleteFav(obj));
+    }
+  }
+
+  // Provide info to isFav function, then use later to check if the selected movie is favourited or not
+
+  const isFavourite = isFav(favs, null, selectedSingleMovie.id);
 
   return (
     <section className="single-movie lg:relative">
@@ -74,14 +94,22 @@ const PageSingle = () => {
             className="opacity-20 w-full absolute h-[550px] object-cover top-0 lg:h-full lg:opacity-10"
             />
             )}
-            {/* Movie Poster */}
-            {selectedSingleMovie.poster_path && (
-              <img
-                src={`https://image.tmdb.org/t/p/w300${selectedSingleMovie.poster_path}`}
-                alt={selectedSingleMovie.title}
-                className="rounded-lg shadow-[0px_0px_60px_10px_#420B5B] relative z-10 mx-auto top-[50px]"
-              />
-            )}
+            
+                {selectedSingleMovie.poster_path && (
+                  <div className="relative w-[300px] mx-auto inset-x-0 top-[55px]">
+                 {/* Movie Poster */}
+                  <img
+                    src={`https://image.tmdb.org/t/p/w300${selectedSingleMovie.poster_path}`}
+                    alt={selectedSingleMovie.title}
+                    className="rounded-lg shadow-[0px_0px_60px_10px_#420B5B] z-10 mx-auto top-[50px]"
+                  />
+                  {/* Movie Clip Mark */}
+                  {isFavourite && (
+                    <img className="absolute w-[30px] top-[-25px] right-4 z-20" src={favClip}></img>
+                  )}
+              </div>
+                  )}
+  
         </div>
         <section className="Movie-info mx-5">
           {/* Movie Rating */}
@@ -105,6 +133,21 @@ const PageSingle = () => {
           </div>
           {/* Movie Title */}
           <h2>{selectedSingleMovie.title}</h2>
+         
+          {/* Add/ Remove Fav button */}
+          <div>
+            {isFavourite ? (
+              <div>
+                <FavButton
+                  movie={selectedSingleMovie}
+                  remove={true}
+                  handleFavClick={handleFavClick}
+                />
+              </div>
+          ) : (
+              <FavButton movie={selectedSingleMovie} handleFavClick={handleFavClick} />
+        )}
+          </div>
           {/* Movie Date and Runtime */}
           <p>
             {movieDate} - {movieHours}h {movieMinutes}m
