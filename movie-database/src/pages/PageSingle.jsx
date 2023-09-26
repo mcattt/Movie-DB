@@ -10,6 +10,7 @@ import FavButton from "../components/FavButton";
 import { addFav, deleteFav } from "../features/favs/favsSlice"; // Import addFav and deleteFav
 import { useSelector, useDispatch } from "react-redux";
 import favClip from "/assets/images/clip-mark.png";
+import Loading from "../components/Loading";
 
 const endPointThemes = `https://api.themoviedb.org/3/movie/`;
 
@@ -31,28 +32,34 @@ const PageSingle = () => {
   }
   const favs = useSelector((state) => state.favs.items);
   const [selectedSingleMovie, setSelectedSingleMovie] = useState("");
+  const [isLoaded, setLoadStatus] = useState(false);
 
-  const fetchSingleMovie = async () => {
-    const apiUrl = `${endPointThemes}${movieId}?append_to_response=videos,credits`;
-    const options = {
-      method: "GET",
-      headers: {
-        accept: "application/json",
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0NDZkZTJkYmVmZjc0MzVkYWIxMzE3NDFlNmFhYTRlZCIsInN1YiI6IjY0ZWUxODhhNGNiZTEyMDEzODlkNWM2NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.wP7biHdlHFHu3vEQP1oq3lEjZYVWDt9pWBVv1-YYihU",
-      },
+  useEffect (() => {
+    const fetchSingleMovie = async () => {
+      const apiUrl = `${endPointThemes}${movieId}?append_to_response=videos,credits`;
+      const options = {
+        method: "GET",
+        headers: {
+          accept: "application/json",
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0NDZkZTJkYmVmZjc0MzVkYWIxMzE3NDFlNmFhYTRlZCIsInN1YiI6IjY0ZWUxODhhNGNiZTEyMDEzODlkNWM2NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.wP7biHdlHFHu3vEQP1oq3lEjZYVWDt9pWBVv1-YYihU",
+        },
+      };
+      const res = await fetch(apiUrl, options);
+      if (res.ok) {
+        let data = await res.json();
+        setSelectedSingleMovie(data);
+        setLoadStatus(true);
+      } else {
+        setLoadStatus(false);
+      }
     };
-
-    const res = await fetch(apiUrl, options);
-    let data = await res.json();
-    console.log(data);
-
-    setSelectedSingleMovie(data);
-  };
-
-  useEffect(() => {
     fetchSingleMovie();
   }, []);
+
+  // useEffect(() => {
+  //   fetchSingleMovie();
+  // }, []);
 
   // Calculate the hours and minutes
   const movieHours = Math.floor(selectedSingleMovie.runtime / 60);
@@ -83,6 +90,8 @@ const PageSingle = () => {
   const isFavourite = isFav(favs, null, selectedSingleMovie.id);
 
   return (
+    <>
+    {isLoaded ? (
     <section className="single-movie lg:relative">
       {selectedSingleMovie &&  (
         <>
@@ -175,10 +184,15 @@ const PageSingle = () => {
             <CastInfo cast={selectedSingleMovie.credits.cast} />
           )}
       </section>
+      
       </>
       )}
       
     </section>
+    ) : (
+      <Loading />
+    )}
+    </>
   );
 };
 
