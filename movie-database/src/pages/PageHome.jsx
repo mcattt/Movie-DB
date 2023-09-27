@@ -39,7 +39,7 @@ const PageHome = () => {
       apiUrl = `https://api.themoviedb.org/3/search/movie?query=${searchQuery}&api_key=${apiKey}`;
     } else {
       // Otherwise, use the filter-based endpoint
-      apiUrl = `${endPointThemes}${currentFilter}?api_key=${apiKey}`;
+      apiUrl = `${endPointThemes}${filter}?api_key=${apiKey}`;
     }
   
     console.log("Fetching data from URL:", apiUrl); // Log the URL
