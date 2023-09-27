@@ -75,19 +75,6 @@ const PageHome = () => {
     fetchMovie("popular");
   }, []);
 
-  // Variable to get value that user types in search input field -> state = the whole redux store, .search selectes the search slice 
-  const searchQuery = useSelector((state) => state.search);
-
-  // useEffect hook for when searchQuery changes
-  useEffect(() => {
-    if (searchQuery) {
-      // If there's a search query, fetch search results
-      fetchMovie(searchQuery);
-    }
-  }, [searchQuery]);
-
-
-
   useEffect(() => {
     if (!initialized) {
       // Check if movieList is not empty and select a random movie
@@ -144,6 +131,10 @@ const PageHome = () => {
       return;
     }
   };
+
+
+  // Variable to get value that user types in search input field -> state = the whole redux store, .search selectes the search slice 
+  const searchQuery = useSelector((state) => state.search);
   
   // Filter movies by search, passing in searchQuery as a parameter (SEARCHQUERY IS THE INPUT VALUE THAT THE USER IS TYPING, SEE SEARCHQUERY VARIABLE IF CONFUSED)
   const filterMoviesBySearch = (searchQuery) => {
@@ -155,8 +146,6 @@ const PageHome = () => {
       fetchMovie(searchQuery);
     }
   };
-  
-  
   
   // Calling the filtering function for movies everytime searchQuery changes
   useEffect(() => {
