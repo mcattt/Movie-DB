@@ -10,9 +10,7 @@ const SearchBar = () => {
     const query = event.target.value;
     setSearchText(query);
     // Account for empty spaces being the only key that a user enters
-    if (query.trim() !== '') {
-      dispatch(setSearchQuery(query));
-    }
+    dispatch(setSearchQuery(query));
   };
 
   return (
