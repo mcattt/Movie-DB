@@ -81,7 +81,7 @@ function MovieCard({ movie, isFav }) {
           <p className="bg-green-300 text-xl w-9 h-7 text-dark-purple rounded-md text-center">
             {vote_average.toString().length === 1
               ? `${vote_average}.0`
-              : vote_average}
+              : vote_average.toFixed(1)}
           </p>
         </div>
       </div>
