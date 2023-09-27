@@ -70,21 +70,23 @@ const PageHome = () => {
     setMovieList(shortList);
   };
   
-
-  // Search Query state
-  const searchQuery = useSelector((state) => state.search);
-
   useEffect(() => {
     document.title = `${appTitle} - Home`;
     fetchMovie("popular");
+  }, []);
+
+  // Variable to get value that user types in search input field -> state = the whole redux store, .search selectes the search slice 
+  const searchQuery = useSelector((state) => state.search);
+
+  // useEffect hook for when searchQuery changes
+  useEffect(() => {
     if (searchQuery) {
       // If there's a search query, fetch search results
       fetchMovie(searchQuery);
-    } else {
-      // Otherwise, fetch movies based on the current filter
-      fetchMovie(currentFilter);
     }
-  }, [searchQuery, currentFilter]);
+  }, [searchQuery]);
+
+
 
   useEffect(() => {
     if (!initialized) {
@@ -112,10 +114,11 @@ const PageHome = () => {
   }, [count, allMovies]);
   
   const showMore = async (filter) => {
+    // variable to dynamically update current page
     const nextPage = currentPage + 1;
-    // const filter = "popular";
-    
+    // variable to dynamically update apiUrl based on what the next page movies should be
     const apiUrl = `${endPointThemes}${filter}?api_key=${apiKey}&page=${nextPage}`;
+
     const options = {
       method: "GET",
       headers: {
@@ -131,8 +134,9 @@ const PageHome = () => {
     if (data.results && data.results.length > 0) {
       // Concatenate additionalMovies with allMovies
       const additionalMovies = data.results;
+      // adding the next full page of movies into the array with the previous full page of movies
       setAllMovies((prevAllMovies) => [...prevAllMovies, ...additionalMovies]);
-      
+      // Incrementing the count on click of view more to show additional 12 movies
       dispatch(increment());
       
       setCurrentPage(nextPage);
@@ -141,7 +145,7 @@ const PageHome = () => {
     }
   };
   
-  // Filter movies by search 
+  // Filter movies by search, passing in searchQuery as a parameter (SEARCHQUERY IS THE INPUT VALUE THAT THE USER IS TYPING, SEE SEARCHQUERY VARIABLE IF CONFUSED)
   const filterMoviesBySearch = (searchQuery) => {
     if (searchQuery === '') {
       // If the search query is empty, show movies based on the current filter
@@ -154,12 +158,12 @@ const PageHome = () => {
   
   
   
-  // Calling the filtering function for movies
+  // Calling the filtering function for movies everytime searchQuery changes
   useEffect(() => {
     filterMoviesBySearch(searchQuery);
   }, [searchQuery]);
 
-  //function to filter movies on click of category button and reset intial load of movies to first 12 on page 1
+  // Function to filter movies on click of category button and reset intial load of movies to first 12 on page 1
   const filterMovies = (filter) => {
     fetchMovie(filter);
     // Reset count to 12 to show first 12 movies
