@@ -178,12 +178,12 @@ const PageHome = () => {
           </div>
         )}
       </div>
-      <div className="flex justify-evenly">
+      <div className="mb-2 mt-4 flex flex-wrap justify-evenly min-[409px]:gap-2 min-[425px]:text-[1.2rem] min-[484px]:gap-4 min-[500px]:gap-8 min-[532px]:gap-2 min-[847px]:flex-nowrap min-[847px]:mb-4 min-[985px]:text-2xl min-[1271px]:text-[1.75rem]">
         {categories.map((category, index) => (
           <button
             key={index}
             className={
-            `m-5 p-2 rounded-2xl text-3xl font-bold  hover:text-dark-purple hover:bg-bright-orange hover:border-bright-orange
+            `m-2 p-2 w-[115.31px] min-[425px]:w-[135px] min-[532px]:mx-[2rem] min-[628px]:w-1/4 min-[1271px]:w-[246.5px] rounded-2xl font-bold hover:text-dark-purple hover:bg-bright-orange hover:border-bright-orange
               ${currentFilter === category.filter ? 'bg-bright-orange border-bright-orange border-solid border-2 text-dark-purple' : 'border-light-purple border-solid border-2'}
             `}
             onClick={() => {
