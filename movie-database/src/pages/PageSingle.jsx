@@ -57,10 +57,6 @@ const PageSingle = () => {
     fetchSingleMovie();
   }, []);
 
-  // useEffect(() => {
-  //   fetchSingleMovie();
-  // }, []);
-
   // Calculate the hours and minutes
   const movieHours = Math.floor(selectedSingleMovie.runtime / 60);
   const movieMinutes = selectedSingleMovie.runtime % 60;
@@ -97,7 +93,7 @@ const PageSingle = () => {
     <section className="single-movie lg:relative">
       {selectedSingleMovie &&  (
         <>
-        <div className="relative mb-28 lg:static">
+        <div className="relative mb-20 lg:static">
           {/* Movie Backdrop */}
           {selectedSingleMovie.backdrop_path && (
             <img src={`https://image.tmdb.org/t/p/w1280${selectedSingleMovie.backdrop_path}`} 
@@ -124,7 +120,7 @@ const PageSingle = () => {
         </div>
         <section className="Movie-info mx-5 relative z-10">
           {/* Movie Rating */}
-          <div className="movie-rating">
+          <div className="movie-rating flex justify-between w-[300px] mx-auto">
             {selectedSingleMovie.vote_average && (
               <>
                 <div className="flex">
@@ -134,7 +130,7 @@ const PageSingle = () => {
                     disabled
                   />
                 </div>
-                <div className="flex items-center ml-auto">
+                <div className="flex items-center">
                   <p className="bg-green-300 text-xl w-9 h-7 text-dark-purple rounded-md text-center">
                     {selectedSingleMovie.vote_average.toFixed(1)}
                   </p>
@@ -143,7 +139,7 @@ const PageSingle = () => {
             )}
           </div>
           {/* Movie Title */}
-          <h2>{selectedSingleMovie.title}</h2>
+          <h2 className="text-2xl font-bold">{selectedSingleMovie.title}</h2>
          
           {/* Add/ Remove Fav button */}
           <div>
@@ -160,15 +156,15 @@ const PageSingle = () => {
         )}
           </div>
           {/* Movie Date and Runtime */}
-          <p>
+          <p className="italic">
             {movieDate} - {movieHours}h {movieMinutes}m
           </p>
 
           {/* Movie Genres */}
           <p>
             {selectedSingleMovie.genres &&
-              selectedSingleMovie.genres.map((genre) => (
-                <span key={genre.id}>{genre.name}, </span>
+              selectedSingleMovie.genres.map((genre, index) => (
+                <span className="font-bold" key={genre.id}>{genre.name}{index < selectedSingleMovie.genres.length - 1 ? ", " : ""} </span>
               ))}
           </p>
           {/* Video Trailer */}
@@ -179,7 +175,7 @@ const PageSingle = () => {
           {/* Tagline */}
           <p className="italic text-[#D5C1E0]">{selectedSingleMovie.tagline}</p>
           {/* Movie Overview */}
-          <h3>Overview</h3>
+          <h3 className="font-bold">Overview</h3>
           <p>{selectedSingleMovie.overview}</p>
           {/* Movie Cast */}
           {selectedSingleMovie && selectedSingleMovie.credits && (
