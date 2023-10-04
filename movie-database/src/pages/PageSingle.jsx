@@ -120,7 +120,7 @@ const PageSingle = () => {
         </div>
         <section className="Movie-info mx-5 relative z-10">
           {/* Movie Rating */}
-          <div className="movie-rating flex justify-between w-[300px] mx-auto">
+          <div className="movie-rating flex justify-between w-[260px] mx-auto min-[360px]:w-[300px]">
             {selectedSingleMovie.vote_average && (
               <>
                 <div className="flex">
