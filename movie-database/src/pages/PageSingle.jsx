@@ -138,22 +138,24 @@ const PageSingle = () => {
               </>
             )}
           </div>
-          {/* Movie Title */}
-          <h2 className="text-2xl font-bold">{selectedSingleMovie.title}</h2>
-         
-          {/* Add/ Remove Fav button */}
-          <div>
-            {isFavourite ? (
-              <div>
-                <FavButton
-                  movie={selectedSingleMovie}
-                  remove={true}
-                  handleFavClick={handleFavClick}
-                />
-              </div>
-          ) : (
-              <FavButton movie={selectedSingleMovie} handleFavClick={handleFavClick} />
-        )}
+          <div className="mt-3 flex justify-between min-[400px]:w-[335px]">
+            {/* Movie Title */}
+            <h2 className="text-2xl font-bold w-[75%]">{selectedSingleMovie.title}</h2>
+          
+            {/* Add/ Remove Fav button */}
+            <div className="w-[15%]">
+              {isFavourite ? (
+                <div>
+                  <FavButton
+                    movie={selectedSingleMovie}
+                    remove={true}
+                    handleFavClick={handleFavClick}
+                  />
+                </div>
+            ) : (
+                <FavButton movie={selectedSingleMovie} handleFavClick={handleFavClick} />
+          )}
+            </div>
           </div>
           {/* Movie Date and Runtime */}
           <p className="italic">
