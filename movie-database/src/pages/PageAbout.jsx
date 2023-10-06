@@ -16,7 +16,7 @@ const PageAbout = () => {
       <img
         src={aboutImage}
         alt="A photo of 3 people watching movies in the theater"
-        className="h-80 w-full object-cover tablet-b:h-auto tablet-b:w-9/12 tablet-b:justify-self-center lg:w-8/12 2xl:w-7/12 desktop-1650:w-6/12"
+        className="h-80 w-full object-cover tablet-b:h-auto tablet-b:w-9/12 tablet-b:justify-self-center tablet-b:rounded-[10px] lg:w-8/12 2xl:w-7/12 desktop-1650:w-6/12"
       />
       <section className="mt-8 px-4 tablet-b:self-start tablet-b:mt-0 tablet-b:pl-0 tablet-b:pr-12">
         <h2 className="font-bold text-2xl my-8">

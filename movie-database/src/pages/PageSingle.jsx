@@ -4,6 +4,13 @@ import { useState, useEffect } from "react";
 import { appTitle } from "../globals/globals";
 import { Link, Navigate, useParams } from "react-router-dom";
 import CastInfo from "../components/CastInfo";
+import VideoTrailer from "../components/VideoTrailer";
+import isFav from "../utilities/isFav";
+import FavButton from "../components/FavButton";
+import { addFav, deleteFav } from "../features/favs/favsSlice"; // Import addFav and deleteFav
+import { useSelector, useDispatch } from "react-redux";
+import favClip from "/assets/images/clip-mark.png";
+import Loading from "../components/Loading";
 
 const endPointThemes = `https://api.themoviedb.org/3/movie/`;
 
@@ -23,31 +30,36 @@ const PageSingle = () => {
   if (isNaN(movieId) || movieId % 1 !== 0) {
     return <Navigate to="/" replace={true} />;
   }
-
+  const favs = useSelector((state) => state.favs.items);
   const [selectedSingleMovie, setSelectedSingleMovie] = useState("");
+  const [isLoaded, setLoadStatus] = useState(false);
 
-  const fetchSingleMovie = async () => {
-    const apiUrl = `${endPointThemes}${movieId}?append_to_response=videos,credits`;
-    console.log(apiUrl);
-    const options = {
-      method: "GET",
-      headers: {
-        accept: "application/json",
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0NDZkZTJkYmVmZjc0MzVkYWIxMzE3NDFlNmFhYTRlZCIsInN1YiI6IjY0ZWUxODhhNGNiZTEyMDEzODlkNWM2NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.wP7biHdlHFHu3vEQP1oq3lEjZYVWDt9pWBVv1-YYihU",
-      },
+  useEffect (() => {
+    const fetchSingleMovie = async () => {
+      const apiUrl = `${endPointThemes}${movieId}?append_to_response=videos,credits`;
+      const options = {
+        method: "GET",
+        headers: {
+          accept: "application/json",
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0NDZkZTJkYmVmZjc0MzVkYWIxMzE3NDFlNmFhYTRlZCIsInN1YiI6IjY0ZWUxODhhNGNiZTEyMDEzODlkNWM2NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.wP7biHdlHFHu3vEQP1oq3lEjZYVWDt9pWBVv1-YYihU",
+        },
+      };
+      const res = await fetch(apiUrl, options);
+      if (res.ok) {
+        let data = await res.json();
+        setSelectedSingleMovie(data);
+        setLoadStatus(true);
+      } else {
+        setLoadStatus(false);
+      }
     };
-
-    const res = await fetch(apiUrl, options);
-    let data = await res.json();
-    console.log(data);
-
-    setSelectedSingleMovie(data);
-  };
-
-  useEffect(() => {
     fetchSingleMovie();
   }, []);
+
+  // useEffect(() => {
+  //   fetchSingleMovie();
+  // }, []);
 
   // Calculate the hours and minutes
   const movieHours = Math.floor(selectedSingleMovie.runtime / 60);
@@ -60,61 +72,129 @@ const PageSingle = () => {
     month: "long",
     day: "numeric",
   });
-  // Rating conversion
-  const starRating = selectedSingleMovie.vote_average / 2;
-  // const numRatingOneDigit = selectedSingleMovie.vote_average.toFixed(1);
+
+  // Dispatch to add/ remove fav movies
+
+  const dispatch = useDispatch();
+
+  function handleFavClick(isFav, obj) {
+    if (isFav === true) {
+      dispatch(addFav(obj));
+    } else {
+      dispatch(deleteFav(obj));
+    }
+  }
+
+  // Provide info to isFav function, then use later to check if the selected movie is favourited or not
+
+  const isFavourite = isFav(favs, null, selectedSingleMovie.id);
+
+  console.log(selectedSingleMovie);
 
   return (
-    <section className="single-movie">
-      {/* Movie Poster */}
-      <img
-        src={`https://image.tmdb.org/t/p/w300${selectedSingleMovie.poster_path}`}
-        alt={selectedSingleMovie.title}
-      />
-      {/* Movie Rating */}
-      <div className="movie-rating">
-        {selectedSingleMovie.vote_average && (
-          <>
-            <div className="flex">
-              <Rate
-                defaultValue={selectedSingleMovie.vote_average / 2}
-                allowHalf
-                disabled
-              />
-            </div>
-            <div className="flex items-center ml-auto">
-              <p className="bg-green-300 text-xl w-9 h-7 text-dark-purple rounded-md text-center">
-                {selectedSingleMovie.vote_average.toFixed(1)}
-              </p>
-            </div>
-          </>
+    <>
+    {isLoaded ? (
+    <section className="single-movie lg:relative">
+      {selectedSingleMovie &&  (
+        <>
+        <div className="relative mb-28 lg:static">
+          {/* Movie Backdrop */}
+          {selectedSingleMovie.backdrop_path && (
+            <img src={`https://image.tmdb.org/t/p/w1280${selectedSingleMovie.backdrop_path}`} 
+            alt={selectedSingleMovie.title} 
+            className="opacity-20 w-full absolute h-[550px] object-cover top-0 lg:h-full lg:opacity-10"
+            />
+            )}
+            
+                {selectedSingleMovie.poster_path && (
+                  <div className="relative w-[300px] mx-auto inset-x-0 top-[55px]">
+                 {/* Movie Poster */}
+                  <img
+                    src={`https://image.tmdb.org/t/p/w300${selectedSingleMovie.poster_path}`}
+                    alt={selectedSingleMovie.title}
+                    className="rounded-lg shadow-[0px_0px_60px_10px_#420B5B] z-10 mx-auto top-[50px]"
+                  />
+                  {/* Movie Clip Mark */}
+                  {isFavourite && (
+                    <img className="absolute w-[30px] top-[-25px] right-4 z-20" src={favClip}></img>
+                  )}
+              </div>
+                  )}
+  
+        </div>
+        <section className="Movie-info mx-5 relative z-10">
+          {/* Movie Rating */}
+          <div className="movie-rating">
+            {selectedSingleMovie.vote_average && (
+              <>
+                <div className="flex">
+                  <Rate
+                    defaultValue={selectedSingleMovie.vote_average / 2}
+                    allowHalf
+                    disabled
+                  />
+                </div>
+                <div className="flex items-center ml-auto">
+                  <p className="bg-green-300 text-xl w-9 h-7 text-dark-purple rounded-md text-center">
+                    {selectedSingleMovie.vote_average.toFixed(1)}
+                  </p>
+                </div>
+              </>
+            )}
+          </div>
+          {/* Movie Title */}
+          <h2>{selectedSingleMovie.title}</h2>
+         
+          {/* Add/ Remove Fav button */}
+          <div>
+            {isFavourite ? (
+              <div>
+                <FavButton
+                  movie={selectedSingleMovie}
+                  remove={true}
+                  handleFavClick={handleFavClick}
+                />
+              </div>
+          ) : (
+              <FavButton movie={selectedSingleMovie} handleFavClick={handleFavClick} />
         )}
-      </div>
-      {/* Movie Title */}
-      <h2>{selectedSingleMovie.title}</h2>
-      {/* Movie Date and Runtime */}
-      <p>
-        {movieDate} - {movieHours}h {movieMinutes}m
-      </p>
+          </div>
+          {/* Movie Date and Runtime */}
+          <p>
+            {movieDate} - {movieHours}h {movieMinutes}m
+          </p>
 
-      {/* Movie Genres */}
-      <p>
-        {selectedSingleMovie.genres &&
-          selectedSingleMovie.genres.map((genre) => (
-            <span key={genre.id}>{genre.name}, </span>
-          ))}
-      </p>
-      {/* Video Trailer */}
-      {/* Tagline */}
-      <p className="italic text-[#D5C1E0]">{selectedSingleMovie.tagline}</p>
-      {/* Movie Overview */}
-      <h3>Overview</h3>
-      <p>{selectedSingleMovie.overview}</p>
-      {/* Movie Cast */}
-      {selectedSingleMovie && selectedSingleMovie.credits && (
-        <CastInfo cast={selectedSingleMovie.credits.cast} />
+          {/* Movie Genres */}
+          <p>
+            {selectedSingleMovie.genres &&
+              selectedSingleMovie.genres.map((genre) => (
+                <span key={genre.id}>{genre.name}, </span>
+              ))}
+          </p>
+          {/* Video Trailer */}
+          {selectedSingleMovie.videos?.results ? 
+            <VideoTrailer videos={selectedSingleMovie.videos.results}/> : 
+            <p>Official Trailer Not Available</p>
+          }
+          {/* Tagline */}
+          <p className="italic text-[#D5C1E0]">{selectedSingleMovie.tagline}</p>
+          {/* Movie Overview */}
+          <h3>Overview</h3>
+          <p>{selectedSingleMovie.overview}</p>
+          {/* Movie Cast */}
+          {selectedSingleMovie && selectedSingleMovie.credits && (
+            <CastInfo cast={selectedSingleMovie.credits.cast} />
+          )}
+      </section>
+      
+      </>
       )}
+      
     </section>
+    ) : (
+      <Loading />
+    )}
+    </>
   );
 };
 

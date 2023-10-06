@@ -2,29 +2,36 @@ import MovieCard from "../components/MovieCard";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { appTitle } from "../globals/globals";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import isFav from "../utilities/isFav";
+import { increment } from '../features/more/viewMoreSlice';
+import { resetCount } from '../features/more/viewMoreSlice';
 const apiKey = "499d34c8aaf241d4909feaf69a3c37c1";
 const endPointThemes = `https://api.themoviedb.org/3/movie/`;
 const categories = [
-  { filter: "now_playing", name: "Now Playing" },
-  { filter: "upcoming", name: "Upcoming" },
-  { filter: "top_rated", name: "Top Rated" },
   { filter: "popular", name: "Popular" },
+  { filter: "now_playing", name: "Now Playing" },
+  { filter: "top_rated", name: "Top Rated" },
+  { filter: "upcoming", name: "Upcoming" },
 ];
 // const [filter, setFilter] = useState['now_playing'];
 
 const PageHome = () => {
   const [movieList, setMovieList] = useState([]);
-  // Next 3 variables are for getting the hero movie
+  // Next 2 variables are for getting the hero movie
   const [selectedBackdrop, setSelectedBackdrop] = useState(""); // State variable to hold the selected backdrop path
   const [selectedMovie, setSelectedMovie] = useState(""); // State variable to hold the selected Movie path
   const [initialized, setInitialized] = useState(false); // Initialize as false
+  const [currentFilter, setCurrentFilter] = useState("popular"); // Initialize with the default filter
+
+   // Create a state variable for allMovies
+   const [allMovies, setAllMovies] = useState([]);
 
   const favs = useSelector((state) => state.favs.items);
+  const count = useSelector((state) => state.viewMore.count); // Get the count from Redux state
 
   const fetchMovie = async (filter) => {
-    const apiUrl = `${endPointThemes}${filter}?api_key=${apiKey}`;
+    const apiUrl = `${endPointThemes}${filter}`;
     console.log("Fetching data from URL:", apiUrl); // Log the URL
     const options = {
       method: "GET",
@@ -36,12 +43,12 @@ const PageHome = () => {
     };
 
     const res = await fetch(
-      `${endPointThemes}${filter}?api_key=${apiKey}`,
+      apiUrl,
       options
     );
     let data = await res.json();
-
-    const shortList = data.results.slice(0, 12);
+    setAllMovies(data.results);
+    let shortList = data.results.slice(0, count);
 
     console.log({ data });
 
@@ -51,7 +58,7 @@ const PageHome = () => {
 
   useEffect(() => {
     document.title = `${appTitle} - Home`;
-    fetchMovie("now_playing");
+    fetchMovie("popular");
   }, []);
 
   useEffect(() => {
@@ -69,7 +76,55 @@ const PageHome = () => {
 
   const filterMovies = (filter) => {
     fetchMovie(filter);
+    // Reset count to 12 to show first 12 movies
+    dispatch(resetCount());
+    // Reset currentPage to 1
+    setCurrentPage(1);
+     // Sets Current Filter to the category filter button when selected for use with showMore function
+    setCurrentFilter(filter); 
   };
+
+  const dispatch = useDispatch(); // Get the dispatch function from Redux
+  
+  // Add a new state variable for currentPage
+  const [currentPage, setCurrentPage] = useState(1);
+
+
+  useEffect(() => {
+    // Listen for changes in the Redux count
+    setMovieList(allMovies.slice(0, count));
+  }, [count, allMovies]);
+  
+  const showMore = async (filter) => {
+    const nextPage = currentPage + 1;
+    // const filter = "popular";
+
+    const apiUrl = `${endPointThemes}${filter}?api_key=${apiKey}&page=${nextPage}`;
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0NDZkZTJkYmVmZjc0MzVkYWIxMzE3NDFlNmFhYTRlZCIsInN1YiI6IjY0ZWUxODhhNGNiZTEyMDEzODlkNWM2NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.wP7biHdlHFHu3vEQP1oq3lEjZYVWDt9pWBVv1-YYihU",
+      },
+    };
+
+    const res = await fetch(apiUrl, options);
+    let data = await res.json();
+
+    if (data.results && data.results.length > 0) {
+      // Concatenate additionalMovies with allMovies
+      const additionalMovies = data.results;
+      setAllMovies((prevAllMovies) => [...prevAllMovies, ...additionalMovies]);
+
+      dispatch(increment());
+
+      setCurrentPage(nextPage);
+    } else {
+      return;
+    }
+  };
+
 
   return (
     <section>
@@ -123,11 +178,14 @@ const PageHome = () => {
           </div>
         )}
       </div>
-      <div className="flex justify-evenly">
+      <div className="mb-2 mt-4 flex flex-wrap justify-evenly min-[409px]:gap-2 min-[425px]:text-[1.2rem] min-[484px]:gap-4 min-[500px]:gap-8 min-[532px]:gap-2 min-[847px]:flex-nowrap min-[847px]:mb-4 min-[985px]:text-2xl min-[1271px]:text-[1.75rem]">
         {categories.map((category, index) => (
           <button
             key={index}
-            className="m-5 bg-transparent border-2 border-light-purple border-solid p-2 rounded-2xl text-3xl font-bold "
+            className={
+            `m-2 p-2 w-[115.31px] min-[425px]:w-[135px] min-[532px]:mx-[2rem] min-[628px]:w-1/4 min-[1271px]:w-[246.5px] rounded-2xl font-bold hover:text-dark-purple hover:bg-bright-orange hover:border-bright-orange
+              ${currentFilter === category.filter ? 'bg-bright-orange border-bright-orange border-solid border-2 text-dark-purple' : 'border-light-purple border-solid border-2'}
+            `}
             onClick={() => {
               filterMovies(category.filter);
             }}
@@ -146,6 +204,15 @@ const PageHome = () => {
           />
         ))}
       </div>
+      {/* View More Button */}
+      <div className="flex justify-center">
+        <button
+          onClick={() => showMore(currentFilter)}
+          className="group/button w-44 h-12 rounded-lg outline-light-purple outline outline-1 mt-8 ml-2 hover:outline-none hover:bg-orange-500 transition-all"
+        >
+          <a className="text-light-purple font-bold text-xl group-hover/button:text-dark-purple">View More</a>
+        </button>
+    </div>
     </section>
   );
 };
