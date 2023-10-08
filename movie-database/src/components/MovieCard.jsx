@@ -1,5 +1,5 @@
 // MovieCard.jsx
-
+import StarRating from "./StarRating";
 import FavButton from "../components/FavButton";
 import { useDispatch } from "react-redux";
 import favClip from "/assets/images/clip-mark.png";
@@ -75,7 +75,7 @@ function MovieCard({ movie, isFav }) {
 
       <div className="movie-rating flex justify-between mt-2">
         <div className="flex items-center">
-          <Rate defaultValue={vote_average / 2} allowHalf disabled />
+          <StarRating vote_average={vote_average} />
         </div>
         <div className="flex  items-center ml-auto">
           <p className="bg-green-300 text-xl w-9 h-7 text-dark-purple rounded-md text-center">
@@ -96,7 +96,10 @@ function MovieCard({ movie, isFav }) {
         })}
       </p>
       {isFav && (
-        <img className="absolute w-[30px] top-[-25px] right-2" src={favClip}></img>
+        <img
+          className="absolute w-[30px] top-[-25px] right-2"
+          src={favClip}
+        ></img>
       )}
       <div className="flex justify-end relative top-[-40px] mb-[-30px]">
         {isFav ? (

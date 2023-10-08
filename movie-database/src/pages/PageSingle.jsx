@@ -132,6 +132,7 @@ const PageSingle = () => {
                     defaultValue={selectedSingleMovie.vote_average / 2}
                     allowHalf
                     disabled
+                    
                   />
                 </div>
                 <div className="flex items-center ml-auto">
