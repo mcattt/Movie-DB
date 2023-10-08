@@ -85,7 +85,7 @@ function MovieCard({ movie, isFav }) {
           </p>
         </div>
       </div>
-      <h3 className="text-2xl overflow-hidden max-w-[400px] breakpoint-small:max-w-img-size whitespace-normal">
+      <h3 className="text-2xl overflow-hidden max-w-[400px] breakpoint-small:max-w-[250px] whitespace-normal">
         {title}
       </h3>
       <p className="font-extralight italic text-sm">
