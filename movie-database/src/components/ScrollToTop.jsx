@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import upArrow from "/assets/images/up-arrow-thick.png";
 // code inspired by https://www.geeksforgeeks.org/how-to-create-a-scroll-to-top-button-in-react-js/
+// where i got the idea from for the design (#7) https://elfsight.com/back-to-top-widget/examples/
 const ScrollButton = () => {
   const [visible, setVisible] = useState(false);
 
