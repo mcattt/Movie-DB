@@ -2,10 +2,14 @@ import { useState } from "react";
 import { Rate } from "antd";
 import { StarOutlined } from "@ant-design/icons";
 
-function StarRating(vote_average) {
+function StarRating({ vote_average }) {
   const [isZero, setIsZero] = useState(false);
 
-  if (vote_average < 0.5) {
+  if (
+    vote_average === null ||
+    vote_average === undefined ||
+    vote_average < 0.5
+  ) {
     setIsZero(true);
   }
 
