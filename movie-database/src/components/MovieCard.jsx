@@ -37,7 +37,7 @@ function MovieCard({ movie, isFav }) {
   }
 
   return (
-    <div className="relative  mt-5 breakpoint-small:min-h-[566px] breakpoint-small:max-w-[300px] breakpoint-xl:max-w-[400px] ">
+    <div className="relative  mt-5 breakpoint-small:min-h-[566px] breakpoint-small:max-w-[300px] breakpoint-xl:max-w-[400px] breakpoint-xl:mb-10 ">
       {/* wraps the movie poster */}
       <div
         className="relative "
