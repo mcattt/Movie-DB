@@ -34,7 +34,7 @@ const PageSingle = () => {
   const [selectedSingleMovie, setSelectedSingleMovie] = useState("");
   const [isLoaded, setLoadStatus] = useState(false);
 
-  useEffect (() => {
+  useEffect(() => {
     const fetchSingleMovie = async () => {
       const apiUrl = `${endPointThemes}${movieId}?append_to_response=videos,credits`;
       const options = {
@@ -93,108 +93,110 @@ const PageSingle = () => {
 
   return (
     <>
-    {isLoaded ? (
-    <section className="single-movie lg:relative">
-      {selectedSingleMovie &&  (
-        <>
-        <div className="relative mb-28 lg:static">
-          {/* Movie Backdrop */}
-          {selectedSingleMovie.backdrop_path && (
-            <img src={`https://image.tmdb.org/t/p/w1280${selectedSingleMovie.backdrop_path}`} 
-            alt={selectedSingleMovie.title} 
-            className="opacity-20 w-full absolute h-[550px] object-cover top-0 lg:h-full lg:opacity-10"
-            />
-            )}
-            
+      {isLoaded ? (
+        <section className="single-movie lg:relative">
+          {selectedSingleMovie && (
+            <>
+              <div className="relative mb-28 lg:static">
+                {/* Movie Backdrop */}
+                {selectedSingleMovie.backdrop_path && (
+                  <img
+                    src={`https://image.tmdb.org/t/p/w1280${selectedSingleMovie.backdrop_path}`}
+                    alt={selectedSingleMovie.title}
+                    className="opacity-20 w-full absolute h-[550px] object-cover top-0 lg:h-full lg:opacity-10"
+                  />
+                )}
+
                 {selectedSingleMovie.poster_path && (
                   <div className="relative w-[300px] mx-auto inset-x-0 top-[55px]">
-                 {/* Movie Poster */}
-                  <img
-                    src={`https://image.tmdb.org/t/p/w300${selectedSingleMovie.poster_path}`}
-                    alt={selectedSingleMovie.title}
-                    className="rounded-lg shadow-[0px_0px_60px_10px_#420B5B] z-10 mx-auto top-[50px]"
-                  />
-                  {/* Movie Clip Mark */}
-                  {isFavourite && (
-                    <img className="absolute w-[30px] top-[-25px] right-4 z-20" src={favClip}></img>
-                  )}
+                    {/* Movie Poster */}
+                    <img
+                      src={`https://image.tmdb.org/t/p/w300${selectedSingleMovie.poster_path}`}
+                      alt={selectedSingleMovie.title}
+                      className="rounded-lg shadow-[0px_0px_60px_10px_#420B5B] z-10 mx-auto top-[50px]"
+                    />
+                    {/* Movie Clip Mark */}
+                    {isFavourite && (
+                      <img
+                        className="absolute w-[30px] top-[-25px] right-4 z-20"
+                        src={favClip}
+                      ></img>
+                    )}
+                  </div>
+                )}
               </div>
+              <section className="Movie-info mx-5 relative z-10">
+                {/* Movie Rating */}
+                <div className="movie-rating">
+                  {selectedSingleMovie.vote_average && (
+                    <>
+                      <div className="flex">
+                        <StarRating vote_average={vote_average} />
+                      </div>
+                      <div className="flex items-center ml-auto">
+                        <p className="bg-green-300 text-xl w-9 h-7 text-dark-purple rounded-md text-center">
+                          {selectedSingleMovie.vote_average.toFixed(1)}
+                        </p>
+                      </div>
+                    </>
                   )}
-  
-        </div>
-        <section className="Movie-info mx-5 relative z-10">
-          {/* Movie Rating */}
-          <div className="movie-rating">
-            {selectedSingleMovie.vote_average && (
-              <>
-                <div className="flex">
-                  <Rate
-                    defaultValue={selectedSingleMovie.vote_average / 2}
-                    allowHalf
-                    disabled
-                    
-                  />
                 </div>
-                <div className="flex items-center ml-auto">
-                  <p className="bg-green-300 text-xl w-9 h-7 text-dark-purple rounded-md text-center">
-                    {selectedSingleMovie.vote_average.toFixed(1)}
-                  </p>
-                </div>
-              </>
-            )}
-          </div>
-          {/* Movie Title */}
-          <h2>{selectedSingleMovie.title}</h2>
-         
-          {/* Add/ Remove Fav button */}
-          <div>
-            {isFavourite ? (
-              <div>
-                <FavButton
-                  movie={selectedSingleMovie}
-                  remove={true}
-                  handleFavClick={handleFavClick}
-                />
-              </div>
-          ) : (
-              <FavButton movie={selectedSingleMovie} handleFavClick={handleFavClick} />
-        )}
-          </div>
-          {/* Movie Date and Runtime */}
-          <p>
-            {movieDate} - {movieHours}h {movieMinutes}m
-          </p>
+                {/* Movie Title */}
+                <h2>{selectedSingleMovie.title}</h2>
 
-          {/* Movie Genres */}
-          <p>
-            {selectedSingleMovie.genres &&
-              selectedSingleMovie.genres.map((genre) => (
-                <span key={genre.id}>{genre.name}, </span>
-              ))}
-          </p>
-          {/* Video Trailer */}
-          {selectedSingleMovie.videos?.results ? 
-            <VideoTrailer videos={selectedSingleMovie.videos.results}/> : 
-            <p>Official Trailer Not Available</p>
-          }
-          {/* Tagline */}
-          <p className="italic text-[#D5C1E0]">{selectedSingleMovie.tagline}</p>
-          {/* Movie Overview */}
-          <h3>Overview</h3>
-          <p>{selectedSingleMovie.overview}</p>
-          {/* Movie Cast */}
-          {selectedSingleMovie && selectedSingleMovie.credits && (
-            <CastInfo cast={selectedSingleMovie.credits.cast} />
+                {/* Add/ Remove Fav button */}
+                <div>
+                  {isFavourite ? (
+                    <div>
+                      <FavButton
+                        movie={selectedSingleMovie}
+                        remove={true}
+                        handleFavClick={handleFavClick}
+                      />
+                    </div>
+                  ) : (
+                    <FavButton
+                      movie={selectedSingleMovie}
+                      handleFavClick={handleFavClick}
+                    />
+                  )}
+                </div>
+                {/* Movie Date and Runtime */}
+                <p>
+                  {movieDate} - {movieHours}h {movieMinutes}m
+                </p>
+
+                {/* Movie Genres */}
+                <p>
+                  {selectedSingleMovie.genres &&
+                    selectedSingleMovie.genres.map((genre) => (
+                      <span key={genre.id}>{genre.name}, </span>
+                    ))}
+                </p>
+                {/* Video Trailer */}
+                {selectedSingleMovie.videos?.results ? (
+                  <VideoTrailer videos={selectedSingleMovie.videos.results} />
+                ) : (
+                  <p>Official Trailer Not Available</p>
+                )}
+                {/* Tagline */}
+                <p className="italic text-[#D5C1E0]">
+                  {selectedSingleMovie.tagline}
+                </p>
+                {/* Movie Overview */}
+                <h3>Overview</h3>
+                <p>{selectedSingleMovie.overview}</p>
+                {/* Movie Cast */}
+                {selectedSingleMovie && selectedSingleMovie.credits && (
+                  <CastInfo cast={selectedSingleMovie.credits.cast} />
+                )}
+              </section>
+            </>
           )}
-      </section>
-      
-      </>
+        </section>
+      ) : (
+        <Loading />
       )}
-      
-    </section>
-    ) : (
-      <Loading />
-    )}
     </>
   );
 };
