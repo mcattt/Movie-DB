@@ -11,6 +11,7 @@ import { addFav, deleteFav } from "../features/favs/favsSlice"; // Import addFav
 import { useSelector, useDispatch } from "react-redux";
 import favClip from "/assets/images/clip-mark.png";
 import Loading from "../components/Loading";
+import StarRating from "../components/StarRating";
 
 const endPointThemes = `https://api.themoviedb.org/3/movie/`;
 
@@ -128,10 +129,10 @@ const PageSingle = () => {
               <section className="Movie-info mx-5 relative z-10">
                 {/* Movie Rating */}
                 <div className="movie-rating">
-                  {selectedSingleMovie.vote_average && (
+                  {selectedSingleMovie.vote_average ? (
                     <>
                       <div className="flex">
-                        <StarRating vote_average={vote_average} />
+                        <StarRating vote_average={selectedSingleMovie.vote_average} />
                       </div>
                       <div className="flex items-center ml-auto">
                         <p className="bg-green-300 text-xl w-9 h-7 text-dark-purple rounded-md text-center">
@@ -139,6 +140,10 @@ const PageSingle = () => {
                         </p>
                       </div>
                     </>
+                  ) : (
+                    <div className="flex">
+                        <StarRating vote_average={undefined} />
+                      </div>
                   )}
                 </div>
                 {/* Movie Title */}
