@@ -1,12 +1,13 @@
 import MovieCard from "../components/MovieCard";
+import ScrollButton from "../components/ScrollToTop";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { appTitle } from "../globals/globals";
 import { useSelector, useDispatch } from "react-redux";
 import isFav from "../utilities/isFav";
-import { increment } from '../features/more/viewMoreSlice';
-import { resetCount } from '../features/more/viewMoreSlice';
-import SearchBar from '../components/SearchBar'; // Import the SearchBar component
+import { increment } from "../features/more/viewMoreSlice";
+import { resetCount } from "../features/more/viewMoreSlice";
+import SearchBar from "../components/SearchBar"; // Import the SearchBar component
 const apiKey = "499d34c8aaf241d4909feaf69a3c37c1";
 const endPointThemes = `https://api.themoviedb.org/3/movie/`;
 const categories = [
@@ -24,15 +25,15 @@ const PageHome = () => {
   const [selectedMovie, setSelectedMovie] = useState(""); // State variable to hold the selected Movie path
   const [initialized, setInitialized] = useState(false); // Initialize as false
   const [currentFilter, setCurrentFilter] = useState("popular"); // Initialize with the default filter
-   // Create a state variable for allMovies
-   const [allMovies, setAllMovies] = useState([]);
+  // Create a state variable for allMovies
+  const [allMovies, setAllMovies] = useState([]);
 
   const favs = useSelector((state) => state.favs.items);
   const count = useSelector((state) => state.viewMore.count); // Get the count from Redux state
 
   const fetchMovie = async (filter) => {
     let apiUrl;
-  
+
     // if search input field is used then set the apiUrl to the search query the user is typing
     if (searchQuery) {
       // If there's a search query, use the search endpoint
@@ -41,7 +42,7 @@ const PageHome = () => {
       // Otherwise, use the filter-based endpoint
       apiUrl = `${endPointThemes}${filter}?api_key=${apiKey}`;
     }
-  
+
     console.log("Fetching data from URL:", apiUrl); // Log the URL
     const options = {
       method: "GET",
@@ -51,10 +52,10 @@ const PageHome = () => {
           "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0NDZkZTJkYmVmZjc0MzVkYWIxMzE3NDFlNmFhYTRlZCIsInN1YiI6IjY0ZWUxODhhNGNiZTEyMDEzODlkNWM2NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.wP7biHdlHFHu3vEQP1oq3lEjZYVWDt9pWBVv1-YYihU",
       },
     };
-  
+
     let res = await fetch(apiUrl, options);
     let data = await res.json();
-  
+
     // Handle search results and regular category-based results separately
     if (searchQuery) {
       // If it's a search query, update allMovies with search results
@@ -63,13 +64,13 @@ const PageHome = () => {
       // If it's a category-based query, update allMovies with category results
       setAllMovies(data.results);
     }
-  
+
     let shortList = data.results.slice(0, count);
     console.log({ data });
     console.log(shortList);
     setMovieList(shortList);
   };
-  
+
   useEffect(() => {
     document.title = `${appTitle} - Home`;
     fetchMovie("popular");
@@ -88,18 +89,16 @@ const PageHome = () => {
     }
   }, [movieList, initialized]);
 
-  
   const dispatch = useDispatch(); // Get the dispatch function from Redux
-  
+
   // Add a new state variable for currentPage
   const [currentPage, setCurrentPage] = useState(1);
-  
 
   useEffect(() => {
     // Listen for changes in the Redux count
     setMovieList(allMovies.slice(0, count));
   }, [count, allMovies]);
-  
+
   const showMore = async (filter) => {
     // variable to dynamically update current page
     const nextPage = currentPage + 1;
@@ -111,13 +110,13 @@ const PageHome = () => {
       headers: {
         accept: "application/json",
         Authorization:
-        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0NDZkZTJkYmVmZjc0MzVkYWIxMzE3NDFlNmFhYTRlZCIsInN1YiI6IjY0ZWUxODhhNGNiZTEyMDEzODlkNWM2NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.wP7biHdlHFHu3vEQP1oq3lEjZYVWDt9pWBVv1-YYihU",
+          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0NDZkZTJkYmVmZjc0MzVkYWIxMzE3NDFlNmFhYTRlZCIsInN1YiI6IjY0ZWUxODhhNGNiZTEyMDEzODlkNWM2NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.wP7biHdlHFHu3vEQP1oq3lEjZYVWDt9pWBVv1-YYihU",
       },
     };
-    
+
     const res = await fetch(apiUrl, options);
     let data = await res.json();
-    
+
     if (data.results && data.results.length > 0) {
       // Concatenate additionalMovies with allMovies
       const additionalMovies = data.results;
@@ -125,20 +124,19 @@ const PageHome = () => {
       setAllMovies((prevAllMovies) => [...prevAllMovies, ...additionalMovies]);
       // Incrementing the count on click of view more to show additional 12 movies
       dispatch(increment());
-      
+
       setCurrentPage(nextPage);
     } else {
       return;
     }
   };
 
-
-  // Variable to get value that user types in search input field -> state = the whole redux store, .search selectes the search slice 
+  // Variable to get value that user types in search input field -> state = the whole redux store, .search selectes the search slice
   const searchQuery = useSelector((state) => state.search);
-  
+
   // Filter movies by search, passing in searchQuery as a parameter (SEARCHQUERY IS THE INPUT VALUE THAT THE USER IS TYPING, SEE SEARCHQUERY VARIABLE IF CONFUSED)
   const filterMoviesBySearch = (searchQuery) => {
-    if (searchQuery === '') {
+    if (searchQuery === "") {
       // If the search query is empty, show movies based on the current filter
       fetchMovie(currentFilter);
     } else {
@@ -146,7 +144,7 @@ const PageHome = () => {
       fetchMovie(searchQuery);
     }
   };
-  
+
   // Calling the filtering function for movies everytime searchQuery changes
   useEffect(() => {
     filterMoviesBySearch(searchQuery);
@@ -159,8 +157,8 @@ const PageHome = () => {
     dispatch(resetCount());
     // Reset currentPage to 1
     setCurrentPage(1);
-     // Sets Current Filter to the category filter button when selected for use with showMore function
-    setCurrentFilter(filter); 
+    // Sets Current Filter to the category filter button when selected for use with showMore function
+    setCurrentFilter(filter);
   };
 
   return (
@@ -222,9 +220,12 @@ const PageHome = () => {
         {categories.map((category, index) => (
           <button
             key={index}
-            className={
-            `m-2 p-2 w-[115.31px] min-[425px]:w-[135px] min-[532px]:mx-[2rem] min-[628px]:w-1/4 min-[1271px]:w-[246.5px] rounded-2xl font-bold hover:text-dark-purple hover:bg-bright-orange hover:border-bright-orange
-              ${currentFilter === category.filter ? 'bg-bright-orange border-bright-orange border-solid border-2 text-dark-purple' : 'border-light-purple border-solid border-2'}
+            className={`m-2 p-2 w-[115.31px] min-[425px]:w-[135px] min-[532px]:mx-[2rem] min-[628px]:w-1/4 min-[1271px]:w-[246.5px] rounded-2xl font-bold hover:text-dark-purple hover:bg-bright-orange hover:border-bright-orange
+              ${
+                currentFilter === category.filter
+                  ? "bg-bright-orange border-bright-orange border-solid border-2 text-dark-purple"
+                  : "border-light-purple border-solid border-2"
+              }
             `}
             onClick={() => {
               filterMovies(category.filter);
@@ -250,9 +251,12 @@ const PageHome = () => {
           onClick={() => showMore(currentFilter)}
           className="group/button w-44 h-12 rounded-lg outline-light-purple outline outline-1 mt-8 ml-2 hover:outline-none hover:bg-orange-500 transition-all"
         >
-          <a className="text-light-purple font-bold text-xl group-hover/button:text-dark-purple">View More</a>
+          <a className="text-light-purple font-bold text-xl group-hover/button:text-dark-purple">
+            View More
+          </a>
         </button>
-    </div>
+      </div>
+      <ScrollButton />
     </section>
   );
 };
