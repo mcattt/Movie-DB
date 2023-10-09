@@ -3,6 +3,7 @@ import StarRating from "./StarRating";
 import FavButton from "../components/FavButton";
 import { useDispatch } from "react-redux";
 import favClip from "/assets/images/clip-mark.png";
+import noPoster from "/assets/images/no-poster-ver3.png";
 import React, { useState } from "react"; // Import useEffect
 import { useMediaQuery } from "@react-hook/media-query";
 import { Link } from "react-router-dom";
@@ -44,11 +45,19 @@ function MovieCard({ movie, isFav }) {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        <img
-          src={`https://image.tmdb.org/t/p/w400${poster_path}`}
-          alt={title}
-          className="rounded-lg shadow-[0px_0px_60px_10px_#420B5B]"
+        {poster_path ? (
+          <img
+            src={`https://image.tmdb.org/t/p/w400${poster_path}`}
+            alt={title}
+            className="rounded-lg shadow-[0px_0px_60px_10px_#420B5B]"
+          />
+        ) : (
+            <img
+            src={noPoster}
+            alt={title}
+            className="rounded-lg shadow-[0px_0px_60px_10px_#420B5B]"
         />
+        )}
         {/* if mouse is on the poster opacity set to 100 */}
         <div
           className={`invisible breakpoint-med:visible absolute top-32 left-0 w-full h-20.125 breakpoint-xl:h-[472px] bg-black bg-opacity-80 rounded-b-lg transition-opacity duration-300 ${
