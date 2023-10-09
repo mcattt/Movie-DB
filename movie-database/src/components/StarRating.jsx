@@ -8,7 +8,7 @@ function StarRating({ vote_average }) {
       <Rating
         name="movie-rating"
         value={Math.max(vote_average / 2)}
-        precision={0.01}
+        precision={0.1}
         readOnly
         // https://mui.com/material-ui/customization/how-to-customize/
         sx={{
