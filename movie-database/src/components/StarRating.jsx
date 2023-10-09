@@ -12,6 +12,9 @@ function StarRating({ vote_average }) {
         readOnly
         // https://mui.com/material-ui/customization/how-to-customize/
         sx={{
+          "& .MuiRating-iconFilled": {
+            color: "yellow",
+          },
           "& .MuiRating-iconEmpty": {
             color: "grey",
           },
