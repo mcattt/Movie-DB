@@ -94,7 +94,7 @@ const PageSingle = () => {
     <section className="single-movie lg:relative">
       {selectedSingleMovie &&  (
         <>
-        <div className="relative mb-28 lg:static">
+        <div className="relative mb-20 lg:static">
           {/* Movie Backdrop */}
           {selectedSingleMovie.backdrop_path && (
             <img src={`https://image.tmdb.org/t/p/w1280${selectedSingleMovie.backdrop_path}`} 
@@ -123,7 +123,7 @@ const PageSingle = () => {
               </div>
               <section className="Movie-info mx-5 relative z-10">
                 {/* Movie Rating */}
-                <div className="movie-rating">
+                <div className="movie-rating mx-auto my-0 flex min-[350px]:w-[300px]">
                   {selectedSingleMovie.vote_average ? (
                     <>
                       <div className="flex">
