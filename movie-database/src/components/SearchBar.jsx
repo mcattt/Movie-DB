@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setSearchQuery } from '../features/search/searchSlice';
 
 const SearchBar = () => {
   const [searchText, setSearchText] = useState('');
   const dispatch = useDispatch();
+  const searchQuery = useSelector((state) => state.search); // Get the search query from Redux
+
+  // Update the local searchText when the Redux search query changes
+  if (searchQuery !== searchText) {
+    setSearchText(searchQuery);
+  }
 
   const handleSearch = (event) => {
     const query = event.target.value;

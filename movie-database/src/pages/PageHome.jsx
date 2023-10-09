@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { appTitle } from "../globals/globals";
 import { useSelector, useDispatch } from "react-redux";
+import { setSearchQuery } from '../features/search/searchSlice';
 import isFav from "../utilities/isFav";
 import { increment } from "../features/more/viewMoreSlice";
 import { resetCount } from "../features/more/viewMoreSlice";
@@ -36,6 +37,7 @@ const PageHome = () => {
 
     // if search input field is used then set the apiUrl to the search query the user is typing
     if (searchQuery) {
+      console.log(typeof(searchQuery));
       // If there's a search query, use the search endpoint
       apiUrl = `https://api.themoviedb.org/3/search/movie?query=${searchQuery}&api_key=${apiKey}`;
     } else {
@@ -152,6 +154,9 @@ const PageHome = () => {
 
   // Function to filter movies on click of category button and reset intial load of movies to first 12 on page 1
   const filterMovies = (filter) => {
+    // Reset searchQuery to an empty string
+    dispatch(setSearchQuery(""));
+    // Fetch movies based on the selected filter
     fetchMovie(filter);
     // Reset count to 12 to show first 12 movies
     dispatch(resetCount());
