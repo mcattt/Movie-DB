@@ -1,11 +1,13 @@
 import MovieCard from "../components/MovieCard";
+import ScrollButton from "../components/ScrollToTop";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { appTitle } from "../globals/globals";
 import { useSelector, useDispatch } from "react-redux";
 import isFav from "../utilities/isFav";
-import { increment } from '../features/more/viewMoreSlice';
-import { resetCount } from '../features/more/viewMoreSlice';
+import { increment } from "../features/more/viewMoreSlice";
+import { resetCount } from "../features/more/viewMoreSlice";
+import SearchBar from "../components/SearchBar"; // Import the SearchBar component
 const apiKey = "499d34c8aaf241d4909feaf69a3c37c1";
 const endPointThemes = `https://api.themoviedb.org/3/movie/`;
 const categories = [
@@ -23,15 +25,24 @@ const PageHome = () => {
   const [selectedMovie, setSelectedMovie] = useState(""); // State variable to hold the selected Movie path
   const [initialized, setInitialized] = useState(false); // Initialize as false
   const [currentFilter, setCurrentFilter] = useState("popular"); // Initialize with the default filter
-
-   // Create a state variable for allMovies
-   const [allMovies, setAllMovies] = useState([]);
+  // Create a state variable for allMovies
+  const [allMovies, setAllMovies] = useState([]);
 
   const favs = useSelector((state) => state.favs.items);
   const count = useSelector((state) => state.viewMore.count); // Get the count from Redux state
 
   const fetchMovie = async (filter) => {
-    const apiUrl = `${endPointThemes}${filter}`;
+    let apiUrl;
+
+    // if search input field is used then set the apiUrl to the search query the user is typing
+    if (searchQuery) {
+      // If there's a search query, use the search endpoint
+      apiUrl = `https://api.themoviedb.org/3/search/movie?query=${searchQuery}&api_key=${apiKey}`;
+    } else {
+      // Otherwise, use the filter-based endpoint
+      apiUrl = `${endPointThemes}${filter}?api_key=${apiKey}`;
+    }
+
     console.log("Fetching data from URL:", apiUrl); // Log the URL
     const options = {
       method: "GET",
@@ -42,16 +53,20 @@ const PageHome = () => {
       },
     };
 
-    const res = await fetch(
-      apiUrl,
-      options
-    );
+    let res = await fetch(apiUrl, options);
     let data = await res.json();
-    setAllMovies(data.results);
+
+    // Handle search results and regular category-based results separately
+    if (searchQuery) {
+      // If it's a search query, update allMovies with search results
+      setAllMovies(data.results);
+    } else {
+      // If it's a category-based query, update allMovies with category results
+      setAllMovies(data.results);
+    }
+
     let shortList = data.results.slice(0, count);
-
     console.log({ data });
-
     console.log(shortList);
     setMovieList(shortList);
   };
@@ -74,32 +89,22 @@ const PageHome = () => {
     }
   }, [movieList, initialized]);
 
-  const filterMovies = (filter) => {
-    fetchMovie(filter);
-    // Reset count to 12 to show first 12 movies
-    dispatch(resetCount());
-    // Reset currentPage to 1
-    setCurrentPage(1);
-     // Sets Current Filter to the category filter button when selected for use with showMore function
-    setCurrentFilter(filter); 
-  };
-
   const dispatch = useDispatch(); // Get the dispatch function from Redux
-  
+
   // Add a new state variable for currentPage
   const [currentPage, setCurrentPage] = useState(1);
-
 
   useEffect(() => {
     // Listen for changes in the Redux count
     setMovieList(allMovies.slice(0, count));
   }, [count, allMovies]);
-  
-  const showMore = async (filter) => {
-    const nextPage = currentPage + 1;
-    // const filter = "popular";
 
+  const showMore = async (filter) => {
+    // variable to dynamically update current page
+    const nextPage = currentPage + 1;
+    // variable to dynamically update apiUrl based on what the next page movies should be
     const apiUrl = `${endPointThemes}${filter}?api_key=${apiKey}&page=${nextPage}`;
+
     const options = {
       method: "GET",
       headers: {
@@ -115,8 +120,9 @@ const PageHome = () => {
     if (data.results && data.results.length > 0) {
       // Concatenate additionalMovies with allMovies
       const additionalMovies = data.results;
+      // adding the next full page of movies into the array with the previous full page of movies
       setAllMovies((prevAllMovies) => [...prevAllMovies, ...additionalMovies]);
-
+      // Incrementing the count on click of view more to show additional 12 movies
       dispatch(increment());
 
       setCurrentPage(nextPage);
@@ -125,6 +131,35 @@ const PageHome = () => {
     }
   };
 
+  // Variable to get value that user types in search input field -> state = the whole redux store, .search selectes the search slice
+  const searchQuery = useSelector((state) => state.search);
+
+  // Filter movies by search, passing in searchQuery as a parameter (SEARCHQUERY IS THE INPUT VALUE THAT THE USER IS TYPING, SEE SEARCHQUERY VARIABLE IF CONFUSED)
+  const filterMoviesBySearch = (searchQuery) => {
+    if (searchQuery === "") {
+      // If the search query is empty, show movies based on the current filter
+      fetchMovie(currentFilter);
+    } else {
+      // If there's a search query, fetch search results
+      fetchMovie(searchQuery);
+    }
+  };
+
+  // Calling the filtering function for movies everytime searchQuery changes
+  useEffect(() => {
+    filterMoviesBySearch(searchQuery);
+  }, [searchQuery]);
+
+  // Function to filter movies on click of category button and reset intial load of movies to first 12 on page 1
+  const filterMovies = (filter) => {
+    fetchMovie(filter);
+    // Reset count to 12 to show first 12 movies
+    dispatch(resetCount());
+    // Reset currentPage to 1
+    setCurrentPage(1);
+    // Sets Current Filter to the category filter button when selected for use with showMore function
+    setCurrentFilter(filter);
+  };
 
   return (
     <section>
@@ -178,13 +213,19 @@ const PageHome = () => {
           </div>
         )}
       </div>
+      <div className="flex justify-evenly mt-8 mb-4">
+        <SearchBar></SearchBar>
+      </div>
       <div className="mb-2 mt-4 flex flex-wrap justify-evenly min-[409px]:gap-2 min-[425px]:text-[1.2rem] min-[484px]:gap-4 min-[500px]:gap-8 min-[532px]:gap-2 min-[847px]:flex-nowrap min-[847px]:mb-4 min-[985px]:text-2xl min-[1271px]:text-[1.75rem]">
         {categories.map((category, index) => (
           <button
             key={index}
-            className={
-            `m-2 p-2 w-[115.31px] min-[425px]:w-[135px] min-[532px]:mx-[2rem] min-[628px]:w-1/4 min-[1271px]:w-[246.5px] rounded-2xl font-bold hover:text-dark-purple hover:bg-bright-orange hover:border-bright-orange
-              ${currentFilter === category.filter ? 'bg-bright-orange border-bright-orange border-solid border-2 text-dark-purple' : 'border-light-purple border-solid border-2'}
+            className={`m-2 p-2 w-[115.31px] min-[425px]:w-[135px] min-[532px]:mx-[2rem] min-[628px]:w-1/4 min-[1271px]:w-[246.5px] rounded-2xl font-bold hover:text-dark-purple hover:bg-bright-orange hover:border-bright-orange
+              ${
+                currentFilter === category.filter
+                  ? "bg-bright-orange border-bright-orange border-solid border-2 text-dark-purple"
+                  : "border-light-purple border-solid border-2"
+              }
             `}
             onClick={() => {
               filterMovies(category.filter);
@@ -210,9 +251,12 @@ const PageHome = () => {
           onClick={() => showMore(currentFilter)}
           className="group/button w-44 h-12 rounded-lg outline-light-purple outline outline-1 mt-8 ml-2 hover:outline-none hover:bg-orange-500 transition-all"
         >
-          <a className="text-light-purple font-bold text-xl group-hover/button:text-dark-purple">View More</a>
+          <a className="text-light-purple font-bold text-xl group-hover/button:text-dark-purple">
+            View More
+          </a>
         </button>
-    </div>
+      </div>
+      <ScrollButton />
     </section>
   );
 };

@@ -11,6 +11,7 @@ import { addFav, deleteFav } from "../features/favs/favsSlice"; // Import addFav
 import { useSelector, useDispatch } from "react-redux";
 import favClip from "/assets/images/clip-mark.png";
 import Loading from "../components/Loading";
+import StarRating from "../components/StarRating";
 
 const endPointThemes = `https://api.themoviedb.org/3/movie/`;
 
@@ -34,7 +35,7 @@ const PageSingle = () => {
   const [selectedSingleMovie, setSelectedSingleMovie] = useState("");
   const [isLoaded, setLoadStatus] = useState(false);
 
-  useEffect (() => {
+  useEffect(() => {
     const fetchSingleMovie = async () => {
       const apiUrl = `${endPointThemes}${movieId}?append_to_response=videos,credits`;
       const options = {
@@ -93,7 +94,7 @@ const PageSingle = () => {
     <section className="single-movie lg:relative">
       {selectedSingleMovie &&  (
         <>
-        <div className="relative mb-20 lg:static">
+        <div className="relative mb-28 lg:static">
           {/* Movie Backdrop */}
           {selectedSingleMovie.backdrop_path && (
             <img src={`https://image.tmdb.org/t/p/w1280${selectedSingleMovie.backdrop_path}`} 
@@ -104,69 +105,72 @@ const PageSingle = () => {
             
                 {selectedSingleMovie.poster_path && (
                   <div className="relative w-[300px] mx-auto inset-x-0 top-[55px]">
-                 {/* Movie Poster */}
-                  <img
-                    src={`https://image.tmdb.org/t/p/w300${selectedSingleMovie.poster_path}`}
-                    alt={selectedSingleMovie.title}
-                    className="rounded-lg shadow-[0px_0px_60px_10px_#420B5B] z-10 mx-auto top-[50px]"
-                  />
-                  {/* Movie Clip Mark */}
-                  {isFavourite && (
-                    <img className="absolute w-[30px] top-[-25px] right-4 z-20" src={favClip}></img>
-                  )}
+                    {/* Movie Poster */}
+                    <img
+                      src={`https://image.tmdb.org/t/p/w300${selectedSingleMovie.poster_path}`}
+                      alt={selectedSingleMovie.title}
+                      className="rounded-lg shadow-[0px_0px_60px_10px_#420B5B] z-10 mx-auto top-[50px]"
+                    />
+                    {/* Movie Clip Mark */}
+                    {isFavourite && (
+                      <img
+                        className="absolute w-[30px] top-[-25px] right-4 z-20"
+                        src={favClip}
+                      ></img>
+                    )}
+                  </div>
+                )}
               </div>
+              <section className="Movie-info mx-5 relative z-10">
+                {/* Movie Rating */}
+                <div className="movie-rating">
+                  {selectedSingleMovie.vote_average ? (
+                    <>
+                      <div className="flex">
+                        <StarRating vote_average={selectedSingleMovie.vote_average} />
+                      </div>
+                      <div className="flex items-center ml-auto">
+                        <p className="bg-green-300 text-xl w-9 h-7 text-dark-purple rounded-md text-center">
+                          {selectedSingleMovie.vote_average.toFixed(1)}
+                        </p>
+                      </div>
+                    </>
+                  ) : (
+                    <div className="flex">
+                        <StarRating vote_average={undefined} />
+                      </div>
                   )}
-  
-        </div>
-        <section className="Movie-info mx-5 relative z-10">
-          {/* Movie Rating */}
-          <div className="movie-rating flex justify-between w-[260px] mx-auto min-[360px]:w-[300px]">
-            {selectedSingleMovie.vote_average && (
-              <>
-                <div className="flex">
-                  <Rate
-                    defaultValue={selectedSingleMovie.vote_average / 2}
-                    allowHalf
-                    disabled
-                  />
                 </div>
-                <div className="flex items-center">
-                  <p className="bg-green-300 text-xl w-9 h-7 text-dark-purple rounded-md text-center">
-                    {selectedSingleMovie.vote_average.toFixed(1)}
-                  </p>
-                </div>
-              </>
-            )}
-          </div>
-          <div className="mt-3 flex justify-between min-[400px]:w-[335px]">
-            {/* Movie Title */}
-            <h2 className="text-2xl font-bold w-[75%]">{selectedSingleMovie.title}</h2>
-          
-            {/* Add/ Remove Fav button */}
-            <div className="w-[15%]">
-              {isFavourite ? (
+                {/* Movie Title */}
+                <h2>{selectedSingleMovie.title}</h2>
+
+                {/* Add/ Remove Fav button */}
                 <div>
-                  <FavButton
-                    movie={selectedSingleMovie}
-                    remove={true}
-                    handleFavClick={handleFavClick}
-                  />
+                  {isFavourite ? (
+                    <div>
+                      <FavButton
+                        movie={selectedSingleMovie}
+                        remove={true}
+                        handleFavClick={handleFavClick}
+                      />
+                    </div>
+                  ) : (
+                    <FavButton
+                      movie={selectedSingleMovie}
+                      handleFavClick={handleFavClick}
+                    />
+                  )}
                 </div>
-            ) : (
-                <FavButton movie={selectedSingleMovie} handleFavClick={handleFavClick} />
-          )}
-            </div>
-          </div>
-          {/* Movie Date and Runtime */}
-          <p className="italic">
-            {movieDate} - {movieHours}h {movieMinutes}m
-          </p>
+                {/* Movie Date and Runtime */}
+                <p>
+                  {movieDate} - {movieHours}h {movieMinutes}m
+                </p>
 
           {/* Movie Genres */}
           <p>
             {selectedSingleMovie.genres &&
-              selectedSingleMovie.genres.map((genre, index) => (
-                <span className="font-bold" key={genre.id}>{genre.name}{index < selectedSingleMovie.genres.length - 1 ? ", " : ""} </span>
+              selectedSingleMovie.genres.map((genre) => (
+                <span key={genre.id}>{genre.name}, </span>
               ))}
           </p>
           {/* Video Trailer */}
@@ -177,7 +181,7 @@ const PageSingle = () => {
           {/* Tagline */}
           <p className="italic text-[#D5C1E0]">{selectedSingleMovie.tagline}</p>
           {/* Movie Overview */}
-          <h3 className="font-bold">Overview</h3>
+          <h3>Overview</h3>
           <p>{selectedSingleMovie.overview}</p>
           {/* Movie Cast */}
           {selectedSingleMovie && selectedSingleMovie.credits && (

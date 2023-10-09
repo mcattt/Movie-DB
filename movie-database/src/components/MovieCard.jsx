@@ -1,5 +1,5 @@
 // MovieCard.jsx
-
+import StarRating from "./StarRating";
 import FavButton from "../components/FavButton";
 import { useDispatch } from "react-redux";
 import favClip from "/assets/images/clip-mark.png";
@@ -19,7 +19,7 @@ function MovieCard({ movie, isFav }) {
 
   const isMobile = useMediaQuery("(max-width: 940px)"); //can change
 
-  const singlePoster = useMediaQuery("(max-width: 625px)");
+  // const singlePoster = useMediaQuery("(max-width: 625px)");
 
   const dispatch = useDispatch();
 
@@ -37,7 +37,7 @@ function MovieCard({ movie, isFav }) {
   }
 
   return (
-    <div className="relative breakpoint-small:max-w-[300px] mt-5 breakpoint-small:min-h-[566px]">
+    <div className="relative  mt-5 breakpoint-small:min-h-[566px] breakpoint-small:max-w-[300px] breakpoint-xl:max-w-[400px] breakpoint-xl:mb-10 ">
       {/* wraps the movie poster */}
       <div
         className="relative "
@@ -45,17 +45,13 @@ function MovieCard({ movie, isFav }) {
         onMouseLeave={() => setIsHovered(false)}
       >
         <img
-          src={
-            singlePoster //makes poster larger for when there's only one per row
-              ? `https://image.tmdb.org/t/p/w400${poster_path}`
-              : `https://image.tmdb.org/t/p/w300${poster_path}`
-          }
+          src={`https://image.tmdb.org/t/p/w400${poster_path}`}
           alt={title}
           className="rounded-lg shadow-[0px_0px_60px_10px_#420B5B]"
         />
         {/* if mouse is on the poster opacity set to 100 */}
         <div
-          className={`invisible breakpoint-med:visible absolute top-32 left-0 w-full h-20.125 bg-black bg-opacity-80 transition-opacity duration-300 ${
+          className={`invisible breakpoint-med:visible absolute top-32 left-0 w-full h-20.125 breakpoint-xl:h-[472px] bg-black bg-opacity-80 rounded-b-lg transition-opacity duration-300 ${
             isHovered ? "opacity-100" : "opacity-0"
           }`}
         >
@@ -75,7 +71,7 @@ function MovieCard({ movie, isFav }) {
 
       <div className="movie-rating flex justify-between mt-2">
         <div className="flex items-center">
-          <Rate defaultValue={vote_average / 2} allowHalf disabled />
+          <StarRating vote_average={vote_average} />
         </div>
         <div className="flex  items-center ml-auto">
           <p className="bg-green-300 text-xl w-9 h-7 text-dark-purple rounded-md text-center">
@@ -85,7 +81,7 @@ function MovieCard({ movie, isFav }) {
           </p>
         </div>
       </div>
-      <h3 className="text-2xl overflow-hidden max-w-[400px] breakpoint-small:max-w-img-size whitespace-normal">
+      <h3 className="text-2xl overflow-hidden max-w-[400px] breakpoint-small:max-w-[250px] whitespace-normal">
         {title}
       </h3>
       <p className="font-extralight italic text-sm">
@@ -96,7 +92,10 @@ function MovieCard({ movie, isFav }) {
         })}
       </p>
       {isFav && (
-        <img className="absolute w-[30px] top-[-25px] right-2" src={favClip}></img>
+        <img
+          className="absolute w-[30px] top-[-25px] right-2"
+          src={favClip}
+        ></img>
       )}
       <div className="flex justify-end relative top-[-40px] mb-[-30px]">
         {isFav ? (
