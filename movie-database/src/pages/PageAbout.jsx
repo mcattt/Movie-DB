@@ -16,10 +16,10 @@ const PageAbout = () => {
       <img
         src={aboutImage}
         alt="A photo of 3 people watching movies in the theater"
-        className="h-80 w-full object-cover tablet-b:h-auto tablet-b:w-9/12 tablet-b:justify-self-center tablet-b:rounded-[10px] lg:w-8/12 2xl:w-7/12 desktop-1650:w-6/12"
+        className="h-80 w-full object-cover tablet-b:h-auto tablet-b:w-9/12 tablet-b:justify-self-center tablet-b:rounded-[10px] lg:w-8/12 2xl:w-7/12 desktop-1650:w-6/12 xl:row-[1_/_3]"
       />
-      <section className="mt-8 px-4 tablet-b:self-start tablet-b:mt-0 tablet-b:pl-0 tablet-b:pr-12">
-        <h2 className="font-bold text-2xl my-8">
+      <section className="mt-8 px-4 tablet-b:self-start tablet-b:mt-0 tablet-b:pl-0 tablet-b:pr-12 xl:ml-[-4rem]">
+        <h2 className="font-bold text-2xl my-8 xl:mt-0">
           About <span className="text-bright-orange">Clip</span>Movies
         </h2>
         <p>
@@ -39,11 +39,20 @@ const PageAbout = () => {
           </p>
         </Link>
         <img src={tmdbLogo} alt="TMDB logo" className="w-32 pb-8" />
-        <p className="mb-20 pb-12 sm:pb-0 sm:mb-0 ">
+        <p className="sm:pb-0 sm:mb-0 ">
           This product uses the TMDb API but is not endorsed or certified by
           TMDb.
         </p>
       </section>
+        <section className="about-team mb-20 sm:mb-4 tablet-b:col-[1_/_3] tablet-b:px-14 lg:pl-20 xl:col-[2_/_3] xl:pl-0 xl:ml-[-4rem]">
+            <h2 className="font-bold text-2xl my-8">About <span className="text-bright-orange">Development Team</span></h2>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Incidunt temporibus tenetur, reprehenderit eligendi earum, architecto ipsum totam porro!</p>
+            <ul className="list-disc pl-4 pt-2 font-bold">
+              <li>Cat Cordner</li>
+              <li>Jack Do</li>
+              <li>Preston Monteiro</li>
+            </ul>
+        </section>
     </section>
   );
 };
