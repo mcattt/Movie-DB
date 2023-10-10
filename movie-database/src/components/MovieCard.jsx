@@ -18,7 +18,6 @@ function MovieCard({ movie, isFav }) {
 
   const isMobile = useMediaQuery("(max-width: 940px)"); //can change
 
-
   const dispatch = useDispatch();
 
   function handleFavClick(isFav, obj) {
@@ -44,19 +43,19 @@ function MovieCard({ movie, isFav }) {
             className="rounded-lg shadow-[0px_0px_60px_10px_#420B5B]"
           />
         ) : (
-            <img
+          <img
             src={noPoster}
             alt={title}
             className="rounded-lg shadow-[0px_0px_60px_10px_#420B5B]"
-        />
+          />
         )}
         {/* if mouse is on the poster opacity set to 100 */}
         <div
-          className={`invisible breakpoint-med:visible absolute top-32 left-0 w-full h-20.125 breakpoint-xl:h-[472px] bg-black bg-opacity-80 rounded-b-lg transition-opacity duration-300 ${
+          className={`invisible breakpoint-med:visible absolute top-32 left-0 w-full h-20.125 breakpoint-xl:top-48 breakpoint-xl:h-[408px] bg-black bg-opacity-80 rounded-b-lg transition-opacity duration-300 ${
             isHovered ? "opacity-100" : "opacity-0"
           }`}
         >
-          <p className="invisible breakpoint-med:visible text-light-purple text-opacity-100 pl-3 pt-10 pr-2 ">
+          <p className="invisible breakpoint-med:visible text-light-purple text-opacity-100 pl-3 pt-10 pr-2 breakpoint-xl:text-lg">
             {snippetDesktop}...
           </p>
           <button className=" group/button w-24 h-8 rounded-lg outline-light-purple outline outline-1 mt-8 ml-2 hover:outline-none hover:bg-orange-500 transition-all ">
