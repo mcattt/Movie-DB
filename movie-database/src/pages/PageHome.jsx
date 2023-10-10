@@ -161,25 +161,16 @@ const PageHome = () => {
       <div className="flex justify-evenly mt-8 mb-4">
         <SearchBar></SearchBar>
       </div>
-      {allMovies.length === 0 && 
-      <div className="flex flex-col items-center">
-        <img
-            src={sadFace}
-            alt=""
-            className="w-[7rem] mt-24 breakpoint-small:w-[8rem] breakpoint-med:w-[14rem]"
-          />
-        <p className=" font-bold breakpoint-small:text-2xl breakpoint-med:text-3xl mt-16 mb-16">No results found. Please try again!</p>
-      </div>}
       <div className="mb-2 mt-4 flex flex-wrap justify-evenly min-[409px]:gap-2 min-[425px]:text-[1.2rem] min-[484px]:gap-4 min-[500px]:gap-8 min-[532px]:gap-2 min-[847px]:flex-nowrap min-[847px]:mb-4 min-[985px]:text-2xl min-[1271px]:text-[1.75rem]">
         {categories.map((category, index) => (
           <button
             key={index}
             className={`m-2 p-2 w-[115.31px] min-[425px]:w-[135px] min-[532px]:mx-[2rem] min-[628px]:w-1/4 min-[1271px]:w-[246.5px] rounded-2xl font-bold sm:hover:text-dark-purple sm:hover:bg-bright-orange sm:hover:border-bright-orange
-              ${
+            ${
                 currentFilter === category.filter
                   ? "bg-bright-orange border-bright-orange border-solid border-2 text-dark-purple"
                   : "border-light-purple border-solid border-2"
-              }
+                }
             `}
             onClick={() => {
               filterMovies(category.filter);
@@ -190,6 +181,16 @@ const PageHome = () => {
         ))}
       </div>
 
+        {/* Condition for no results found */}
+        {allMovies.length === 0 && 
+        <div className="flex flex-col items-center">
+          <img
+              src={sadFace}
+              alt=""
+              className="w-[7rem] mt-24 breakpoint-small:w-[8rem] breakpoint-med:w-[14rem]"
+            />
+          <p className=" font-bold breakpoint-small:text-2xl breakpoint-med:text-3xl mt-16 mb-16">No results found for "{searchQuery}". Please try again!</p>
+        </div>}
       <div className="grid grid-cols-1 breakpoint-small:grid-cols-2 breakpoint-med:grid-cols-3 breakpoint-large:grid-cols-4 justify-items-center">
         {movieList.map((movieCard, i) => (
           <MovieCard
@@ -197,16 +198,15 @@ const PageHome = () => {
             movie={movieCard}
             isFav={isFav(favs, null, movieCard.id)}
           />
-        ))}
+          ))}
       </div>
-      {/* View More Button */}
-      
-        <div className="flex justify-center">
+      {/* View More Button with conditional on no search results which will set button display to hidden */}
+        <div className={`flex justify-center ${allMovies.length === 0 ? 'hidden' : ''}`}>
           <button
             onClick={() => showMore(currentFilter)}
             className="group/button w-44 h-12 rounded-lg outline-light-purple outline outline-1 mt-8 ml-2 hover:outline-none hover:bg-orange-500 transition-all"
           >
-            <a className="text-light-purple font-bold text-xl group-hover/button:text-dark-purple">
+            <a className="text-light-purple font-bold text-xl group-hover/button:text-dark-purple ">
               View More
             </a>
           </button>
