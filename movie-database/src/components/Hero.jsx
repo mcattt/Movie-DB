@@ -29,7 +29,7 @@ const Hero = ({movieList}) => {
               alt="Backdrop"
             />
             {/* This div is for the movie Date, Title, and Overview */}
-            <div className="info-container flex flex-col items-center breakpoint-med:flex-row breakpoint-med:justify-around absolute bottom-[60px] w-full">
+            <div className="info-container flex flex-col items-center breakpoint-med:flex-row breakpoint-med:justify-around absolute bottom-[30px] breakpoint-xsmall:bottom-[60px] w-full">
               <div className="max-w-xl">
                 <h4 className="text-center breakpoint-med:text-start text-light-purple text-1xl mb-2 italic">
                   {new Date(selectedMovie.release_date).toLocaleDateString(
@@ -41,7 +41,7 @@ const Hero = ({movieList}) => {
                     }
                   )}
                 </h4>
-                <h3 className="text-light-purple font-bold text-4xl">
+                <h3 className="text-large text-light-purple font-bold breakpoint-xsmall:text-4xl">
                   {selectedMovie.title}
                 </h3>
                 <p className="hidden breakpoint-med:block text-light-purple mt-6 breakpoint-xl:text-xl">

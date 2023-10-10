@@ -19,6 +19,7 @@ export default {
         "breakpoint-large": "1271px",
         "breakpoint-med": "940px",
         "breakpoint-small": "625px",
+        "breakpoint-xsmall": "500px",
         "tablet-b": "900px",
         "tablet-s": "700px",
         "desktop-1650": "1650px",

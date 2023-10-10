@@ -24,8 +24,12 @@ const SearchBar = () => {
       <input
         className='
         rounded-3xl 
-        w-[350px] 
+        w-[200px] 
         h-[40px] 
+        breakpoint-xsmall:w-[300px] 
+        breakpoint-xsmall:h-[40px] 
+        breakpoint-small:w-[350px] 
+        breakpoint-small:h-[40px] 
         breakpoint-med:block 
         breakpoint-med:rounded-3xl 
         breakpoint-med:w-[450px] 
