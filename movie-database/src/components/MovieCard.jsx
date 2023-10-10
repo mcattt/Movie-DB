@@ -85,7 +85,7 @@ function MovieCard({ movie, isFav }) {
         <h3 className="text-2xl overflow-hidden max-w-[400px] breakpoint-small:max-w-[250px] whitespace-normal ">
           {title}
         </h3>
-        <div className="mt-2">
+        <div className="mt-2 cursor-pointer">
           {isFav ? (
             <div>
               <FavButton
