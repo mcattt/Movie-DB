@@ -146,10 +146,10 @@ const PageSingle = () => {
                 </div>
                 <div className="title-add-button-wrapper flex justify-between mt-2">
                   {/* Movie Title */}
-                  <h2 className="text-2xl font-bold self-center">{selectedSingleMovie.title}</h2>
+                  <h2 className="text-2xl font-bold self-center w-[80%]">{selectedSingleMovie.title}</h2>
 
                   {/* Add/ Remove Fav button */}
-                  <div>
+                  <div className="self-center">
                     {isFavourite ? (
                         <FavButton
                           movie={selectedSingleMovie}
