@@ -1,6 +1,5 @@
 import MovieCard from "../components/MovieCard";
 import ScrollButton from "../components/ScrollToTop";
-import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { appTitle } from "../globals/globals";
 import { useSelector, useDispatch } from "react-redux";
@@ -8,8 +7,9 @@ import { setSearchQuery } from '../features/search/searchSlice';
 import isFav from "../utilities/isFav";
 import { increment } from "../features/more/viewMoreSlice";
 import { resetCount } from "../features/more/viewMoreSlice";
+import Loading from "../components/Loading";
 import SearchBar from "../components/SearchBar"; // Import the SearchBar component
-const apiKey = "499d34c8aaf241d4909feaf69a3c37c1";
+import Hero from "../components/Hero"; 
 const endPointThemes = `https://api.themoviedb.org/3/movie/`;
 const categories = [
   { filter: "popular", name: "Popular" },
@@ -17,35 +17,27 @@ const categories = [
   { filter: "top_rated", name: "Top Rated" },
   { filter: "upcoming", name: "Upcoming" },
 ];
-// const [filter, setFilter] = useState['now_playing'];
 
 const PageHome = () => {
   const [movieList, setMovieList] = useState([]);
-  // Next 2 variables are for getting the hero movie
-  const [selectedBackdrop, setSelectedBackdrop] = useState(""); // State variable to hold the selected backdrop path
-  const [selectedMovie, setSelectedMovie] = useState(""); // State variable to hold the selected Movie path
-  const [initialized, setInitialized] = useState(false); // Initialize as false
   const [currentFilter, setCurrentFilter] = useState("popular"); // Initialize with the default filter
   // Create a state variable for allMovies
   const [allMovies, setAllMovies] = useState([]);
-
   const favs = useSelector((state) => state.favs.items);
   const count = useSelector((state) => state.viewMore.count); // Get the count from Redux state
+  const [isLoaded, setLoadStatus] = useState(false);
 
   const fetchMovie = async (filter) => {
     let apiUrl;
-
     // if search input field is used then set the apiUrl to the search query the user is typing
     if (searchQuery) {
-      console.log(typeof(searchQuery));
       // If there's a search query, use the search endpoint
-      apiUrl = `https://api.themoviedb.org/3/search/movie?query=${searchQuery}&api_key=${apiKey}`;
+      apiUrl = `https://api.themoviedb.org/3/search/movie?query=${searchQuery}`;
     } else {
       // Otherwise, use the filter-based endpoint
-      apiUrl = `${endPointThemes}${filter}?api_key=${apiKey}`;
+      apiUrl = `${endPointThemes}${filter}`;
     }
-
-    console.log("Fetching data from URL:", apiUrl); // Log the URL
+    
     const options = {
       method: "GET",
       headers: {
@@ -56,21 +48,25 @@ const PageHome = () => {
     };
 
     let res = await fetch(apiUrl, options);
-    let data = await res.json();
+    if (res.ok) {
+      let data = await res.json();
 
-    // Handle search results and regular category-based results separately
-    if (searchQuery) {
-      // If it's a search query, update allMovies with search results
-      setAllMovies(data.results);
+      
+      // Handle search results and regular category-based results separately
+      if (searchQuery) {
+        // If it's a search query, update allMovies with search results
+        setAllMovies(data.results);
+      } else {
+        // If it's a category-based query, update allMovies with category results
+        setAllMovies(data.results);
+      }
+      
+      let shortList = data.results.slice(0, count);
+      setMovieList(shortList);
+      setLoadStatus(true);
     } else {
-      // If it's a category-based query, update allMovies with category results
-      setAllMovies(data.results);
+      setLoadStatus(false);
     }
-
-    let shortList = data.results.slice(0, count);
-    console.log({ data });
-    console.log(shortList);
-    setMovieList(shortList);
   };
 
   useEffect(() => {
@@ -78,24 +74,12 @@ const PageHome = () => {
     fetchMovie("popular");
   }, []);
 
-  useEffect(() => {
-    if (!initialized) {
-      // Check if movieList is not empty and select a random movie
-      if (movieList.length > 0) {
-        const randomIndex = Math.floor(Math.random() * movieList.length);
-        const randomMovie = movieList[randomIndex];
-        setSelectedMovie(randomMovie);
-        setSelectedBackdrop(randomMovie.backdrop_path);
-        setInitialized(true); // Set initialized to true to prevent further changes
-      }
-    }
-  }, [movieList, initialized]);
-
   const dispatch = useDispatch(); // Get the dispatch function from Redux
 
-  // Add a new state variable for currentPage
+  // // Add a new state variable for currentPage
   const [currentPage, setCurrentPage] = useState(1);
 
+  // Handles View More
   useEffect(() => {
     // Listen for changes in the Redux count
     setMovieList(allMovies.slice(0, count));
@@ -105,7 +89,7 @@ const PageHome = () => {
     // variable to dynamically update current page
     const nextPage = currentPage + 1;
     // variable to dynamically update apiUrl based on what the next page movies should be
-    const apiUrl = `${endPointThemes}${filter}?api_key=${apiKey}&page=${nextPage}`;
+    const apiUrl = `${endPointThemes}${filter}?page=${nextPage}`;
 
     const options = {
       method: "GET",
@@ -167,57 +151,12 @@ const PageHome = () => {
   };
 
   return (
+    <>
+    {isLoaded ? (
     <section>
-      <div className="hero-image">
-        {selectedBackdrop && ( // Check if a backdrop is selected
-          <div className="relative max-h-[90vh]">
-            {/* Backdrop Image */}
-            <img
-              className="opacity-20 max-h-[90vh] w-full object-cover object-center"
-              src={`https://image.tmdb.org/t/p/original${selectedBackdrop}`}
-              alt="Backdrop"
-            />
-            {/* This div is for the movie Date, Title, and Overview */}
-            <div className="info-container flex justify-around absolute bottom-[60px] w-full">
-              <div className="max-w-xl">
-                <h4 className="text-light-purple text-1xl mb-2 italic">
-                  {new Date(selectedMovie.release_date).toLocaleDateString(
-                    "en-US",
-                    {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    }
-                  )}
-                </h4>
-                <h3 className="text-light-purple font-bold text-4xl">
-                  {selectedMovie.title}
-                </h3>
-                <p className="text-light-purpletext-2xl mt-6">
-                  {selectedMovie.overview}
-                </p>
-              </div>
-              <div className="justify-end">
-                <div className="flex justify-end">
-                  <p className="text-green-300 font-bold flex justify-center items-center text-3xl w-14 h-9 bg-transparent border-2 border-green-300 rounded-md">
-                    {selectedMovie.vote_average.toString().length === 1
-                      ? `${selectedMovie.vote_average}.0`
-                      : selectedMovie.vote_average}
-                  </p>
-                </div>
-
-                <Link key={selectedMovie.id} to={`/single/${selectedMovie.id}`}>
-                  <button className="w-32 h-10 rounded-xl mt-9 group/button outline-light-purple outline outline-1 hover:outline-none hover:bg-orange-500 transition-all ">
-                    <p className="text-light-purple font-bold text-xl group-hover/button:text-dark-purple ">
-                      More Info
-                    </p>
-                  </button>
-                </Link>
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
+      <Hero
+        movieList={movieList}
+      />
       <div className="flex justify-evenly mt-8 mb-4">
         <SearchBar></SearchBar>
       </div>
@@ -251,18 +190,24 @@ const PageHome = () => {
         ))}
       </div>
       {/* View More Button */}
-      <div className="flex justify-center">
-        <button
-          onClick={() => showMore(currentFilter)}
-          className="group/button w-44 h-12 rounded-lg outline-light-purple outline outline-1 mt-8 ml-2 hover:outline-none hover:bg-orange-500 transition-all"
-        >
-          <a className="text-light-purple font-bold text-xl group-hover/button:text-dark-purple">
-            View More
-          </a>
-        </button>
-      </div>
+      
+        <div className="flex justify-center">
+          <button
+            onClick={() => showMore(currentFilter)}
+            className="group/button w-44 h-12 rounded-lg outline-light-purple outline outline-1 mt-8 ml-2 hover:outline-none hover:bg-orange-500 transition-all"
+          >
+            <a className="text-light-purple font-bold text-xl group-hover/button:text-dark-purple">
+              View More
+            </a>
+          </button>
+        </div>
+
       <ScrollButton />
     </section>
+    ) : (
+      <Loading/>
+    )}
+  </>
   );
 };
 

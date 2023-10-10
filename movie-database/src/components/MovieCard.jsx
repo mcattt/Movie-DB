@@ -7,8 +7,6 @@ import noPoster from "/assets/images/no-poster-ver3.png";
 import React, { useState } from "react"; // Import useEffect
 import { useMediaQuery } from "@react-hook/media-query";
 import { Link } from "react-router-dom";
-import { Rate } from "antd";
-// https://ant.design/components/rate
 import { addFav, deleteFav } from "../features/favs/favsSlice"; // Import addFav and deleteFav
 
 function MovieCard({ movie, isFav }) {
@@ -20,21 +18,15 @@ function MovieCard({ movie, isFav }) {
 
   const isMobile = useMediaQuery("(max-width: 940px)"); //can change
 
-  // const singlePoster = useMediaQuery("(max-width: 625px)");
 
   const dispatch = useDispatch();
 
   function handleFavClick(isFav, obj) {
-    console.log("handleFavClick called");
-
     if (isFav === true) {
-      // console.log(obj);
       dispatch(addFav(obj));
     } else {
       dispatch(deleteFav(obj));
     }
-
-    // console.log("Movie ID:", movie.id);
   }
 
   return (
@@ -65,7 +57,7 @@ function MovieCard({ movie, isFav }) {
           }`}
         >
           <p className="invisible breakpoint-med:visible text-light-purple text-opacity-100 pl-3 pt-10 pr-2 ">
-            {snippetDesktop} ...
+            {snippetDesktop}...
           </p>
           <button className=" group/button w-24 h-8 rounded-lg outline-light-purple outline outline-1 mt-8 ml-2 hover:outline-none hover:bg-orange-500 transition-all ">
             <Link
