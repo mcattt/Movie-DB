@@ -41,7 +41,7 @@ const Hero = ({movieList}) => {
                     }
                   )}
                 </h4>
-                <h3 className="text-large text-light-purple font-bold breakpoint-xsmall:text-4xl">
+                <h3 className="text-large text-center breakpoint-med:text-start text-light-purple font-bold breakpoint-xsmall:text-4xl">
                   {selectedMovie.title}
                 </h3>
                 <p className="hidden breakpoint-med:block text-light-purple mt-6 breakpoint-xl:text-xl">
