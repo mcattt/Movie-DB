@@ -96,7 +96,7 @@ const PageSingle = () => {
   useEffect(() => {
     const loadingTimeout = setTimeout(() => {
       setShowLoading(false);
-    }, 10000); // Adjust the delay time in milliseconds as needed
+    }, 3000); // Adjust the delay time in milliseconds as needed
 
     return () => {
       // Clear the timeout if the component unmounts before the delay completes
