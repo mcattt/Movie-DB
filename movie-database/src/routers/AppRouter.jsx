@@ -19,7 +19,7 @@ function AppRouter() {
     <BrowserRouter>
       <div className="wrapper bg-[#0E0113] relative min-h-screen flex flex-col">
         <Header />
-        <main className="text-light-purple mb-10 grow">
+        <main className="text-light-purple pb-8 grow relative">
           <Routes>
             <Route path="/" exact element={<PageHome />} />
             <Route path="/about" element={<PageAbout />} />

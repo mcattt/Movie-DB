@@ -1,5 +1,4 @@
 // Page - Single Movie
-import { Rate } from "antd";
 import { useState, useEffect } from "react";
 import { appTitle } from "../globals/globals";
 import { Link, Navigate, useParams } from "react-router-dom";
@@ -94,25 +93,25 @@ const PageSingle = () => {
   return (
     <>
     {isLoaded ? (
-    <section className="single-movie lg:relative">
+    <section className="single-movie md:grid md:grid-cols-[40%_60%]">
       {selectedSingleMovie &&  (
         <>
-        <div className="relative mb-20 lg:static">
+        <div className="relative mb-14 md:static xl:row-[1_/_3]">
           {/* Movie Backdrop */}
           {selectedSingleMovie.backdrop_path && (
             <img src={`https://image.tmdb.org/t/p/w1280${selectedSingleMovie.backdrop_path}`} 
             alt={selectedSingleMovie.title} 
-            className="opacity-20 w-full absolute h-[550px] object-cover top-0 lg:h-full lg:opacity-10"
+            className="opacity-20 w-full absolute h-[550px] object-cover top-0 md:h-full md:opacity-10 "
             />
             )}
             
                 {selectedSingleMovie.poster_path && (
-                  <div className="relative w-[300px] mx-auto inset-x-0 top-[55px]">
+                  <div className="relative w-[300px] mx-auto inset-x-0 top-[45px] xl:w-[460px]">
                     {/* Movie Poster */}
                     <img
-                      src={`https://image.tmdb.org/t/p/w300${selectedSingleMovie.poster_path}`}
+                      src={`https://image.tmdb.org/t/p/original${selectedSingleMovie.poster_path}`}
                       alt={selectedSingleMovie.title}
-                      className="rounded-lg shadow-[0px_0px_60px_10px_#420B5B] z-10 mx-auto top-[50px]"
+                      className="w-[300px] rounded-lg shadow-[0px_0px_60px_10px_#420B5B] z-10 mx-auto top-[50px] md:ml-8 xl:ml-0 xl:w-[460px] "
                     />
                     {/* Movie Clip Mark */}
                     {isFavourite && (
@@ -124,15 +123,15 @@ const PageSingle = () => {
                   </div>
                 )}
               </div>
-              <section className="Movie-info mx-5 relative z-10">
+              <section className="Movie-info mx-5 relative z-10 md:top-[50px] md:mx-14 xl:static xl:mt-[45px] 2xl:ml-0">
                 {/* Movie Rating */}
-                <div className="movie-rating mx-auto my-0 flex min-[350px]:w-[300px]">
+                <div className="movie-rating mx-auto my-0 flex min-[350px]:w-[300px] md:m-0 md:block">
                   {selectedSingleMovie.vote_average ? (
                     <>
                       <div className="flex">
                         <StarRating vote_average={selectedSingleMovie.vote_average} />
                       </div>
-                      <div className="flex items-center ml-auto">
+                      <div className="flex items-center ml-auto md:mt-2">
                         <p className="bg-green-300 text-xl w-9 h-7 text-dark-purple rounded-md text-center">
                           {selectedSingleMovie.vote_average.toFixed(1)}
                         </p>
@@ -144,7 +143,7 @@ const PageSingle = () => {
                       </div>
                   )}
                 </div>
-                <div className="title-add-button-wrapper flex justify-between mt-2">
+                <div className="title-add-button-wrapper flex justify-between mt-8 md:mt-4 md:max-w-[540px]">
                   {/* Movie Title */}
                   <h2 className="text-2xl font-bold self-center w-[80%]">{selectedSingleMovie.title}</h2>
 
@@ -199,14 +198,14 @@ const PageSingle = () => {
           {selectedSingleMovie.overview && 
             <>
               <h3 className="font-bold mb-2 text-xl">Overview</h3>
-              <p>{selectedSingleMovie.overview}</p> 
+              <p className="xl:max-w-[90%]">{selectedSingleMovie.overview}</p> 
             </>
           }
+      </section>
           {/* Movie Cast */}
           {selectedSingleMovie && selectedSingleMovie.credits && (
             <CastInfo cast={selectedSingleMovie.credits.cast} />
           )}
-      </section>
       
       </>
       )}
