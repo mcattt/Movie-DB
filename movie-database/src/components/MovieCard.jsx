@@ -75,7 +75,7 @@ function MovieCard({ movie, isFav }) {
           <StarRating vote_average={vote_average} />
         </div>
         <div className="flex  items-center ml-auto">
-          <p className="bg-green-300 text-xl w-9 h-7 text-dark-purple rounded-md text-center z-20">
+          <p className="bg-green-300 text-xl font-bold w-9 h-7 text-dark-purple rounded-md text-center z-20">
             {vote_average.toString().length === 1
               ? `${vote_average}.0`
               : vote_average.toFixed(1)}

@@ -29,9 +29,9 @@ const Hero = ({movieList}) => {
               alt="Backdrop"
             />
             {/* This div is for the movie Date, Title, and Overview */}
-            <div className="info-container flex justify-around absolute bottom-[60px] w-full">
+            <div className="info-container flex flex-col items-center breakpoint-med:flex-row breakpoint-med:justify-around absolute bottom-[60px] w-full">
               <div className="max-w-xl">
-                <h4 className="text-light-purple text-1xl mb-2 italic">
+                <h4 className="text-center breakpoint-med:text-start text-light-purple text-1xl mb-2 italic">
                   {new Date(selectedMovie.release_date).toLocaleDateString(
                     "en-US",
                     {
@@ -44,22 +44,22 @@ const Hero = ({movieList}) => {
                 <h3 className="text-light-purple font-bold text-4xl">
                   {selectedMovie.title}
                 </h3>
-                <p className="text-light-purpletext-2xl mt-6">
+                <p className="hidden breakpoint-med:block text-light-purple mt-6 breakpoint-xl:text-xl">
                   {selectedMovie.overview}
                 </p>
               </div>
-              <div className="justify-end">
-                <div className="flex justify-end">
+              <div className="breakpoint-med:justify-end">
+                <div className="hidden breakpoint-med:flex justify-end">
                   <p className="text-green-300 font-bold flex justify-center items-center text-3xl w-14 h-9 bg-transparent border-2 border-green-300 rounded-md">
                     {selectedMovie.vote_average.toString().length === 1
                       ? `${selectedMovie.vote_average}.0`
-                      : selectedMovie.vote_average}
+                      : selectedMovie.vote_average.toFixed(1)}
                   </p>
                 </div>
 
                 <Link key={selectedMovie.id} to={`/single/${selectedMovie.id}`}>
-                  <button className="w-32 h-10 rounded-xl mt-9 group/button outline-light-purple outline outline-1 hover:outline-none hover:bg-orange-500 transition-all ">
-                    <p className="text-light-purple font-bold text-xl group-hover/button:text-dark-purple ">
+                  <button className="bg-orange-500 w-32 h-10 rounded-xl mt-5 breakpoint-med:mt-9 group/button breakpoint-med:outline-light-purple breakpoint-med:outline breakpoint-med:outline-1 breakpoint-med:hover:outline-none breakpoint-med:bg-transparent breakpoint-med:hover:bg-orange-500 breakpoint-med:transition-all ">
+                    <p className="text-dark-purple breakpoint-med:text-light-purple font-bold text-xl breakpoint-med:group-hover/button:text-dark-purple ">
                       More Info
                     </p>
                   </button>
