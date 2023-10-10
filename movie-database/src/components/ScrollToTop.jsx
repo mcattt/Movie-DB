@@ -1,15 +1,22 @@
 import React, { useState } from "react";
+import { useMediaQuery } from "@react-hook/media-query";
 import upArrow from "/assets/images/up-arrow-thick.png";
 // code inspired by https://www.geeksforgeeks.org/how-to-create-a-scroll-to-top-button-in-react-js/
 // where i got the idea from for the design (#7) https://elfsight.com/back-to-top-widget/examples/
 const ScrollButton = () => {
   const [visible, setVisible] = useState(false);
 
+  const isDesktop = useMediaQuery("(min-width: 640px)");
+
   const toggleVisible = () => {
     const scrolled = document.documentElement.scrollTop;
-    if (scrolled > 300) {
-      setVisible(true);
-    } else if (scrolled <= 300) {
+    if (isDesktop) {
+      if (scrolled > 300) {
+        setVisible(true);
+      } else if (scrolled <= 300) {
+        setVisible(false);
+      }
+    } else {
       setVisible(false);
     }
   };
