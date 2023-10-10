@@ -88,8 +88,29 @@ const PageSingle = () => {
 
   const isFavourite = isFav(favs, null, selectedSingleMovie.id);
 
+  // Delay Loading GIF 
+
+  const [showLoading, setShowLoading] = useState(true);
+
+  // Use useEffect to control when to hide the loading animation
+  useEffect(() => {
+    const loadingTimeout = setTimeout(() => {
+      setShowLoading(false);
+    }, 10000); // Adjust the delay time in milliseconds as needed
+
+    return () => {
+      // Clear the timeout if the component unmounts before the delay completes
+      clearTimeout(loadingTimeout);
+    };
+  }, []);
+
+
   return (
     <>
+    {showLoading ? (
+      <Loading />
+    ) : (
+    <> 
     {isLoaded ? (
     <section className="single-movie md:grid md:grid-cols-[40%_60%]">
       {selectedSingleMovie &&  (
@@ -211,6 +232,8 @@ const PageSingle = () => {
     </section>
     ) : (
       <Loading />
+    )} 
+    </>
     )}
     </>
   );
