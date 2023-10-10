@@ -146,7 +146,7 @@ const PageSingle = () => {
                   <h2 className="text-2xl font-bold self-center w-[80%]">{selectedSingleMovie.title}</h2>
 
                   {/* Add/ Remove Fav button */}
-                  <div className="self-center">
+                  <div className="self-center cursor-pointer">
                     {isFavourite ? (
                         <FavButton
                           movie={selectedSingleMovie}
