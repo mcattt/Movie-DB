@@ -81,9 +81,24 @@ function MovieCard({ movie, isFav }) {
           </p>
         </div>
       </div>
-      <h3 className="text-2xl overflow-hidden max-w-[400px] breakpoint-small:max-w-[250px] whitespace-normal">
-        {title}
-      </h3>
+      <div className="flex justify-between ">
+        <h3 className="text-2xl overflow-hidden max-w-[400px] breakpoint-small:max-w-[250px] whitespace-normal ">
+          {title}
+        </h3>
+        <div className="mt-2">
+          {isFav ? (
+            <div>
+              <FavButton
+                movie={movie}
+                remove={true}
+                handleFavClick={handleFavClick}
+              />
+            </div>
+          ) : (
+            <FavButton movie={movie} handleFavClick={handleFavClick} />
+          )}
+        </div>
+      </div>
       <p className="font-extralight italic text-sm">
         {new Date(release_date).toLocaleDateString("en-US", {
           year: "numeric",
@@ -97,19 +112,7 @@ function MovieCard({ movie, isFav }) {
           src={favClip}
         ></img>
       )}
-      <div className="flex justify-end relative top-[-40px] mb-[-30px]">
-        {isFav ? (
-          <div>
-            <FavButton
-              movie={movie}
-              remove={true}
-              handleFavClick={handleFavClick}
-            />
-          </div>
-        ) : (
-          <FavButton movie={movie} handleFavClick={handleFavClick} />
-        )}
-      </div>
+
       {isMobile && (
         <div>
           <p className=" overflow-hidden max-w-[400px] breakpoint-small:max-w-img-size whitespace-normal ">
