@@ -225,7 +225,7 @@ const PageHome = () => {
         {categories.map((category, index) => (
           <button
             key={index}
-            className={`m-2 p-2 w-[115.31px] min-[425px]:w-[135px] min-[532px]:mx-[2rem] min-[628px]:w-1/4 min-[1271px]:w-[246.5px] rounded-2xl font-bold hover:text-dark-purple hover:bg-bright-orange hover:border-bright-orange
+            className={`m-2 p-2 w-[115.31px] min-[425px]:w-[135px] min-[532px]:mx-[2rem] min-[628px]:w-1/4 min-[1271px]:w-[246.5px] rounded-2xl font-bold sm:hover:text-dark-purple sm:hover:bg-bright-orange sm:hover:border-bright-orange
               ${
                 currentFilter === category.filter
                   ? "bg-bright-orange border-bright-orange border-solid border-2 text-dark-purple"
