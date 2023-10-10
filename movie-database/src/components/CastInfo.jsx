@@ -6,8 +6,8 @@ import actressImage from "/assets/images/actress.png";
 const CastInfo = ({ cast }) => {
   const firstTenCast = cast.slice(0, 10);
   return (
-    <div className="cast-info m-[20px_0px_40px_0px] sm:m-[20px_0px_10px_0px]">
-      <h3 className="font-bold mb-2">Cast</h3>
+    <div className="cast-info m-[20px_0px_64px_0px] sm:m-[20px_0px_10px_0px]">
+      <h3 className="font-bold mb-2 text-xl">Cast</h3>
       <div className="cast-list overflow-x-scroll flex flex-nowrap">
         <div className="cast-scroll flex">
           {firstTenCast.map((actor) => (

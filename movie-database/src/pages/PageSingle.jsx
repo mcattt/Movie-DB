@@ -62,13 +62,16 @@ const PageSingle = () => {
   const movieHours = Math.floor(selectedSingleMovie.runtime / 60);
   const movieMinutes = selectedSingleMovie.runtime % 60;
   // Format date release
-  const movieDate = new Date(
-    selectedSingleMovie.release_date
-  ).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+  let movieDate;
+  if (selectedSingleMovie.release_date) {
+    movieDate = new Date(selectedSingleMovie.release_date).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  } else {
+    movieDate = 'Release date unavailable';
+  }
 
   // Dispatch to add/ remove fav movies
 
@@ -141,48 +144,64 @@ const PageSingle = () => {
                       </div>
                   )}
                 </div>
-                {/* Movie Title */}
-                <h2>{selectedSingleMovie.title}</h2>
+                <div className="title-add-button-wrapper flex justify-between mt-2">
+                  {/* Movie Title */}
+                  <h2 className="text-2xl font-bold self-center">{selectedSingleMovie.title}</h2>
 
-                {/* Add/ Remove Fav button */}
-                <div>
-                  {isFavourite ? (
-                    <div>
+                  {/* Add/ Remove Fav button */}
+                  <div>
+                    {isFavourite ? (
+                        <FavButton
+                          movie={selectedSingleMovie}
+                          remove={true}
+                          handleFavClick={handleFavClick}
+                        />
+                    ) : (
                       <FavButton
                         movie={selectedSingleMovie}
-                        remove={true}
                         handleFavClick={handleFavClick}
                       />
-                    </div>
-                  ) : (
-                    <FavButton
-                      movie={selectedSingleMovie}
-                      handleFavClick={handleFavClick}
-                    />
-                  )}
+                    )}
+                  </div>
                 </div>
                 {/* Movie Date and Runtime */}
-                <p>
-                  {movieDate} - {movieHours}h {movieMinutes}m
+                {selectedSingleMovie.runtime ? (
+                  <p className="italic font-extralight">
+                    {movieDate} - {movieHours}h {movieMinutes}m
+                  </p>
+                ) : (
+                  <p className="italic font-extralight">
+                  {movieDate}
                 </p>
+                )}
 
           {/* Movie Genres */}
-          <p>
-            {selectedSingleMovie.genres &&
-              selectedSingleMovie.genres.map((genre) => (
-                <span key={genre.id}>{genre.name}, </span>
-              ))}
-          </p>
+          
+          {selectedSingleMovie.genres && 
+          <p className="my-2">
+            {selectedSingleMovie.genres
+              .map((genre) => genre.name)
+              .join(", ")}
+          </p>}
+        
           {/* Video Trailer */}
           {selectedSingleMovie.videos?.results ? 
             <VideoTrailer videos={selectedSingleMovie.videos.results}/> : 
-            <p>Official Trailer Not Available</p>
+            <p className="italic font-extralight text-light-purple">Official Trailer - Not Available</p>
           }
           {/* Tagline */}
-          <p className="italic text-[#D5C1E0]">{selectedSingleMovie.tagline}</p>
+          {selectedSingleMovie.tagline &&
+           <p className="italic font-extralight text-light-purple my-4">
+              {selectedSingleMovie.tagline}
+            </p>
+          }
           {/* Movie Overview */}
-          <h3>Overview</h3>
-          <p>{selectedSingleMovie.overview}</p>
+          {selectedSingleMovie.overview && 
+            <>
+              <h3 className="font-bold mb-2 text-xl">Overview</h3>
+              <p>{selectedSingleMovie.overview}</p> 
+            </>
+          }
           {/* Movie Cast */}
           {selectedSingleMovie && selectedSingleMovie.credits && (
             <CastInfo cast={selectedSingleMovie.credits.cast} />
