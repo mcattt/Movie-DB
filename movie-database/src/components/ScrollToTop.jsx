@@ -28,9 +28,9 @@ const ScrollButton = () => {
   return (
     <div
       onClick={scrollToTop}
-      className={` group hover:cursor-pointer fixed bottom-0 right-0 p-3 rounded-tl-[200px]  leading-tight shadow-md hover:bg-light-purple hover:bg-opacity-40  ${
+      className={` group hover:cursor-pointer fixed bottom-0 right-0 p-3 rounded-tl-[200px] font-semibold  leading-tight shadow-md hover:bg-bright-orange hover:bg-opacity-80  ${
         visible ? "opacity-100 " : "opacity-0 "
-      } transition duration-[400ms] ease-in-out`}
+      } transition duration-[400ms] ease-in-out z-[9999]`}
     >
       <div className="">
         <img
