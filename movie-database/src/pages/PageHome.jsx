@@ -10,6 +10,7 @@ import { resetCount } from "../features/more/viewMoreSlice";
 import Loading from "../components/Loading";
 import SearchBar from "../components/SearchBar"; // Import the SearchBar component
 import Hero from "../components/Hero"; 
+import sadFace from "/assets/images/unhappy-face.png";
 const endPointThemes = `https://api.themoviedb.org/3/movie/`;
 const categories = [
   { filter: "popular", name: "Popular" },
@@ -160,6 +161,15 @@ const PageHome = () => {
       <div className="flex justify-evenly mt-8 mb-4">
         <SearchBar></SearchBar>
       </div>
+      {allMovies.length === 0 && 
+      <div className="flex flex-col items-center">
+        <img
+            src={sadFace}
+            alt=""
+            className="w-[7rem] mt-24 breakpoint-small:w-[8rem] breakpoint-med:w-[14rem]"
+          />
+        <p className=" font-bold breakpoint-small:text-2xl breakpoint-med:text-3xl mt-16 mb-16">No results found. Please try again!</p>
+      </div>}
       <div className="mb-2 mt-4 flex flex-wrap justify-evenly min-[409px]:gap-2 min-[425px]:text-[1.2rem] min-[484px]:gap-4 min-[500px]:gap-8 min-[532px]:gap-2 min-[847px]:flex-nowrap min-[847px]:mb-4 min-[985px]:text-2xl min-[1271px]:text-[1.75rem]">
         {categories.map((category, index) => (
           <button
