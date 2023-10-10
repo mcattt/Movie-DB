@@ -1,7 +1,7 @@
 // Page - Single Movie
 import { useState, useEffect } from "react";
 import { appTitle } from "../globals/globals";
-import { Link, Navigate, useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import CastInfo from "../components/CastInfo";
 import VideoTrailer from "../components/VideoTrailer";
 import isFav from "../utilities/isFav";
@@ -87,8 +87,6 @@ const PageSingle = () => {
   // Provide info to isFav function, then use later to check if the selected movie is favourited or not
 
   const isFavourite = isFav(favs, null, selectedSingleMovie.id);
-
-  console.log(selectedSingleMovie);
 
   return (
     <>
