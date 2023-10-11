@@ -12,7 +12,7 @@ const PageFavourites = () => {
     document.title = `${appTitle} - Favourites`;
   }, []);
   return (
-    <section>
+    <section className="mb-16 sm:mb-0">
       {favs.length < 1 ? (
         <div className="flex  flex-col items-center  justify-center mt-10  ">
           <img
@@ -34,7 +34,7 @@ const PageFavourites = () => {
         </div>
       ) : (
         <div>
-          <h2 className="text-5xl font-bold mt-16 ml-16 mb-5">
+          <h2 className="text-5xl font-bold mt-16 ml-12 mb-5">
             Your Favourites
           </h2>
           <div className="grid grid-cols-1 breakpoint-small:grid-cols-2 breakpoint-med:grid-cols-3 breakpoint-large:grid-cols-4 justify-items-center ">
