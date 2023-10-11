@@ -25,8 +25,8 @@ const PageFavourites = () => {
             your favourite movies.
           </p>
           <Link to={`/`}>
-            <button className="border-2 border-solid rounded-md w-48 mt-10 mb-[88px]  group/button border-light-purple  active:border-orange-500 breakpoint-med:hover:border-orange-500 active:bg-orange-500 breakpoint-med:hover:bg-orange-500 transition-all ">
-              <p className="px-4 text-center leading-tight text-light-purple font-bold text-2xl  group-active/button:text-dark-purple breakpoint-med:group-hover/button:text-dark-purple">
+            <button className="border-2 border-solid rounded-md w-48 mt-10 mb-[88px] bg-bright-orange border-bright-orange group/button sm:bg-transparent sm:border-light-purple  sm:active:border-orange-500 sm:hover:border-orange-500 active:bg-orange-500 sm:hover:bg-orange-500 transition duration-500 ">
+              <p className="px-4 text-center leading-tight text-dark-purple sm:text-light-purple font-bold text-2xl  sm:group-active/button:text-dark-purple sm:group-hover/button:text-dark-purple">
                 Clip Movies Now
               </p>
             </button>
