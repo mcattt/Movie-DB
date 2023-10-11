@@ -5,6 +5,7 @@ import { appTitle } from "../globals/globals";
 import { Link } from "react-router-dom";
 import aboutImage from "/assets/images/about-image.jpg";
 import tmdbLogo from "/assets/images/tmdb-logo.png";
+import SocialMedia from "../components/SocialMedia";
 
 const PageAbout = () => {
   useEffect(() => {
@@ -44,13 +45,19 @@ const PageAbout = () => {
           TMDb.
         </p>
       </section>
-        <section className="about-team mb-20 sm:mb-4 tablet-b:col-[1_/_3] tablet-b:px-14 lg:pl-20 xl:col-[2_/_3] xl:pl-0 xl:ml-[-4rem]">
+        <section className="px-4 about-team mb-20 sm:mb-4 tablet-b:col-[1_/_3] tablet-b:px-14 lg:pl-20 xl:col-[2_/_3] xl:pl-0 xl:ml-[-4rem]">
             <h2 className="font-bold text-2xl my-8">About <span className="text-bright-orange">Development Team</span></h2>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Incidunt temporibus tenetur, reprehenderit eligendi earum, architecto ipsum totam porro!</p>
+            <p>This website has been crafted with dedication and passion by a team of three skilled developers. Feel free to get in touch with us for any inquiries, feedback, or exciting collaboration opportunities! Your input is important to us.</p>
             <ul className="list-disc pl-4 pt-2 font-bold">
-              <li>Cat Cordner</li>
-              <li>Jack Do</li>
-              <li>Preston Monteiro</li>
+              <li className="my-2">Cat Cordner 
+                  <SocialMedia linkedInLink={"#"}/>
+              </li>
+              <li className="my-2">Jack Do
+                 <SocialMedia linkedInLink={"https://www.linkedin.com/in/jackdo/"}/>
+              </li>
+              <li className="my-2">Preston Monteiro
+                 <SocialMedia linkedInLink={"#"}/>
+              </li>
             </ul>
         </section>
     </section>
