@@ -202,12 +202,12 @@ const PageHome = () => {
           ))}
       </div>
       {/* View More Button with conditional on no search results which will set button display to hidden */}
-        <div className={`flex justify-center ${allMovies.length === 0 ? 'hidden' : ''}`}>
+        <div className={`flex justify-center mb-20 sm:mb-0 ${allMovies.length === 0 ? 'hidden' : ''}`}>
           <button
             onClick={() => showMore(currentFilter)}
-            className="group/button w-44 h-12 rounded-lg outline-light-purple outline outline-1 mt-8 ml-2 hover:outline-none hover:bg-orange-500 transition-all"
+            className="group/button w-44 h-12 rounded-lg bg-bright-orange outline-bright-orange sm:bg-transparent sm:outline-light-purple outline outline-1 mt-8 ml-2 sm:hover:outline-bright-orange sm:hover:bg-orange-500 transition-all duration-500"
           >
-            <a className="text-light-purple font-bold text-xl group-hover/button:text-dark-purple ">
+            <a className="text-dark-purple sm:text-light-purple font-bold text-xl sm:group-hover/button:text-dark-purple ">
               View More
             </a>
           </button>
