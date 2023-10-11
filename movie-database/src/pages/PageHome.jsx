@@ -158,18 +158,19 @@ const PageHome = () => {
       <Hero
         movieList={movieList}
       />
-      <div className="flex justify-evenly mt-8 mb-4">
+      <div className="flex justify-evenly mt-8 mb-8">
         <SearchBar></SearchBar>
       </div>
+      {/* Filter Buttons */}
       <div className="mb-2 mt-4 flex flex-wrap justify-evenly min-[409px]:gap-2 min-[425px]:text-[1.2rem] min-[484px]:gap-4 min-[500px]:gap-8 min-[532px]:gap-2 min-[847px]:flex-nowrap min-[847px]:mb-4 min-[985px]:text-2xl min-[1271px]:text-[1.75rem]">
         {categories.map((category, index) => (
           <button
             key={index}
-            className={`m-2 p-2 w-[115.31px] min-[425px]:w-[135px] min-[532px]:mx-[2rem] min-[628px]:w-1/4 min-[1271px]:w-[246.5px] rounded-2xl font-bold sm:hover:text-dark-purple sm:hover:bg-bright-orange sm:hover:border-bright-orange
+            className={`m-2 p-2 w-[115.31px] min-[425px]:w-[135px] min-[532px]:mx-[2rem] min-[628px]:w-1/4 min-[1271px]:w-[246.5px] rounded-2xl font-bold sm:hover:text-dark-purple  sm:hover:border-bright-orange 
             ${
                 currentFilter === category.filter
                   ? "bg-bright-orange border-bright-orange border-solid border-2 text-dark-purple"
-                  : "border-light-purple border-solid border-2"
+                  : "border-light-purple border-solid border-2 transition duration-500 sm:bg-transparent sm:hover:bg-bright-orange"
                 }
             `}
             onClick={() => {
