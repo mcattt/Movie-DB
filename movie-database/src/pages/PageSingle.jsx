@@ -9,6 +9,7 @@ import FavButton from "../components/FavButton";
 import { addFav, deleteFav } from "../features/favs/favsSlice"; // Import addFav and deleteFav
 import { useSelector, useDispatch } from "react-redux";
 import favClip from "/assets/images/clip-mark.png";
+import noPoster from "/assets/images/no-poster-ver3.png";
 import Loading from "../components/Loading";
 import StarRating from "../components/StarRating";
 
@@ -104,7 +105,6 @@ const PageSingle = () => {
     };
   }, []);
 
-
   return (
     <>
     {showLoading ? (
@@ -124,7 +124,7 @@ const PageSingle = () => {
             />
             )}
             
-                {selectedSingleMovie.poster_path && (
+                {selectedSingleMovie.poster_path ? (
                   <div className="relative w-[300px] mx-auto inset-x-0 top-[45px] xl:w-[460px]">
                     {/* Movie Poster */}
                     <img
@@ -140,6 +140,22 @@ const PageSingle = () => {
                       ></img>
                     )}
                   </div>
+                ) : (
+                  <div className="relative w-[300px] mx-auto inset-x-0 top-[45px] xl:w-[460px]">
+                  {/* Movie Poster */}
+                  <img
+                    src={noPoster}
+                    alt="No Poster Available"
+                    className="w-[300px] rounded-lg shadow-[0px_0px_60px_10px_#420B5B] z-10 mx-auto top-[50px] md:ml-8 xl:ml-0 xl:w-[460px] "
+                  />
+                  {/* Movie Clip Mark */}
+                  {isFavourite && (
+                    <img
+                      className="absolute w-[30px] top-[-25px] right-4 z-20"
+                      src={favClip}
+                    ></img>
+                  )}
+                </div>
                 )}
               </div>
               <section className="Movie-info mx-5 relative z-10 md:top-[50px] md:mx-14 xl:static xl:mt-[45px] 2xl:ml-0">
@@ -222,7 +238,7 @@ const PageSingle = () => {
           }
       </section>
           {/* Movie Cast */}
-          {selectedSingleMovie && selectedSingleMovie.credits && (
+          {selectedSingleMovie && selectedSingleMovie.credits && selectedSingleMovie.credits.cast.length > 1 && (
             <CastInfo cast={selectedSingleMovie.credits.cast} />
           )}
       
