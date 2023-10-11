@@ -15,9 +15,6 @@ import StarRating from "../components/StarRating";
 
 const endPointThemes = `https://api.themoviedb.org/3/movie/`;
 
-// set image folder path using environment variable path to the public folder
-// const imageFolderPath = process.env.PUBLIC_URL + "/assets/images/";
-
 const PageSingle = () => {
   let { movieId } = useParams();
   useEffect(() => {
