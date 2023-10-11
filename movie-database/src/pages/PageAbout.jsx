@@ -35,7 +35,7 @@ const PageAbout = () => {
           item anytime.
         </p>
         <Link to="/" className="w-fit block">
-          <p className="px-4 text-center font-bold border-2 border-solid border-bright-orange bg-bright-orange text-dark-purple mb-8 mx-auto sm:bg-transparent sm:text-light-purple sm:border-light-purple rounded-md w-fit sm:hover:border-bright-orange sm:hover:bg-bright-orange sm:hover:text-dark-purple tablet-b:mx-0">
+          <p className="px-4 text-center font-bold border-2 border-solid border-bright-orange bg-bright-orange text-dark-purple mb-8 mx-auto sm:bg-transparent sm:text-light-purple sm:border-light-purple rounded-md w-fit sm:hover:border-bright-orange sm:hover:bg-bright-orange sm:hover:text-dark-purple tablet-b:mx-0 transition duration-500">
             Clip Movies <br /> Now
           </p>
         </Link>
