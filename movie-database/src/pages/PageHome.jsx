@@ -158,8 +158,8 @@ const PageHome = () => {
       <Hero
         movieList={movieList}
       />
-      <div className="flex justify-evenly mt-8 mb-8">
-        <SearchBar></SearchBar>
+      <div className="flex justify-evenly my-8 breakpoint-med:my-12">
+        <SearchBar/>
       </div>
       {/* Filter Buttons */}
       <div className="mb-2 mt-4 flex flex-wrap justify-evenly min-[409px]:gap-2 min-[425px]:text-[1.2rem] min-[484px]:gap-4 min-[500px]:gap-8 min-[532px]:gap-2 min-[847px]:flex-nowrap min-[847px]:mb-4 min-[985px]:text-2xl min-[1271px]:text-[1.75rem]">

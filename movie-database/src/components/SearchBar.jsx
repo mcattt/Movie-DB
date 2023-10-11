@@ -23,29 +23,31 @@ const SearchBar = () => {
     <div>
       <input
         className='
+        text-base
         rounded-3xl 
-        w-[200px] 
+        w-[250px] 
         h-[40px] 
-        breakpoint-xsmall:w-[300px] 
-        breakpoint-xsmall:h-[40px] 
-        breakpoint-small:w-[350px] 
-        breakpoint-small:h-[40px] 
+        text-dark-purple 
+        px-4 
+        placeholder-dark-purple 
+        placeholder:italic
+        placeholder-opacity-50 
+        breakpoint-xsmall:w-[350px] 
+        breakpoint-xsmall:px-8  
+        breakpoint-small:w-[350px]
         breakpoint-med:block 
         breakpoint-med:rounded-3xl 
         breakpoint-med:w-[450px] 
-        breakpoint-med:h-[50px] 
+        breakpoint-med:h-[45px] 
         breakpoint-med:text-xl 
         breakpoint-med:placeholder:text-xl 
-        breakpoint-large:block 
+        breakpoint-large:block
+        breakpoint-large:px-12 
         breakpoint-large:rounded-[40px] 
-        breakpoint-large:w-[760px] 
-        breakpoint-large:h-[75px] 
-        text-light-purple 
-        breakpoint-large:text-2xl 
-        pl-9 
-        placeholder-light-purple 
-        placeholder:italic 
-        breakpoint-large:placeholder:text-2xl'
+        breakpoint-large:w-[700px] 
+        breakpoint-large:h-[60px] 
+        breakpoint-large:text-xl 
+        breakpoint-large:placeholder:text-xl'
         type="text"
         placeholder="Search for movies..."
         value={searchText}
