@@ -24,6 +24,9 @@ export default {
         "tablet-s": "700px",
         "desktop-1650": "1650px",
       },
+      fontFamily: {
+        poppins: ['Poppins', 'sans-serif']
+      },
     },
   },
   plugins: [],
