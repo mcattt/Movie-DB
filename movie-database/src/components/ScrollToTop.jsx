@@ -6,7 +6,7 @@ import upArrow from "/assets/images/up-arrow-thick.png";
 const ScrollButton = () => {
   const [visible, setVisible] = useState(false);
 
-  const isDesktop = useMediaQuery("(min-width: 640px)");
+  const isDesktop = useMediaQuery("(min-width: 900px)");
 
   const toggleVisible = () => {
     const scrolled = document.documentElement.scrollTop;
@@ -33,7 +33,7 @@ const ScrollButton = () => {
   return (
     <div
       onClick={scrollToTop}
-      className={` hidden breakpoint-med:block group hover:cursor-pointer fixed bottom-0 right-0 p-3 rounded-tl-[200px] font-semibold  leading-tight shadow-md hover:bg-bright-orange hover:bg-opacity-80  ${
+      className={` hidden tablet-b:block group hover:cursor-pointer fixed bottom-0 right-0 p-3 rounded-tl-[200px] font-semibold  leading-tight shadow-md hover:bg-bright-orange hover:bg-opacity-80  ${
         visible ? "visible " : "invisible "
       } transition duration-[400ms] ease-in-out z-[9999]`}
     >
