@@ -15,7 +15,7 @@ const PageAbout = () => {
   }, []);
 
   return (
-    <section data-aos="fade-up" className="tablet-b:grid tablet-b:grid-cols-2 tablet-b:mt-10">
+    <section data-aos="fade-in" className="tablet-b:grid tablet-b:grid-cols-2 tablet-b:mt-10">
       <img
         src={aboutImage}
         alt="A photo of 3 people watching movies in the theater"

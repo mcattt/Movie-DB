@@ -80,7 +80,6 @@ const PageHome = () => {
   useEffect(() => {
     AOS.init();
   }, []);
-
   const dispatch = useDispatch(); // Get the dispatch function from Redux
 
   // // Add a new state variable for currentPage
@@ -90,6 +89,7 @@ const PageHome = () => {
   useEffect(() => {
     // Listen for changes in the Redux count
     setMovieList(allMovies.slice(0, count));
+    AOS.refresh();
   }, [count, allMovies]);
 
   const showMore = async (filter) => {
@@ -119,6 +119,7 @@ const PageHome = () => {
       dispatch(increment());
 
       setCurrentPage(nextPage);
+      AOS.refresh();
     } else {
       return;
     }
@@ -181,8 +182,8 @@ const PageHome = () => {
     ) : (
     <> 
     {isLoaded ? (
-    <section>
-      <Hero
+    <section data-aos="fade-in">
+      <Hero data-aos="zoom-in"
         movieList={movieList}
       />
       <div className="flex justify-evenly my-8 breakpoint-med:my-12">

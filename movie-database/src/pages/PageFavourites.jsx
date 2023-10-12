@@ -14,7 +14,7 @@ const PageFavourites = () => {
     document.title = `${appTitle} - Favourites`;
   }, []);
   return (
-    <section data-aos="fade-up" className="mb-16 sm:mb-0">
+    <section data-aos="fade-in" className="mb-16 sm:mb-0">
       {favs.length < 1 ? (
         <div className="flex  flex-col items-center  justify-center mt-10  ">
           <img
