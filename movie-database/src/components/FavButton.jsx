@@ -14,12 +14,12 @@ function FavButton({ movie, remove, handleFavClick }) {
   return (
     <>
       {remove === false ? (
-        <div onClick={handleAddFav}>
-          <img className="w-[40px]" src={addButton} alt="" />
+        <div onClick={handleAddFav} className="">
+          <img className="w-[40px] " src={addButton} alt="" />
         </div>
       ) : (
         <div onClick={handleRemoveFav}>
-          <img className="w-[40px]" src={removeButton} alt="" />
+          <img className="w-[40px] " src={removeButton} alt="" />
         </div>
       )}
     </>
