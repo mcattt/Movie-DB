@@ -11,6 +11,8 @@ import Loading from "../components/Loading";
 import SearchBar from "../components/SearchBar"; // Import the SearchBar component
 import Hero from "../components/Hero"; 
 import sadFace from "/assets/images/unhappy-face.png";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 const endPointThemes = `https://api.themoviedb.org/3/movie/`;
 const categories = [
   { filter: "popular", name: "Popular" },
@@ -73,6 +75,10 @@ const PageHome = () => {
   useEffect(() => {
     document.title = `${appTitle} - Home`;
     fetchMovie("popular");
+  }, []);
+
+  useEffect(() => {
+    AOS.init();
   }, []);
 
   const dispatch = useDispatch(); // Get the dispatch function from Redux
@@ -213,7 +219,7 @@ const PageHome = () => {
             />
           <p className=" font-bold breakpoint-small:text-2xl breakpoint-med:text-3xl mt-16 mb-16">No results found for "{searchQuery}". Please try again!</p>
         </div>}
-      <div className="grid grid-cols-1 breakpoint-small:grid-cols-2 breakpoint-med:grid-cols-3 breakpoint-large:grid-cols-4 justify-items-center">
+      <div data-aos="fade-up" className="grid grid-cols-1 breakpoint-small:grid-cols-2 breakpoint-med:grid-cols-3 breakpoint-large:grid-cols-4 justify-items-center">
         {movieList.map((movieCard, i) => (
           <MovieCard
             key={i}

@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 import aboutImage from "/assets/images/about-image.jpg";
 import tmdbLogo from "/assets/images/tmdb-logo.png";
 import SocialMedia from "../components/SocialMedia";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const PageAbout = () => {
   useEffect(() => {
@@ -13,7 +15,7 @@ const PageAbout = () => {
   }, []);
 
   return (
-    <section className="tablet-b:grid tablet-b:grid-cols-2 tablet-b:mt-10">
+    <section data-aos="fade-up" className="tablet-b:grid tablet-b:grid-cols-2 tablet-b:mt-10">
       <img
         src={aboutImage}
         alt="A photo of 3 people watching movies in the theater"

@@ -1,5 +1,8 @@
 {
   "devDependencies": {
     "tailwind-scrollbar": "^3.0.5"
+  },
+  "dependencies": {
+    "aos": "^2.3.4"
   }
 }

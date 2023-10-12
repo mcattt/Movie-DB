@@ -5,6 +5,8 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import MovieCard from "../components/MovieCard";
 import sadFace from "/assets/images/unhappy-face.png";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 const PageFavourites = () => {
   const favs = useSelector((state) => state.favs.items);
 
@@ -12,7 +14,7 @@ const PageFavourites = () => {
     document.title = `${appTitle} - Favourites`;
   }, []);
   return (
-    <section className="mb-16 sm:mb-0">
+    <section data-aos="fade-up" className="mb-16 sm:mb-0">
       {favs.length < 1 ? (
         <div className="flex  flex-col items-center  justify-center mt-10  ">
           <img
