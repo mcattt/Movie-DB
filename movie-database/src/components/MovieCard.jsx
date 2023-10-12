@@ -29,10 +29,10 @@ function MovieCard({ movie, isFav }) {
   }
 
   return (
-    <div className="mx- relative  mt-5 breakpoint-small:min-h-[566px] breakpoint-small:max-w-[300px] breakpoint-xl:max-w-[400px] breakpoint-xl:mb-10 ">
+    <div className="mx- relative  mt-5 breakpoint-small:min-h-[566px] breakpoint-small:max-w-[300px] breakpoint-xl:max-w-[400px] breakpoint-xl:mb-10 sm:scale-100 sm:hover:scale-[1.01] transition-all duration-500">
       {/* wraps the movie poster */}
       <div
-        className="relative "
+        className="relative cursor-pointer"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
@@ -58,7 +58,7 @@ function MovieCard({ movie, isFav }) {
           <p className="invisible desktop:visible text-light-purple text-opacity-100 pl-3 pt-10 pr-2 breakpoint-xl:text-lg">
             {snippetDesktop}...
           </p>
-          <button className=" group/button w-24 h-8 rounded-lg outline-light-purple outline outline-1 mt-8 ml-2 hover:outline-orange-500 hover:bg-orange-500  transition-all ">
+          <button className=" group/button w-24 h-8 rounded-lg bg-transparent outline-light-purple outline outline-1 mt-8 ml-2 hover:outline-orange-500 hover:bg-orange-500 transition-all duration-500 ">
             <Link
               to={`/single/${id}`}
               className="text-light-purple font-bold text-base group-hover/button:text-dark-purple"
