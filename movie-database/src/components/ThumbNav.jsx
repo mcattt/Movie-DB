@@ -17,7 +17,7 @@ const ThumbNav = () => {
     <IconContext.Provider
       value={{ color: "#CA98E5", size: "2rem", className: "global-class-name" }}
     >
-      <nav className="sm:hidden">
+      <nav className="tablet-b:hidden">
         <ul className="text-light-purple text-center uppercase grid grid-cols-3">
           <li>
             <NavLink to="/">

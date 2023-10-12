@@ -16,7 +16,7 @@ function MovieCard({ movie, isFav }) {
   const snippetDesktop = overview.split(" ").slice(0, 25).join(" "); //gets first 25 characters of movie overview
   const [isHovered, setIsHovered] = useState(false);
 
-  const isMobile = useMediaQuery("(max-width: 640px)"); //can change
+  const isMobile = useMediaQuery("(max-width: 900px)"); //can change
 
   const dispatch = useDispatch();
 
@@ -29,7 +29,7 @@ function MovieCard({ movie, isFav }) {
   }
 
   return (
-    <div className="mx- relative  mt-5 breakpoint-small:min-h-[566px] breakpoint-small:max-w-[300px] breakpoint-xl:max-w-[400px] breakpoint-xl:mb-10 sm:scale-100 sm:hover:scale-[1.01] transition-all duration-500">
+    <div className="mx-4 relative  mt-5 breakpoint-small:min-h-[566px] breakpoint-small:max-w-[300px] breakpoint-xl:max-w-[400px] breakpoint-xl:mb-10 sm:scale-100 sm:hover:scale-[1.01] transition-all duration-500">
       {/* wraps the movie poster */}
       <div
         className="relative cursor-pointer"
@@ -51,11 +51,11 @@ function MovieCard({ movie, isFav }) {
         )}
         {/* if mouse is on the poster opacity set to 100 */}
         <div
-          className={`invisible desktop:visible absolute top-32 left-0 w-full h-20.125 breakpoint-xl:top-48 breakpoint-xl:h-[408px] bg-black bg-opacity-80 rounded-b-lg transition-opacity duration-300 ${
+          className={`invisible tablet-b:visible absolute top-32 left-0 w-full h-20.125 breakpoint-xl:top-48 breakpoint-xl:h-[408px] bg-black bg-opacity-80 rounded-b-lg transition-opacity duration-300 ${
             isHovered ? "opacity-100" : "opacity-0"
           }`}
         >
-          <p className="invisible desktop:visible text-light-purple text-opacity-100 pl-3 pt-10 pr-2 breakpoint-xl:text-lg">
+          <p className="invisible tablet-b:visible text-light-purple text-opacity-100 pl-3 pt-10 pr-2 breakpoint-xl:text-lg">
             {snippetDesktop}...
           </p>
           <button className=" group/button w-24 h-8 rounded-lg bg-transparent outline-light-purple outline outline-1 mt-8 ml-2 hover:outline-orange-500 hover:bg-orange-500 transition-all duration-500 ">

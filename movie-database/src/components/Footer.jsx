@@ -5,11 +5,11 @@ import ThumbNav from "./ThumbNav";
 
 const Footer = () => {
   return (
-    <footer className="bg-dark-purple py-4 shadow-[0px_-4px_4px_-4px_white] w-full fixed bottom-0 sm:static z-50">
+    <footer className="bg-dark-purple py-4 shadow-[0px_-4px_4px_-4px_white] w-full fixed bottom-0 tablet-b:static z-50">
       <Link to="/" className="block w-[64px] mx-auto my-0">
-        <img className="w-16 mx-auto my-0 hidden sm:block" src={footerLogo} alt="Logo" />
+        <img className="w-16 mx-auto my-0 hidden tablet-b:block" src={footerLogo} alt="Logo" />
       </Link>
-      <p className="text-light-purple text-center italic hidden sm:block">
+      <p className="text-light-purple text-center italic hidden tablet-b:block">
         &copy;{getYear()} by Cat, Jack & Preston
       </p>
       <ThumbNav />
