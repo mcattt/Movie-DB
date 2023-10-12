@@ -50,7 +50,7 @@ const PageAbout = () => {
             <p>This website has been crafted with dedication and passion by a team of three skilled developers. Feel free to get in touch with us for any inquiries, feedback, or exciting collaboration opportunities! Your input is important to us.</p>
             <ul className="list-disc pl-4 pt-2 font-bold">
               <li className="my-2">Cat Cordner 
-                  <SocialMedia linkedInLink={"#"}/>
+                  <SocialMedia linkedInLink={"https://www.linkedin.com/in/catcordner/"}/>
               </li>
               <li className="my-2">Jack Do
                  <SocialMedia linkedInLink={"https://www.linkedin.com/in/jackdo/"}/>

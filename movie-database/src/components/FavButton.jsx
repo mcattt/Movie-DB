@@ -1,8 +1,6 @@
 import addButton from "/assets/images/add-icon.png";
 import removeButton from "/assets/images/remove-icon.png";
 function FavButton({ movie, remove, handleFavClick }) {
-
-
   function handleAddFav() {
     handleFavClick(true, movie);
   }
@@ -10,7 +8,7 @@ function FavButton({ movie, remove, handleFavClick }) {
   function handleRemoveFav() {
     handleFavClick(false, movie);
   }
-  
+
   return (
     <>
       {remove === false ? (
