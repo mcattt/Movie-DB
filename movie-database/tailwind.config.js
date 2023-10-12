@@ -23,7 +23,6 @@ export default {
         "tablet-b": "900px",
         "tablet-s": "700px",
         "desktop-1650": "1650px",
-        desktop: "640px",
       },
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],
