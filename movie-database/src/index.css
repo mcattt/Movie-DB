@@ -1,3 +1,35 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* https://www.geeksforgeeks.org/how-to-change-style-of-scrollbar-using-tailwind-css/ */
+@layer utilities {
+  .scrollbar::-webkit-scrollbar {
+    width: 20px;
+    height: 20px;
+  }
+
+  .scrollbar::-webkit-scrollbar-track {
+    border-radius: 100vh;
+    background: #330845;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb {
+    background: #ca98e5;
+    border-radius: 10px;
+    border: 3px solid #330845;
+    width: 20px;
+    height: 20px;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb:active {
+    background: #eb751c;
+    cursor: pointer;
+  }
+  @media (min-width: 40em) {
+    .scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #eb751c;
+      cursor: pointer;
+    }
+  }
+}
