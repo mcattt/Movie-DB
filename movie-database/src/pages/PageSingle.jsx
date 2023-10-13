@@ -155,7 +155,7 @@ const PageSingle = () => {
                 </div>
                 )}
               </div>
-              <section className="Movie-info mx-5 relative z-10 md:top-[50px] md:mx-14 xl:static xl:mt-[45px] 2xl:ml-0">
+              <section className="Movie-info mx-5 relative z-10 md:top-[45px] md:mx-14 xl:static xl:mt-[45px] 2xl:ml-0">
                 {/* Movie Rating */}
                 <div className="movie-rating mx-auto my-0 flex min-[350px]:w-[300px] md:m-0 md:block">
                   {selectedSingleMovie.vote_average ? (

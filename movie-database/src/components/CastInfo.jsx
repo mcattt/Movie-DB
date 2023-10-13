@@ -5,7 +5,7 @@ import actressImage from "/assets/images/actress.png";
 const CastInfo = ({ cast }) => {
   const firstTenCast = cast.slice(0, 10);
   return (
-    <div className="cast-info mx-5 z-20 m-[20px_0px_90px_0px] tablet-b:m-[20px_20px_10px_20px] md:col-[1_/_3] md:mx-auto md:px-8 md:py-4 md:w-full min-[950px]:pl-20 min-[1090px]:pl-32 xl:col-[2_/_3] xl:pl-14 2xl:pl-0">
+    <div className="cast-info mx-5 z-20 m-[20px_0px_90px_0px] tablet-b:m-[20px_20px_10px_20px] md:col-[1_/_3] md:mx-auto md:px-8 md:pb-4 md:pt-8 md:w-full min-[950px]:pl-14 min-[1090px]:pl-20 xl:col-[2_/_3] xl:pl-[2.3rem] 2xl:pl-0">
       <h3 className="font-bold mb-2 text-xl">Cast</h3>
       <div className="scroller cast-list overflow-x-scroll flex flex-nowrap">
         <div className="cast-scroll flex md:mx-auto md:my-0 pb-2">
