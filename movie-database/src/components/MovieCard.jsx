@@ -16,7 +16,7 @@ function MovieCard({ movie, isFav }) {
   const snippetDesktop = overview.split(" ").slice(0, 25).join(" "); //gets first 25 characters of movie overview
   const [isHovered, setIsHovered] = useState(false);
 
-  const isMobile = useMediaQuery("(max-width: 899px)"); //can change
+  const isMobile = useMediaQuery("(max-width: 899px)"); 
 
   const dispatch = useDispatch();
 
