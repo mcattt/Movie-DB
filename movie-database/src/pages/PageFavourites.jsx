@@ -20,7 +20,7 @@ const PageFavourites = () => {
         <div className="flex  flex-col items-center  justify-center mt-10 ">
           <img data-aos="fade-in"
             src={sadFace}
-            alt=""
+            alt="sad face icon"
             className=" w-[14rem] breakpoint-small:mt-24"
           />
           <p data-aos="fade-in" className=" text-center pt-10 text-2xl breakpoint-small:text-3xl px-3">
