@@ -21,7 +21,7 @@ const PageFavourites = () => {
           <img
             data-aos="fade-in"
             src={sadFace}
-            alt=""
+            alt="sad face icon"
             className=" w-[14rem] breakpoint-small:mt-24"
           />
           <p
