@@ -98,7 +98,11 @@ function MovieCard({ movie, isFav }) {
               />
             </div>
           ) : (
-            <FavButton movie={movie} handleFavClick={handleFavClick} />
+            <div>
+              <FavButton 
+              movie={movie} 
+              handleFavClick={handleFavClick} />
+            </div>
           )}
         </div>
       </div>
