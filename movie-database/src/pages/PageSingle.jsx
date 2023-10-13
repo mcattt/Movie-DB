@@ -137,7 +137,8 @@ const PageSingle = () => {
                     {/* Movie Clip Mark */}
                     {isFavourite && (
                       <img
-                        className="absolute w-[30px] top-[-25px] right-4 z-20"
+                        data-aos="fade-in"
+                        className="absolute w-[30px] top-[-25px] right-4 z-20 md:right-[-0.75rem] xl:right-8 xl:w-[36px] xl:top-[-30px]"
                         src={favClip}
                       />
                     )}
@@ -153,7 +154,8 @@ const PageSingle = () => {
                   {/* Movie Clip Mark */}
                   {isFavourite && (
                     <img
-                      className="absolute w-[30px] top-[-25px] right-4 z-20"
+                      data-aos="fade-in"
+                      className="absolute w-[30px] top-[-25px] right-4 z-20 md:right-[-0.75rem] xl:right-8 xl:w-[36px] xl:top-[-30px]"
                       src={favClip}
                     ></img>
                   )}
