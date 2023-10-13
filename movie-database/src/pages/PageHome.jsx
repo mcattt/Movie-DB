@@ -3,17 +3,17 @@ import ScrollButton from "../components/ScrollToTop";
 import { useState, useEffect } from "react";
 import { appTitle } from "../globals/globals";
 import { useSelector, useDispatch } from "react-redux";
-import { setSearchQuery } from '../features/search/searchSlice';
+import { setSearchQuery } from "../features/search/searchSlice";
 import isFav from "../utilities/isFav";
 import { increment } from "../features/more/viewMoreSlice";
 import { resetCount } from "../features/more/viewMoreSlice";
 import Loading from "../components/Loading";
 import SearchBar from "../components/SearchBar"; // Import the SearchBar component
 import { setshowLoading } from "../features/showLoading/showLoadingSlice";
-import Hero from "../components/Hero"; 
+import Hero from "../components/Hero";
 import sadFace from "/assets/images/unhappy-face.png";
-import AOS from 'aos';
-import 'aos/dist/aos.css';
+import AOS from "aos";
+import "aos/dist/aos.css";
 const endPointThemes = `https://api.themoviedb.org/3/movie/`;
 const categories = [
   { filter: "popular", name: "Popular" },
@@ -41,7 +41,7 @@ const PageHome = () => {
       // Otherwise, use the filter-based endpoint
       apiUrl = `${endPointThemes}${filter}`;
     }
-    
+
     const options = {
       method: "GET",
       headers: {
@@ -55,7 +55,6 @@ const PageHome = () => {
     if (res.ok) {
       let data = await res.json();
 
-      
       // Handle search results and regular category-based results separately
       if (searchQuery) {
         // If it's a search query, update allMovies with search results
@@ -64,7 +63,7 @@ const PageHome = () => {
         // If it's a category-based query, update allMovies with category results
         setAllMovies(data.results);
       }
-      
+
       let shortList = data.results.slice(0, count);
       setMovieList(shortList);
       setLoadStatus(true);
@@ -159,7 +158,7 @@ const PageHome = () => {
     setCurrentFilter(filter);
   };
 
-  // Delay Loading GIF 
+  // Delay Loading GIF
 
   // const [showLoading, setShowLoading] = useState(true);
 
@@ -178,81 +177,85 @@ const PageHome = () => {
     };
   }, []);
 
-
   return (
     <>
-    {showLoading ? (
-      <Loading />
-    ) : (
-    <> 
-    {isLoaded ? (
-    <section data-aos="fade-in">
-      <Hero data-aos="zoom-in"
-        movieList={movieList}
-      />
-      <div className="flex justify-evenly my-8 breakpoint-med:my-12">
-        <SearchBar/>
-      </div>
-      {/* Filter Buttons */}
-      <div className="mb-2 mt-4 flex flex-wrap justify-evenly min-[409px]:gap-2 min-[425px]:text-[1.2rem] min-[484px]:gap-4 min-[500px]:gap-8 min-[532px]:gap-[0.7rem] min-[847px]:flex-nowrap min-[847px]:mb-4 min-[985px]:text-2xl min-[1271px]:text-[1.75rem]">
-        {categories.map((category, index) => (
-          <button
-            key={index}
-            className={`m-2 p-2 w-[125px] min-[425px]:w-[145px] min-[532px]:mx-[2rem] min-[628px]:w-1/4 min-[1271px]:w-[246.5px] rounded-2xl font-bold sm:hover:text-dark-purple  sm:hover:border-bright-orange 
+      {showLoading ? (
+        <Loading />
+      ) : (
+        <>
+          {isLoaded ? (
+            <section data-aos="fade-in">
+              <Hero data-aos="zoom-in" movieList={movieList} />
+              <div className="flex justify-evenly my-8 breakpoint-med:my-12">
+                <SearchBar />
+              </div>
+              {/* Filter Buttons */}
+              <div className="mb-2 mt-4 flex flex-wrap justify-evenly min-[409px]:gap-2 min-[425px]:text-[1.2rem] min-[484px]:gap-4 min-[500px]:gap-8 min-[532px]:gap-[0.7rem] min-[847px]:flex-nowrap min-[847px]:mb-4 min-[985px]:text-2xl min-[1271px]:text-[1.75rem]">
+                {categories.map((category, index) => (
+                  <button
+                    key={index}
+                    className={`m-2 p-2 w-[125px] min-[425px]:w-[145px] min-[532px]:mx-[2rem] min-[628px]:w-1/4 min-[1271px]:w-[246.5px] rounded-2xl font-bold sm:hover:text-dark-purple  sm:hover:border-bright-orange 
             ${
-                currentFilter === category.filter
-                  ? "bg-bright-orange border-bright-orange border-solid border-2 text-dark-purple"
-                  : "border-light-purple border-solid border-2 transition duration-500 sm:bg-transparent sm:hover:bg-bright-orange"
-                }
+              currentFilter === category.filter
+                ? "bg-bright-orange border-bright-orange border-solid border-2 text-dark-purple"
+                : "border-light-purple border-solid border-2 transition duration-500 sm:bg-transparent sm:hover:bg-bright-orange"
+            }
             `}
-            onClick={() => {
-              filterMovies(category.filter);
-            }}
-          >
-            {categories[index].name}
-          </button>
-        ))}
-      </div>
+                    onClick={() => {
+                      filterMovies(category.filter);
+                    }}
+                  >
+                    {categories[index].name}
+                  </button>
+                ))}
+              </div>
 
-        {/* Condition for no results found */}
-        {allMovies.length === 0 && 
-        <div className="flex flex-col items-center">
-          <img
-              src={sadFace}
-              alt=""
-              className="w-[7rem] mt-24 breakpoint-small:w-[8rem] breakpoint-med:w-[14rem]"
-            />
-          <p className=" font-bold breakpoint-small:text-2xl breakpoint-med:text-3xl mt-16 mb-16">No results found for "{searchQuery}". Please try again!</p>
-        </div>}
-      <div className="grid grid-cols-1 breakpoint-small:grid-cols-2 breakpoint-med:grid-cols-3 breakpoint-large:grid-cols-4 justify-items-center">
-        {movieList.map((movieCard, i) => (
-          <MovieCard
-            key={i}
-            movie={movieCard}
-            isFav={isFav(favs, null, movieCard.id)}
-          />
-          ))}
-      </div>
-      {/* View More Button with conditional on no search results which will set button display to hidden */}
-        <div className={`flex justify-center mb-20 sm:mb-0 ${allMovies.length === 0 ? 'hidden' : ''}`}>
-          <button
-            onClick={() => showMore(currentFilter)}
-            className="group/button w-44 h-12 rounded-lg bg-bright-orange outline-bright-orange sm:bg-transparent sm:outline-light-purple outline outline-1 mt-8 ml-2 sm:hover:outline-bright-orange sm:hover:bg-orange-500 transition-all duration-500"
-          >
-            <a className="text-dark-purple sm:text-light-purple font-bold text-xl sm:group-hover/button:text-dark-purple ">
-              View More
-            </a>
-          </button>
-        </div>
+              {/* Condition for no results found */}
+              {allMovies.length === 0 && (
+                <div className="flex flex-col items-center">
+                  <img
+                    src={sadFace}
+                    alt=""
+                    className="w-[7rem] mt-24 breakpoint-small:w-[8rem] breakpoint-med:w-[14rem]"
+                  />
+                  <p className=" font-bold breakpoint-small:text-2xl breakpoint-med:text-3xl mt-16 mb-16">
+                    No results found for "{searchQuery}". Please try again!
+                  </p>
+                </div>
+              )}
+              <div className="mx-4 grid grid-cols-1 breakpoint-small:grid-cols-2 breakpoint-med:grid-cols-3 breakpoint-large:grid-cols-4 justify-items-center">
+                {movieList.map((movieCard, i) => (
+                  <MovieCard
+                    key={i}
+                    movie={movieCard}
+                    isFav={isFav(favs, null, movieCard.id)}
+                  />
+                ))}
+              </div>
+              {/* View More Button with conditional on no search results which will set button display to hidden */}
+              <div
+                className={`flex justify-center mb-20 sm:mb-0 ${
+                  allMovies.length === 0 ? "hidden" : ""
+                }`}
+              >
+                <button
+                  onClick={() => showMore(currentFilter)}
+                  className="group/button w-44 h-12 rounded-lg bg-bright-orange outline-bright-orange sm:bg-transparent sm:outline-light-purple outline outline-1 mt-8 ml-2 sm:hover:outline-bright-orange sm:hover:bg-orange-500 transition-all duration-500"
+                >
+                  <a className="text-dark-purple sm:text-light-purple font-bold text-xl sm:group-hover/button:text-dark-purple ">
+                    View More
+                  </a>
+                </button>
+              </div>
 
-      <ScrollButton />
-    </section>
-    ) : (
-      <Loading/>
-    )}
+              <ScrollButton />
+            </section>
+          ) : (
+            <Loading />
+          )}
+        </>
+      )}
     </>
-    )}
-  </>
   );
 };
 
