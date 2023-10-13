@@ -220,7 +220,7 @@ const PageHome = () => {
             />
           <p className=" font-bold breakpoint-small:text-2xl breakpoint-med:text-3xl mt-16 mb-16">No results found for "{searchQuery}". Please try again!</p>
         </div>}
-      <div data-aos="fade-up" className="grid grid-cols-1 breakpoint-small:grid-cols-2 breakpoint-med:grid-cols-3 breakpoint-large:grid-cols-4 justify-items-center">
+      <div className="grid grid-cols-1 breakpoint-small:grid-cols-2 breakpoint-med:grid-cols-3 breakpoint-large:grid-cols-4 justify-items-center">
         {movieList.map((movieCard, i) => (
           <MovieCard
             key={i}
