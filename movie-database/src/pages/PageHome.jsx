@@ -9,6 +9,7 @@ import { increment } from "../features/more/viewMoreSlice";
 import { resetCount } from "../features/more/viewMoreSlice";
 import Loading from "../components/Loading";
 import SearchBar from "../components/SearchBar"; // Import the SearchBar component
+import { setshowLoading } from "../features/showLoading/showLoadingSlice";
 import Hero from "../components/Hero"; 
 import sadFace from "/assets/images/unhappy-face.png";
 import AOS from 'aos';
@@ -160,12 +161,15 @@ const PageHome = () => {
 
   // Delay Loading GIF 
 
-  const [showLoading, setShowLoading] = useState(true);
+  // const [showLoading, setShowLoading] = useState(true);
+
+  // Redux slice
+  const showLoading = useSelector((state) => state.showLoading);
 
   // Use useEffect to control when to hide the loading animation
   useEffect(() => {
     const loadingTimeout = setTimeout(() => {
-      setShowLoading(false);
+      dispatch(setshowLoading(false));
     }, 2000); // Adjust the delay time in milliseconds as needed
 
     return () => {
