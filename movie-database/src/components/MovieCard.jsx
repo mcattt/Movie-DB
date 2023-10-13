@@ -107,7 +107,7 @@ function MovieCard({ movie, isFav }) {
         })}
       </p>
       {isFav && (
-        <img
+        <img data-aos="fade-in"
           className="absolute w-[30px] top-[-25px] right-2"
           src={favClip}
         ></img>
