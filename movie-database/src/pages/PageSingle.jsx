@@ -12,6 +12,7 @@ import favClip from "/assets/images/clip-mark.png";
 import noPoster from "/assets/images/no-poster-ver3.png";
 import Loading from "../components/Loading";
 import StarRating from "../components/StarRating";
+import AOS from "aos";
 
 const endPointThemes = `https://api.themoviedb.org/3/movie/`;
 
@@ -102,6 +103,10 @@ const PageSingle = () => {
     };
   }, []);
 
+  useEffect(() => {
+    AOS.init();
+  }, []);
+
   return (
     <>
     {showLoading ? (
@@ -134,7 +139,7 @@ const PageSingle = () => {
                       <img
                         className="absolute w-[30px] top-[-25px] right-4 z-20"
                         src={favClip}
-                      ></img>
+                      />
                     )}
                   </div>
                 ) : (

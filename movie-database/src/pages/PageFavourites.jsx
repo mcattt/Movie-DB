@@ -12,6 +12,7 @@ const PageFavourites = () => {
 
   useEffect(() => {
     document.title = `${appTitle} - Favourites`;
+    AOS.init();
   }, []);
   return (
     <section data-aos="fade-in" className="mb-16 sm:mb-0">

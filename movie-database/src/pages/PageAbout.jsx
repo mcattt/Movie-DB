@@ -12,6 +12,7 @@ import 'aos/dist/aos.css';
 const PageAbout = () => {
   useEffect(() => {
     document.title = `${appTitle} - About`;
+    AOS.init();
   }, []);
 
   return (
