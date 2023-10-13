@@ -19,7 +19,7 @@ const endPointThemes = `https://api.themoviedb.org/3/movie/`;
 const PageSingle = () => {
   let { movieId } = useParams();
   useEffect(() => {
-    document.title = `${appTitle} - Single Movie ${movieId}`;
+    document.title = `${appTitle} - Single Movie`;
   }, [movieId]);
 
   movieId = movieId * 1;
