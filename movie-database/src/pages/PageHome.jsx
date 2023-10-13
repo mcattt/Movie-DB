@@ -158,11 +158,7 @@ const PageHome = () => {
     setCurrentFilter(filter);
   };
 
-  // Delay Loading GIF
-
-  // const [showLoading, setShowLoading] = useState(true);
-
-  // Redux slice
+  // Delay Loading GIF - Redux slice
   const showLoading = useSelector((state) => state.showLoading);
 
   // Use useEffect to control when to hide the loading animation
@@ -234,15 +230,15 @@ const PageHome = () => {
               </div>
               {/* View More Button with conditional on no search results which will set button display to hidden */}
               <div
-                className={`flex justify-center mb-20 sm:mb-0 ${
+                className={`flex justify-center mb-20 tablet-b:mb-0 ${
                   allMovies.length === 0 ? "hidden" : ""
                 }`}
               >
                 <button
                   onClick={() => showMore(currentFilter)}
-                  className="group/button w-44 h-12 rounded-lg bg-bright-orange outline-bright-orange sm:bg-transparent sm:outline-light-purple outline outline-1 mt-8 ml-2 sm:hover:outline-bright-orange sm:hover:bg-orange-500 transition-all duration-500"
+                  className="group/button w-44 h-12 rounded-2xl bg-bright-orange outline-bright-orange tablet-b:bg-transparent tablet-b:outline-light-purple outline outline-1 mt-8 ml-2 tablet-b:hover:outline-bright-orange tablet-b:hover:bg-orange-500 transition-all duration-500"
                 >
-                  <a className="text-dark-purple sm:text-light-purple font-bold text-xl sm:group-hover/button:text-dark-purple ">
+                  <a className="text-dark-purple tablet-b:text-light-purple font-bold text-xl tablet-b:group-hover/button:text-dark-purple ">
                     View More
                   </a>
                 </button>

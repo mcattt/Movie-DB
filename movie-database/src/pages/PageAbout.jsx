@@ -12,6 +12,7 @@ import 'aos/dist/aos.css';
 const PageAbout = () => {
   useEffect(() => {
     document.title = `${appTitle} - About`;
+    AOS.init();
   }, []);
 
   return (
@@ -19,10 +20,10 @@ const PageAbout = () => {
       <img
         src={aboutImage}
         alt="A photo of 3 people watching movies in the theater"
-        className="h-80 w-full object-cover tablet-b:h-auto tablet-b:w-9/12 tablet-b:justify-self-center tablet-b:rounded-[10px] lg:w-8/12 2xl:w-7/12 desktop-1650:w-6/12 xl:row-[1_/_3]"
+        className="h-80 w-full object-cover tablet-b:h-auto tablet-b:w-9/12 tablet-b:justify-self-center tablet-b:rounded-[10px] lg:w-8/12 2xl:w-7/12 desktop-1650:w-6/12 min-[1100px]:row-[1_/_3]"
       />
       <section className="mt-8 px-4 tablet-b:self-start tablet-b:mt-0 tablet-b:pl-0 tablet-b:pr-12 xl:ml-[-4rem]">
-        <h2 className="font-bold text-2xl my-8 xl:mt-0">
+        <h2 className="font-bold text-2xl mb-8 xl:mt-0">
           About <span className="text-bright-orange">Clip</span>Movies
         </h2>
         <p>
@@ -37,7 +38,7 @@ const PageAbout = () => {
           item anytime.
         </p>
         <Link to="/" className="w-fit block">
-          <p className="px-4 text-center font-bold border-2 border-solid border-bright-orange bg-bright-orange text-dark-purple mb-8 mx-auto sm:bg-transparent sm:text-light-purple sm:border-light-purple rounded-md w-fit sm:hover:border-bright-orange sm:hover:bg-bright-orange sm:hover:text-dark-purple tablet-b:mx-0 transition duration-500">
+          <p className="px-4 text-center font-bold border-2 border-solid border-bright-orange bg-bright-orange text-dark-purple mb-8 mx-auto tablet-b:bg-transparent tablet-b:text-light-purple tablet-b:border-light-purple rounded-md w-fit tablet-b:hover:border-bright-orange tablet-b:hover:bg-bright-orange tablet-b:hover:text-dark-purple tablet-b:mx-0 transition duration-500">
             Clip Movies <br /> Now
           </p>
         </Link>
@@ -47,7 +48,7 @@ const PageAbout = () => {
           TMDb.
         </p>
       </section>
-        <section className="px-4 about-team mb-20 sm:mb-4 tablet-b:col-[1_/_3] tablet-b:px-14 lg:pl-20 xl:col-[2_/_3] xl:pl-0 xl:ml-[-4rem]">
+        <section className="px-4 about-team mb-20 sm:mb-4 tablet-b:col-[1_/_3] tablet-b:px-14 lg:pl-[5.5rem] min-[1100px]:col-[2_/_3] xl:pl-0 min-[1100px]:ml-[-5.5rem] xl:ml-[-4rem]">
             <h2 className="font-bold text-2xl my-8">About <span className="text-bright-orange">Development Team</span></h2>
             <p>This website has been crafted with dedication and passion by a team of three skilled developers. Feel free to get in touch with us for any inquiries, feedback, or exciting collaboration opportunities! Your input is important to us.</p>
             <ul className="list-disc pl-4 pt-2 font-bold">
@@ -58,7 +59,7 @@ const PageAbout = () => {
                  <SocialMedia linkedInLink={"https://www.linkedin.com/in/jackdo/"}/>
               </li>
               <li className="my-2">Preston Monteiro
-                 <SocialMedia linkedInLink={"#"}/>
+                 <SocialMedia linkedInLink={"https://www.linkedin.com/in/preston-monteiro-89142a287"}/>
               </li>
             </ul>
         </section>

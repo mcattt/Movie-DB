@@ -12,6 +12,7 @@ import favClip from "/assets/images/clip-mark.png";
 import noPoster from "/assets/images/no-poster-ver3.png";
 import Loading from "../components/Loading";
 import StarRating from "../components/StarRating";
+import AOS from "aos";
 
 const endPointThemes = `https://api.themoviedb.org/3/movie/`;
 
@@ -102,6 +103,10 @@ const PageSingle = () => {
     };
   }, []);
 
+  useEffect(() => {
+    AOS.init();
+  }, []);
+
   return (
     <>
     {showLoading ? (
@@ -109,7 +114,7 @@ const PageSingle = () => {
     ) : (
     <> 
     {isLoaded ? (
-    <section className="single-movie md:grid md:grid-cols-[40%_60%]">
+    <section data-aos="fade-in" className="single-movie md:grid md:grid-cols-[40%_60%]">
       {selectedSingleMovie &&  (
         <>
         <div className="relative mb-14 md:static xl:row-[1_/_3]">
@@ -132,9 +137,10 @@ const PageSingle = () => {
                     {/* Movie Clip Mark */}
                     {isFavourite && (
                       <img
-                        className="absolute w-[30px] top-[-25px] right-4 z-20"
+                        data-aos="fade-in"
+                        className="absolute w-[30px] top-[-25px] right-4 z-20 md:right-[-0.75rem] xl:right-8 xl:w-[36px] xl:top-[-30px]"
                         src={favClip}
-                      ></img>
+                      />
                     )}
                   </div>
                 ) : (
@@ -148,14 +154,15 @@ const PageSingle = () => {
                   {/* Movie Clip Mark */}
                   {isFavourite && (
                     <img
-                      className="absolute w-[30px] top-[-25px] right-4 z-20"
+                      data-aos="fade-in"
+                      className="absolute w-[30px] top-[-25px] right-4 z-20 md:right-[-0.75rem] xl:right-8 xl:w-[36px] xl:top-[-30px]"
                       src={favClip}
                     ></img>
                   )}
                 </div>
                 )}
               </div>
-              <section className="Movie-info mx-5 relative z-10 md:top-[50px] md:mx-14 xl:static xl:mt-[45px] 2xl:ml-0">
+              <section className="Movie-info mx-5 relative z-10 md:top-[45px] md:mx-14 xl:static xl:mt-[45px] 2xl:ml-0">
                 {/* Movie Rating */}
                 <div className="movie-rating mx-auto my-0 flex min-[350px]:w-[300px] md:m-0 md:block">
                   {selectedSingleMovie.vote_average ? (
