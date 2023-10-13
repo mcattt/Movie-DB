@@ -33,7 +33,7 @@ const ScrollButton = () => {
   return (
     <div
       onClick={scrollToTop}
-      className={` hidden  w-32 tablet-b:block group hover:cursor-pointer sticky bottom-0 right-0 p-1 mb-[-2rem] rounded-tr-[200px] font-semibold  leading-tight shadow-md hover:bg-bright-orange hover:bg-opacity-80  ${
+      className={` float-right hidden  w-32 tablet-b:block group hover:cursor-pointer sticky bottom-0 right-0 p-1 pl-2 mb-[-2rem] rounded-tl-[200px] font-semibold  leading-tight shadow-md hover:bg-bright-orange hover:bg-opacity-80  ${
         visible ? "visible " : "invisible "
       } transition duration-[400ms] ease-in-out z-[9999]`}
     >
