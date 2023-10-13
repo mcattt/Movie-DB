@@ -12,11 +12,11 @@ function FavButton({ movie, remove, handleFavClick }) {
   return (
     <>
       {remove === false ? (
-        <div data-aos="fade-in" onClick={handleAddFav} className="">
+        <div onClick={handleAddFav} className="">
           <img className="w-[40px] " src={addButton} alt="" />
         </div>
       ) : (
-        <div data-aos="fade-in" onClick={handleRemoveFav}>
+        <div onClick={handleRemoveFav}>
           <img className="w-[40px] " src={removeButton} alt="" />
         </div>
       )}

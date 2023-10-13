@@ -109,7 +109,7 @@ const PageSingle = () => {
     ) : (
     <> 
     {isLoaded ? (
-    <section className="single-movie md:grid md:grid-cols-[40%_60%]">
+    <section data-aos="fade-in" className="single-movie md:grid md:grid-cols-[40%_60%]">
       {selectedSingleMovie &&  (
         <>
         <div className="relative mb-14 md:static xl:row-[1_/_3]">

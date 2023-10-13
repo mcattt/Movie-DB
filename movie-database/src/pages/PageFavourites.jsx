@@ -35,7 +35,7 @@ const PageFavourites = () => {
           </Link>
         </div>
       ) : (
-        <div>
+        <div >
           <h2 className="text-5xl font-bold mt-16 ml-12 mb-5">
             Your Favourites
           </h2>
