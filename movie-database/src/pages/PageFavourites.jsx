@@ -5,8 +5,8 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import MovieCard from "../components/MovieCard";
 import sadFace from "/assets/images/unhappy-face.png";
-import AOS from 'aos';
-import 'aos/dist/aos.css';
+import AOS from "aos";
+import "aos/dist/aos.css";
 const PageFavourites = () => {
   const favs = useSelector((state) => state.favs.items);
 
@@ -40,7 +40,7 @@ const PageFavourites = () => {
           <h2 className="text-5xl font-bold mt-16 ml-12 mb-5">
             Your Favourites
           </h2>
-          <div className="grid grid-cols-1 breakpoint-small:grid-cols-2 breakpoint-med:grid-cols-3 breakpoint-large:grid-cols-4 justify-items-center ">
+          <div className="grid grid-cols-1 breakpoint-small:grid-cols-2 breakpoint-med:grid-cols-3 breakpoint-large:grid-cols-4 justify-items-center mb-[88px] ">
             {favs.map((singleMovie, i) => (
               <MovieCard key={i} movie={singleMovie} isFav={true} />
             ))}
