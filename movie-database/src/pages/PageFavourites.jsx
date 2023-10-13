@@ -16,7 +16,7 @@ const PageFavourites = () => {
   return (
     <section data-aos="fade-in" className="mb-16 sm:mb-0">
       {favs.length < 1 ? (
-        <div className="flex  flex-col items-center  justify-center mt-10  ">
+        <div className="flex  flex-col items-center  justify-center mt-10 ">
           <img
             src={sadFace}
             alt=""
@@ -27,15 +27,15 @@ const PageFavourites = () => {
             your favourite movies.
           </p>
           <Link to={`/`}>
-            <button className="border-2 border-solid rounded-md w-48 mt-10 mb-[88px] bg-bright-orange border-bright-orange group/button sm:bg-transparent sm:border-light-purple  sm:active:border-orange-500 sm:hover:border-orange-500 active:bg-orange-500 sm:hover:bg-orange-500 transition duration-500 ">
-              <p className="px-4 text-center leading-tight text-dark-purple sm:text-light-purple font-bold text-2xl  sm:group-active/button:text-dark-purple sm:group-hover/button:text-dark-purple">
+            <button className="border-2 border-solid rounded-md w-48 mt-10 mb-[88px] bg-bright-orange border-bright-orange group/button tablet-b:bg-transparent tablet-b:border-light-purple  tablet-b:active:border-orange-500 tablet-b:hover:border-orange-500 active:bg-orange-500 tablet-b:hover:bg-orange-500 transition duration-500 ">
+              <p className="px-4 text-center leading-tight text-dark-purple tablet-b:text-light-purple font-bold text-2xl  tablet-b:group-active/button:text-dark-purple tablet-b:group-hover/button:text-dark-purple">
                 Clip Movies Now
               </p>
             </button>
           </Link>
         </div>
       ) : (
-        <div >
+        <div>
           <h2 className="text-5xl font-bold mt-16 ml-12 mb-5">
             Your Favourites
           </h2>

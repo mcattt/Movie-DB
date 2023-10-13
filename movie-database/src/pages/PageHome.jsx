@@ -158,11 +158,7 @@ const PageHome = () => {
     setCurrentFilter(filter);
   };
 
-  // Delay Loading GIF
-
-  // const [showLoading, setShowLoading] = useState(true);
-
-  // Redux slice
+  // Delay Loading GIF - Redux slice
   const showLoading = useSelector((state) => state.showLoading);
 
   // Use useEffect to control when to hide the loading animation
