@@ -1,4 +1,3 @@
-// favourites
 import { useEffect } from "react";
 import { appTitle } from "../globals/globals";
 import { useSelector } from "react-redux";

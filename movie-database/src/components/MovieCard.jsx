@@ -1,19 +1,19 @@
-// MovieCard.jsx
 import StarRating from "./StarRating";
 import FavButton from "../components/FavButton";
 import { useDispatch } from "react-redux";
 import favClip from "/assets/images/clip-mark.png";
 import noPoster from "/assets/images/no-poster-ver3.png";
-import React, { useState } from "react"; // Import useEffect
+import React, { useState } from "react";
 import { useMediaQuery } from "@react-hook/media-query";
 import { Link } from "react-router-dom";
-import { addFav, deleteFav } from "../features/favs/favsSlice"; // Import addFav and deleteFav
+import { addFav, deleteFav } from "../features/favs/favsSlice";
 
 function MovieCard({ movie, isFav }) {
-  const { title, poster_path, overview, release_date, vote_average, id } =
-    movie; //easier way to access properties of movie without having to reference movie.[property] every time
+  // easier way to access properties of movie without having to reference movie.[property] every time
+  const { title, poster_path, overview, release_date, vote_average, id } = movie; 
   const snippetMobile = overview.split(" ").slice(0, 15).join(" ");
-  const snippetDesktop = overview.split(" ").slice(0, 25).join(" "); //gets first 25 characters of movie overview
+   // gets first 25 characters of movie overview
+  const snippetDesktop = overview.split(" ").slice(0, 25).join(" ");
   const [isHovered, setIsHovered] = useState(false);
 
   const isMobile = useMediaQuery("(max-width: 899px)"); 

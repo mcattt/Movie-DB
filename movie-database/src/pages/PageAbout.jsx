@@ -1,5 +1,3 @@
-// Page - About
-
 import { useEffect } from "react";
 import { appTitle } from "../globals/globals";
 import { Link } from "react-router-dom";
@@ -59,7 +57,7 @@ const PageAbout = () => {
                  <SocialMedia linkedInLink={"https://www.linkedin.com/in/jackdo/"}/>
               </li>
               <li className="my-2">Preston Monteiro
-                 <SocialMedia linkedInLink={"https://www.linkedin.com/in/preston-monteiro-89142a287"}/>
+                 <SocialMedia linkedInLink={"https://www.linkedin.com/in/preston-monteiro/"}/>
               </li>
             </ul>
         </section>

@@ -4,10 +4,12 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const searchSlice = createSlice({
   name: 'search',
-  initialState: '', // Initialize to an empty string
+   // Initialize to an empty string
+  initialState: '',
   reducers: {
     setSearchQuery: (state, action) => {
-      return action.payload; // Update the search query with the payload
+       // Update the search query with the payload
+      return action.payload;
     },
   },
 });

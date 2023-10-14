@@ -6,8 +6,9 @@ const VideoTrailer = ({videos}) => {
   let videoPath = "";
   if (videos.length !== 0) {
     const video = videos.find((video) => (video.type.toLowerCase() === "trailer" && video.official && video.site.toLowerCase() === "youtube"));
- 
-    videoPath = video?.key; // Use optional chaining here
+    
+    // Use optional chaining here
+    videoPath = video?.key; 
     isVideoExist = true;
   } else {
     isVideoExist = false;

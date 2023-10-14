@@ -1,5 +1,4 @@
 // Is Fav
-
 function isFav(arr, path, id) {
   // If we are on the favs page...then no
   // need to check for favs as all the movie

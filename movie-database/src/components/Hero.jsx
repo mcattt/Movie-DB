@@ -2,9 +2,12 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 const Hero = ({movieList}) => {
-    const [selectedBackdrop, setSelectedBackdrop] = useState(""); // State variable to hold the selected backdrop path
-    const [selectedMovie, setSelectedMovie] = useState(""); // State variable to hold the selected Movie path
-    const [initialized, setInitialized] = useState(false); // Initialize as false
+    // State variable to hold the selected backdrop path
+    const [selectedBackdrop, setSelectedBackdrop] = useState(""); 
+    // State variable to hold the selected Movie path
+    const [selectedMovie, setSelectedMovie] = useState("");
+    // Initialize as false 
+    const [initialized, setInitialized] = useState(false); 
       useEffect(() => {
         if (!initialized) {
           // Check if movieList is not empty and select a random movie
@@ -13,14 +16,16 @@ const Hero = ({movieList}) => {
             const randomMovie = movieList[randomIndex];
             setSelectedMovie(randomMovie);
             setSelectedBackdrop(randomMovie.backdrop_path);
-            setInitialized(true); // Set initialized to true to prevent further changes
+            // Set initialized to true to prevent further changes
+            setInitialized(true); 
           }
         }
       }, [movieList]);
 
     return (
         <div className="hero-image">
-        {selectedBackdrop && ( // Check if a backdrop is selected
+        {/* Check if a backdrop is selected */}
+        {selectedBackdrop && (
           <div className="relative max-h-[90vh]">
             {/* Backdrop Image */}
             <img

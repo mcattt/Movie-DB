@@ -8,7 +8,7 @@ import isFav from "../utilities/isFav";
 import { increment } from "../features/more/viewMoreSlice";
 import { resetCount } from "../features/more/viewMoreSlice";
 import Loading from "../components/Loading";
-import SearchBar from "../components/SearchBar"; // Import the SearchBar component
+import SearchBar from "../components/SearchBar";
 import { setshowLoading } from "../features/showLoading/showLoadingSlice";
 import Hero from "../components/Hero";
 import sadFace from "/assets/images/unhappy-face.png";
@@ -24,11 +24,13 @@ const categories = [
 
 const PageHome = () => {
   const [movieList, setMovieList] = useState([]);
-  const [currentFilter, setCurrentFilter] = useState("popular"); // Initialize with the default filter
+  // Initialize with the default filter
+  const [currentFilter, setCurrentFilter] = useState("popular"); 
   // Create a state variable for allMovies
   const [allMovies, setAllMovies] = useState([]);
   const favs = useSelector((state) => state.favs.items);
-  const count = useSelector((state) => state.viewMore.count); // Get the count from Redux state
+   // Get the count from Redux state
+  const count = useSelector((state) => state.viewMore.count);
   const [isLoaded, setLoadStatus] = useState(false);
 
   const fetchMovie = async (filter) => {
@@ -80,9 +82,11 @@ const PageHome = () => {
   useEffect(() => {
     AOS.init();
   }, []);
-  const dispatch = useDispatch(); // Get the dispatch function from Redux
 
-  // // Add a new state variable for currentPage
+  // Get the dispatch function from Redux
+  const dispatch = useDispatch(); 
+
+  // Add a new state variable for currentPage
   const [currentPage, setCurrentPage] = useState(1);
 
   // Handles View More

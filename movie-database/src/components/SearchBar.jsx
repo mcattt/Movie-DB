@@ -5,7 +5,8 @@ import { setSearchQuery } from '../features/search/searchSlice';
 const SearchBar = () => {
   const [searchText, setSearchText] = useState('');
   const dispatch = useDispatch();
-  const searchQuery = useSelector((state) => state.search); // Get the search query from Redux
+  // Get the search query from Redux
+  const searchQuery = useSelector((state) => state.search); 
   const [isFocused, setIsFocused] = useState(false);
 
   // Update the local searchText when the Redux search query changes

@@ -1,4 +1,3 @@
-// Page - Single Movie
 import { useState, useEffect } from "react";
 import { appTitle } from "../globals/globals";
 import { Navigate, useParams } from "react-router-dom";
