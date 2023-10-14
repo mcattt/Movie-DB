@@ -2,7 +2,9 @@
   "name": "movie-database",
   "private": true,
   "version": "0.0.0",
+  "authors": "Jack, Cat, Preston",
   "type": "module",
+  "homepage": "https://monticodes.ca/movieclip",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
