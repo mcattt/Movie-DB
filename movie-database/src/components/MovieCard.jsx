@@ -30,8 +30,8 @@ function MovieCard({ movie, isFav }) {
 
   return (
     <div
-      data-aos="fade-up"
-      className=" relative  mt-5 breakpoint-small:min-h-[566px] breakpoint-small:max-w-[300px] breakpoint-xl:max-w-[400px] breakpoint-xl:mb-10 sm:scale-100 sm:hover:scale-[1.01] transition-all duration-500"
+      
+      className=" relative mt-5 breakpoint-small:min-h-[566px] breakpoint-small:max-w-[300px] breakpoint-xl:max-w-[400px] breakpoint-xl:mb-10 tablet-b:scale-100 tablet-b:hover:scale-[1.01] tablet-b:hover:transform tablet-b:hover:translate-z-1 transition-all duration-500"
     >
       {/* wraps the movie poster */}
       <div

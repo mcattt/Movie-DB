@@ -223,7 +223,7 @@ const PageHome = () => {
                   </p>
                 </div>
               )}
-              <div className="mx-4 grid grid-cols-1 breakpoint-small:grid-cols-2 breakpoint-med:grid-cols-3 breakpoint-large:grid-cols-4 justify-items-center">
+              <div data-aos="fade-up" className="mx-4 grid grid-cols-1 breakpoint-small:grid-cols-2 breakpoint-med:grid-cols-3 breakpoint-large:grid-cols-4 justify-items-center">
                 {movieList.map((movieCard, i) => (
                   <MovieCard
                     key={i}
