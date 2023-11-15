@@ -14,6 +14,7 @@ import Hero from "../components/Hero";
 import sadFace from "/assets/images/unhappy-face.png";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { APIToken } from "../utilities/apiToken";
 const endPointThemes = `https://api.themoviedb.org/3/movie/`;
 const categories = [
   { filter: "popular", name: "Popular" },
@@ -25,11 +26,11 @@ const categories = [
 const PageHome = () => {
   const [movieList, setMovieList] = useState([]);
   // Initialize with the default filter
-  const [currentFilter, setCurrentFilter] = useState("popular"); 
+  const [currentFilter, setCurrentFilter] = useState("popular");
   // Create a state variable for allMovies
   const [allMovies, setAllMovies] = useState([]);
   const favs = useSelector((state) => state.favs.items);
-   // Get the count from Redux state
+  // Get the count from Redux state
   const count = useSelector((state) => state.viewMore.count);
   const [isLoaded, setLoadStatus] = useState(false);
 
@@ -49,7 +50,7 @@ const PageHome = () => {
       headers: {
         accept: "application/json",
         Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0NDZkZTJkYmVmZjc0MzVkYWIxMzE3NDFlNmFhYTRlZCIsInN1YiI6IjY0ZWUxODhhNGNiZTEyMDEzODlkNWM2NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.wP7biHdlHFHu3vEQP1oq3lEjZYVWDt9pWBVv1-YYihU",
+          APIToken
       },
     };
 
@@ -84,7 +85,7 @@ const PageHome = () => {
   }, []);
 
   // Get the dispatch function from Redux
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
 
   // Add a new state variable for currentPage
   const [currentPage, setCurrentPage] = useState(1);
@@ -107,7 +108,7 @@ const PageHome = () => {
       headers: {
         accept: "application/json",
         Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0NDZkZTJkYmVmZjc0MzVkYWIxMzE3NDFlNmFhYTRlZCIsInN1YiI6IjY0ZWUxODhhNGNiZTEyMDEzODlkNWM2NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.wP7biHdlHFHu3vEQP1oq3lEjZYVWDt9pWBVv1-YYihU",
+          APIToken
       },
     };
 
@@ -195,11 +196,10 @@ const PageHome = () => {
                   <button
                     key={index}
                     className={`m-2 p-2 w-[125px] min-[425px]:w-[145px] min-[532px]:mx-[2rem] min-[628px]:w-1/4 min-[1271px]:w-[246.5px] rounded-2xl font-bold sm:hover:text-dark-purple  sm:hover:border-bright-orange 
-            ${
-              currentFilter === category.filter
-                ? "bg-bright-orange border-bright-orange border-solid border-2 text-dark-purple"
-                : "border-light-purple border-solid border-2 transition duration-500 sm:bg-transparent sm:hover:bg-bright-orange"
-            }
+            ${currentFilter === category.filter
+                        ? "bg-bright-orange border-bright-orange border-solid border-2 text-dark-purple"
+                        : "border-light-purple border-solid border-2 transition duration-500 sm:bg-transparent sm:hover:bg-bright-orange"
+                      }
             `}
                     onClick={() => {
                       filterMovies(category.filter);
@@ -234,9 +234,8 @@ const PageHome = () => {
               </div>
               {/* View More Button with conditional on no search results which will set button display to hidden */}
               <div
-                className={`flex justify-center mb-20 tablet-b:mb-0 ${
-                  allMovies.length === 0 ? "hidden" : ""
-                }`}
+                className={`flex justify-center mb-20 tablet-b:mb-0 ${allMovies.length === 0 ? "hidden" : ""
+                  }`}
               >
                 <button
                   onClick={() => showMore(currentFilter)}
