@@ -12,6 +12,7 @@ import noPoster from "/assets/images/no-poster-ver3.png";
 import Loading from "../components/Loading";
 import StarRating from "../components/StarRating";
 import AOS from "aos";
+import { APIToken } from "../utilities/apiToken";
 
 const endPointThemes = `https://api.themoviedb.org/3/movie/`;
 
@@ -40,7 +41,7 @@ const PageSingle = () => {
         headers: {
           accept: "application/json",
           Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0NDZkZTJkYmVmZjc0MzVkYWIxMzE3NDFlNmFhYTRlZCIsInN1YiI6IjY0ZWUxODhhNGNiZTEyMDEzODlkNWM2NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.wP7biHdlHFHu3vEQP1oq3lEjZYVWDt9pWBVv1-YYihU",
+            APIToken
         },
       };
       const res = await fetch(apiUrl, options);
@@ -108,152 +109,152 @@ const PageSingle = () => {
 
   return (
     <>
-    {showLoading ? (
-      <Loading />
-    ) : (
-    <> 
-    {isLoaded ? (
-    <section data-aos="fade-in" className="single-movie md:grid md:grid-cols-[40%_60%]">
-      {selectedSingleMovie &&  (
+      {showLoading ? (
+        <Loading />
+      ) : (
         <>
-        <div className="relative mb-14 md:static xl:row-[1_/_3]">
-          {/* Movie Backdrop */}
-          {selectedSingleMovie.backdrop_path && (
-            <img src={`https://image.tmdb.org/t/p/w1280${selectedSingleMovie.backdrop_path}`} 
-            alt={selectedSingleMovie.title} 
-            className="opacity-20 w-full absolute h-[550px] object-cover top-0 md:h-full md:opacity-10 "
-            />
-            )}
-            
-                {selectedSingleMovie.poster_path ? (
-                  <div className="relative w-[300px] mx-auto inset-x-0 top-[45px] xl:w-[460px]">
-                    {/* Movie Poster */}
-                    <img
-                      src={`https://image.tmdb.org/t/p/original${selectedSingleMovie.poster_path}`}
-                      alt={selectedSingleMovie.title}
-                      className="w-[300px] rounded-lg shadow-[0px_0px_60px_10px_#420B5B] z-10 mx-auto top-[50px] md:ml-8 xl:ml-0 xl:w-[460px] "
-                    />
-                    {/* Movie Clip Mark */}
-                    {isFavourite && (
-                      <img
-                        data-aos="fade-in"
-                        className="absolute w-[30px] top-[-25px] right-4 z-20 md:right-[-0.75rem] xl:right-8 xl:w-[36px] xl:top-[-30px]"
-                        src={favClip}
+          {isLoaded ? (
+            <section data-aos="fade-in" className="single-movie md:grid md:grid-cols-[40%_60%]">
+              {selectedSingleMovie && (
+                <>
+                  <div className="relative mb-14 md:static xl:row-[1_/_3]">
+                    {/* Movie Backdrop */}
+                    {selectedSingleMovie.backdrop_path && (
+                      <img src={`https://image.tmdb.org/t/p/w1280${selectedSingleMovie.backdrop_path}`}
+                        alt={selectedSingleMovie.title}
+                        className="opacity-20 w-full absolute h-[550px] object-cover top-0 md:h-full md:opacity-10 "
                       />
                     )}
-                  </div>
-                ) : (
-                  <div className="relative w-[300px] mx-auto inset-x-0 top-[45px] xl:w-[460px]">
-                  {/* Movie Poster */}
-                  <img
-                    src={noPoster}
-                    alt="No Poster Available"
-                    className="w-[300px] rounded-lg shadow-[0px_0px_60px_10px_#420B5B] z-10 mx-auto top-[50px] md:ml-8 xl:ml-0 xl:w-[460px] "
-                  />
-                  {/* Movie Clip Mark */}
-                  {isFavourite && (
-                    <img
-                      data-aos="fade-in"
-                      className="absolute w-[30px] top-[-25px] right-4 z-20 md:right-[-0.75rem] xl:right-8 xl:w-[36px] xl:top-[-30px]"
-                      src={favClip}
-                    ></img>
-                  )}
-                </div>
-                )}
-              </div>
-              <section className="Movie-info mx-5 relative z-10 md:top-[45px] md:mx-14 xl:static xl:mt-[45px] 2xl:ml-0">
-                {/* Movie Rating */}
-                <div className="movie-rating mx-auto my-0 flex min-[350px]:w-[300px] md:m-0 md:block">
-                  {selectedSingleMovie.vote_average ? (
-                    <>
-                      <div className="flex">
-                        <StarRating vote_average={selectedSingleMovie.vote_average} />
-                      </div>
-                      <div className="flex items-center ml-auto md:mt-2">
-                        <p className="bg-green-300 text-xl w-9 h-7 text-dark-purple rounded-md text-center">
-                          {selectedSingleMovie.vote_average.toFixed(1)}
-                        </p>
-                      </div>
-                    </>
-                  ) : (
-                    <div className="flex">
-                        <StarRating vote_average={undefined} />
-                      </div>
-                  )}
-                </div>
-                <div className="title-add-button-wrapper flex justify-between mt-8 md:mt-4 md:max-w-[540px]">
-                  {/* Movie Title */}
-                  <h2 className="text-2xl font-bold self-center w-[80%]">{selectedSingleMovie.title}</h2>
 
-                  {/* Add/ Remove Fav button */}
-                  <div className="self-center cursor-pointer">
-                    {isFavourite ? (
-                        <FavButton
-                          movie={selectedSingleMovie}
-                          remove={true}
-                          handleFavClick={handleFavClick}
+                    {selectedSingleMovie.poster_path ? (
+                      <div className="relative w-[300px] mx-auto inset-x-0 top-[45px] xl:w-[460px]">
+                        {/* Movie Poster */}
+                        <img
+                          src={`https://image.tmdb.org/t/p/original${selectedSingleMovie.poster_path}`}
+                          alt={selectedSingleMovie.title}
+                          className="w-[300px] rounded-lg shadow-[0px_0px_60px_10px_#420B5B] z-10 mx-auto top-[50px] md:ml-8 xl:ml-0 xl:w-[460px] "
                         />
+                        {/* Movie Clip Mark */}
+                        {isFavourite && (
+                          <img
+                            data-aos="fade-in"
+                            className="absolute w-[30px] top-[-25px] right-4 z-20 md:right-[-0.75rem] xl:right-8 xl:w-[36px] xl:top-[-30px]"
+                            src={favClip}
+                          />
+                        )}
+                      </div>
                     ) : (
-                      <FavButton
-                        movie={selectedSingleMovie}
-                        handleFavClick={handleFavClick}
-                      />
+                      <div className="relative w-[300px] mx-auto inset-x-0 top-[45px] xl:w-[460px]">
+                        {/* Movie Poster */}
+                        <img
+                          src={noPoster}
+                          alt="No Poster Available"
+                          className="w-[300px] rounded-lg shadow-[0px_0px_60px_10px_#420B5B] z-10 mx-auto top-[50px] md:ml-8 xl:ml-0 xl:w-[460px] "
+                        />
+                        {/* Movie Clip Mark */}
+                        {isFavourite && (
+                          <img
+                            data-aos="fade-in"
+                            className="absolute w-[30px] top-[-25px] right-4 z-20 md:right-[-0.75rem] xl:right-8 xl:w-[36px] xl:top-[-30px]"
+                            src={favClip}
+                          ></img>
+                        )}
+                      </div>
                     )}
                   </div>
-                </div>
-                {/* Movie Date and Runtime */}
-                {selectedSingleMovie.runtime ? (
-                  <p className="italic font-extralight">
-                    {movieDate} - {movieHours}h {movieMinutes}m
-                  </p>
-                ) : (
-                  <p className="italic font-extralight">
-                  {movieDate}
-                </p>
-                )}
+                  <section className="Movie-info mx-5 relative z-10 md:top-[45px] md:mx-14 xl:static xl:mt-[45px] 2xl:ml-0">
+                    {/* Movie Rating */}
+                    <div className="movie-rating mx-auto my-0 flex min-[350px]:w-[300px] md:m-0 md:block">
+                      {selectedSingleMovie.vote_average ? (
+                        <>
+                          <div className="flex">
+                            <StarRating vote_average={selectedSingleMovie.vote_average} />
+                          </div>
+                          <div className="flex items-center ml-auto md:mt-2">
+                            <p className="bg-green-300 text-xl w-9 h-7 text-dark-purple rounded-md text-center">
+                              {selectedSingleMovie.vote_average.toFixed(1)}
+                            </p>
+                          </div>
+                        </>
+                      ) : (
+                        <div className="flex">
+                          <StarRating vote_average={undefined} />
+                        </div>
+                      )}
+                    </div>
+                    <div className="title-add-button-wrapper flex justify-between mt-8 md:mt-4 md:max-w-[540px]">
+                      {/* Movie Title */}
+                      <h2 className="text-2xl font-bold self-center w-[80%]">{selectedSingleMovie.title}</h2>
 
-          {/* Movie Genres */}
-          
-          {selectedSingleMovie.genres && 
-          <p className="my-2">
-            {selectedSingleMovie.genres
-              .map((genre) => genre.name)
-              .join(", ")}
-          </p>}
-        
-          {/* Video Trailer */}
-          {selectedSingleMovie.videos?.results ? 
-            <VideoTrailer videos={selectedSingleMovie.videos.results}/> : 
-            <p className="italic font-extralight text-light-purple">Official Trailer - Not Available</p>
-          }
-          {/* Tagline */}
-          {selectedSingleMovie.tagline &&
-           <p className="italic font-extralight text-light-purple my-4">
-              {selectedSingleMovie.tagline}
-            </p>
-          }
-          {/* Movie Overview */}
-          {selectedSingleMovie.overview && 
-            <>
-              <h3 className="font-bold mb-2 text-xl">Overview</h3>
-              <p className="xl:max-w-[90%]">{selectedSingleMovie.overview}</p> 
-            </>
-          }
-      </section>
-          {/* Movie Cast */}
-          {selectedSingleMovie && selectedSingleMovie.credits && selectedSingleMovie.credits.cast.length > 1 && (
-            <CastInfo cast={selectedSingleMovie.credits.cast} />
+                      {/* Add/ Remove Fav button */}
+                      <div className="self-center cursor-pointer">
+                        {isFavourite ? (
+                          <FavButton
+                            movie={selectedSingleMovie}
+                            remove={true}
+                            handleFavClick={handleFavClick}
+                          />
+                        ) : (
+                          <FavButton
+                            movie={selectedSingleMovie}
+                            handleFavClick={handleFavClick}
+                          />
+                        )}
+                      </div>
+                    </div>
+                    {/* Movie Date and Runtime */}
+                    {selectedSingleMovie.runtime ? (
+                      <p className="italic font-extralight">
+                        {movieDate} - {movieHours}h {movieMinutes}m
+                      </p>
+                    ) : (
+                      <p className="italic font-extralight">
+                        {movieDate}
+                      </p>
+                    )}
+
+                    {/* Movie Genres */}
+
+                    {selectedSingleMovie.genres &&
+                      <p className="my-2">
+                        {selectedSingleMovie.genres
+                          .map((genre) => genre.name)
+                          .join(", ")}
+                      </p>}
+
+                    {/* Video Trailer */}
+                    {selectedSingleMovie.videos?.results ?
+                      <VideoTrailer videos={selectedSingleMovie.videos.results} /> :
+                      <p className="italic font-extralight text-light-purple">Official Trailer - Not Available</p>
+                    }
+                    {/* Tagline */}
+                    {selectedSingleMovie.tagline &&
+                      <p className="italic font-extralight text-light-purple my-4">
+                        {selectedSingleMovie.tagline}
+                      </p>
+                    }
+                    {/* Movie Overview */}
+                    {selectedSingleMovie.overview &&
+                      <>
+                        <h3 className="font-bold mb-2 text-xl">Overview</h3>
+                        <p className="xl:max-w-[90%]">{selectedSingleMovie.overview}</p>
+                      </>
+                    }
+                  </section>
+                  {/* Movie Cast */}
+                  {selectedSingleMovie && selectedSingleMovie.credits && selectedSingleMovie.credits.cast.length > 1 && (
+                    <CastInfo cast={selectedSingleMovie.credits.cast} />
+                  )}
+
+                </>
+              )}
+
+            </section>
+          ) : (
+            <Loading />
           )}
-      
-      </>
+        </>
       )}
-      
-    </section>
-    ) : (
-      <Loading />
-    )} 
-    </>
-    )}
     </>
   );
 };
